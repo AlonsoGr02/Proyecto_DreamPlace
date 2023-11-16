@@ -186,6 +186,7 @@
     <Content Include="Paginas\Notis.aspx" />
     <Content Include="Paginas\Perfil_Anfitrion.aspx" />
     <Content Include="Paginas\Perfil_Huesped.aspx" />
+    <Content Include="Paginas\PoliticasServicio.aspx" />
     <Content Include="Paginas\PrincipalHuesped.aspx" />
     <Content Include="Paginas\Prueba.aspx" />
     <Content Include="Paginas\PublicarAnuncio.aspx" />
@@ -398,6 +399,13 @@
     </Compile>
     <Compile Include="Paginas\Perfil_Huesped.aspx.designer.cs">
       <DependentUpon>Perfil_Huesped.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\PoliticasServicio.aspx.cs">
+      <DependentUpon>PoliticasServicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\PoliticasServicio.aspx.designer.cs">
+      <DependentUpon>PoliticasServicio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\PrincipalHuesped.aspx.cs">
       <DependentUpon>PrincipalHuesped.aspx</DependentUpon>

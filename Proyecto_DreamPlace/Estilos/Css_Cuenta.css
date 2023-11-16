@@ -1,0 +1,125 @@
+﻿body {
+    background-color: #A3AB78;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 10px auto;
+    background-color: #fff;
+    border: solid #BDE038;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+/* Cambios en las tarjetas */
+.flip-card {
+    background-color: transparent;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #f1f1f1;
+    display: inline-block; /* Cambio para mostrar las tarjetas en línea */
+    margin: 0 10px; /* Ajusta el margen entre las tarjetas según tus necesidades */
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: #A3AB78;
+    color: #fff;
+    top: 0;
+    left: 0;
+}
+
+.flip-card-back {
+    background-color: #BDE038;
+    color: black;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Resto del código se mantiene igual */
+
+.flex-container {
+    background-color: #A3AB78;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+    width: 1000px; /* Ajusta el ancho según tus necesidades */
+}
+
+    .flex-container a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+        .flex-container a:hover {
+            text-decoration: underline;
+        }
+
+    .flex-container label {
+        color: #fff;
+        margin-right: 5px;
+    }
+
+        .flex-container label:last-child {
+            margin-right: 0;
+        }
+
+.navbar {
+    background-color: #BDE038; /* Color de fondo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 100px; /* Ajusta el ancho de la imagen según tus necesidades */
+    height: auto;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+    .navbar-links a {
+        color: #fff; /* Color del texto de los enlaces */
+        text-decoration: none; /* Quitar subrayado de los enlaces */
+        margin-left: 20px; /* Espacio entre los enlaces */
+        font-size: 18px; /* Tamaño de fuente de los enlaces */
+    }
+
+        .navbar-links a:hover {
+            text-decoration: underline; /* Subrayado al pasar el mouse sobre los enlaces */
+        }
+

@@ -1,0 +1,118 @@
+﻿body {
+    background-color: #A3AB78;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Establecer una fuente genérica para mayor consistencia */
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: #BDE038;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+    .navbar-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 18px;
+    }
+
+        .navbar-links a:hover {
+            text-decoration: underline;
+        }
+
+.information {
+    background-color: #A3AB78;
+    color: #fff;
+    border-radius: 15px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.flex-container {
+    background-color: #A3AB78;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+    width: 500px; /* Ajusta el ancho según tus necesidades */
+}
+
+    .flex-container a {
+        color: #BDE038;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+        .flex-container a:hover {
+            text-decoration: underline;
+        }
+
+    .flex-container label {
+        color: #fff;
+        margin-right: 5px;
+    }
+
+        .flex-container label:last-child {
+            margin-right: 0;
+        }
+
+.container {
+    max-width: 600px;
+    margin: 10px auto;
+    background-color: #fff;
+    border: solid #BDE038;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 40%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #A3AB78;
+    border-radius: 5px;
+    text-align: center;
+}
+
+    input[type="text"][readonly] {
+        background-color: #eee;
+        color: #666;
+        cursor: not-allowed;
+        text-align: center;
+    }
+
+#btnDepositar {
+    background-color: #A3AB78;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    #btnDepositar:hover {
+        background-color: #7E8752;
+    }

@@ -1,0 +1,111 @@
+﻿/*Estilo paso 3.2*/
+
+/*Estilo paso 3.2*/
+.tarjeta-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160%;
+    margin: 0;
+    flex-direction: column; /* Align elements in column */
+}
+
+.price-card {
+    width: 60%;
+    background-color: #ffffff; /* Card background color */
+    border-radius: 10px; /* Rounded borders */
+    border: 2px solid #a3ab78; /* Border color */
+    overflow: hidden;
+    margin-bottom: 20px; /* Bottom margin between cards */
+}
+
+.price-content {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Organize content in column */
+}
+
+.price-pair {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-size: 18px;
+    color: #333; /* Text color */
+}
+
+
+
+
+/* Estilos generales 
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: black;
+}*/
+
+#form1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+#register-modal {
+    background-color: #556b2f; /* Verde musgo */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    color: black;
+    text-align: center; /* Nuevo: centrar texto dentro del contenedor */
+}
+
+/* Estilos para los textboxes y labels */
+#form1 input[type="text"],
+#form1 input[type="file"],
+#form1 input[type="button"] {
+    width: 30%; /* Nuevo: ajusta el ancho al 30% del contenedor */
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center; /* Nuevo: centrar texto en el textbox */
+}
+
+#form1 label {
+    color: black;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Estilo para el botón */
+#form1 input[type="button"] {
+    background-color: #00ff00; /* Verde lima */
+    color: white;
+    cursor: pointer;
+}
+
+/* Estilos adicionales */
+h2, h1 {
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Añade este estilo para dar espacio entre los elementos */
+#form1 div {
+    margin-bottom: 15px;
+}
+
+/* Puedes agregar más estilos según tus necesidades */
+

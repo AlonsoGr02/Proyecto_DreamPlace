@@ -1,0 +1,209 @@
+﻿.logo-empresa {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+#contenedor-botones {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.boton-anterior {
+    background-color: #A3AB78;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    float: left;
+}
+
+.boton-siguiente {
+    background-color: #A3AB78;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    float: right;
+    margin-right: 15px;
+}
+
+.contenedor {
+    display: flex;
+    align-items: center;
+    /*max-width: 70%;*/
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 120px auto 0;
+    width: 70%;
+}
+
+.informacion {
+    font-family: 'Montserrat', sans-serif;
+    flex: 1;
+    text-align: left;
+    padding-right: 20px;
+}
+
+.imagen {
+    flex: 1;
+    text-align: right;
+}
+
+h3 {
+    font-size: 24px;
+    color: #808080;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilos para el paso 1.1 */
+.categoria-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas en una fila */
+    gap: 20px; /* Espacio entre las tarjetas */
+    justify-items: center;
+}
+
+.categoria-tarjeta {
+    background-color: rgba(255, 255, 255, 0.6); /* Fondo transparente */
+    border: 2px solid #556B2F; /* Bordes verdes musgo */
+    border-radius: 10px; /* Bordes redondeados */
+    margin: 20px;
+    padding: 20px;
+    width: 220px; /* Asegura que haya espacio para 4 tarjetas por fila */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.categoria-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .categoria-info img {
+        width: 60px; /* Tamaño del icono (ajusta según sea necesario) */
+        height: 60px; /* Tamaño del icono (ajusta según sea necesario) */
+        margin-bottom: 10px;
+    }
+
+    .categoria-info span {
+        color: #000; /* Texto en negro */
+        font-weight: bold;
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+/*Txt como tarjetas*/
+.miTextBox {
+    width: 320px; /* Tamaño grande */
+    height: 70px; /* Ajusta la altura según tu preferencia */
+    background-color: #A3AB78; /* Color de fondo verde */
+    color: black; /* Color del texto negro */
+    text-align: center; /* Alineación centrada del texto */
+    border: 2px solid #A3AB78; /* Borde sólido de 2px de color gris oscuro (#333) */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Espacio interno para que se vea como una tarjeta */
+    box-shadow: 5px 5px 5px #888; /* Sombra para dar un aspecto atractivo */
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.titulo-contenedor {
+    text-align: center; /* Centra horizontalmente el contenido */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    background-color: #f2f2f2; /* Fondo gris claro */
+    padding: 10px; /* Espacio interno para separar el título del fondo */
+}
+
+    .titulo-contenedor h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: #333; /* Color de texto gris oscuro */
+        /* Otros estilos que desees aplicar al título */
+    }
+
+/* Estilos para el paso 1.2 */
+.contenedor-info {
+    display: flex;
+    align-items: center;
+    max-width: 70%;
+    background-color: #fff;
+    padding: 20px;
+    flex-direction: column; /* Cambia la dirección del flujo a vertical */
+}
+
+.tarjeta-info {
+    display: flex;
+    border: 1px solid #A3AB78; /* Cambia el color del borde según tus preferencias */
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 320px;
+    height: 70px;
+    box-shadow: 3px 3px 5px #888; /* Cambia el color de la sombra según tus preferencias */
+    background-color: #A3AB78; /* Cambia el color de fondo según tus preferencias */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.icono {
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+    .icono img {
+        width: 50px; /* Ajusta el tamaño del icono según tus preferencias */
+        height: 50px; /* Ajusta el tamaño del icono según tus preferencias */
+    }
+
+.info-tarjeta {
+    flex: 1;
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Estilos para el paso 1.4 */
+
+/* Estilo para el nombre de la característica */
+.caracteristica-nombre {
+    font-size: 18px;
+    color: #000000;
+    flex: 1; /* Esto hace que ocupe el espacio restante */
+}
+
+/* Contenedor para los botones */
+.buttons-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para los botones */
+.button-carac {
+    background-color: #A3AB78;
+    color: #000000;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px; /* Agregamos margen entre los botones */
+    font-size: 35px;
+}

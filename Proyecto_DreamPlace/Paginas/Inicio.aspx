@@ -13,100 +13,12 @@
 
     <link href="../Estilos/Css_Inicio.css" rel="stylesheet"  />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
-    <link href="../Estilos/Css_Inicio3.css" rel="stylesheet"  />
+
 </head>
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="scriptManager1" runat="server" />
-        <div id="login-modal" class="modal">
-            <!-- Dentro del contenido del modal -->
-            <div class="modal-content">
-                <span class="close" id="close-login-modal">&times;</span>
-                <h2>Iniciar Sesión o Registrarse</h2>
-                <hr />
-                <!-- Agregamos una línea horizontal -->
-                <br />
-
-                <h1 class="welcome-text">Te damos la bienvenida a <span class="brand-name">DreamPlace</span></h1>
-                <br />
-                <form>
-                    <label for="username">Correo Electrónico:</label>
-                    <input type="text" id="username" name="username" required /><br />
-                    <br />
-                    <button type="submit">Continuar</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="confirma-modal" class="modal">
-            <!-- Dentro del contenido del modal -->
-            <div class="modal-content">
-                <span class="close" id="confima-login-modal">&times;</span>
-                <h2>Confirma tu correo electronico</h2>
-                <hr />
-                <!-- Agregamos una línea horizontal -->
-                <br />
-
-                <h1 class="welcome-text">Te damos la bienvenida a <span class="brand-name">DreamPlace</span></h1>
-                <br />
-                <form>
-                    <label for="username">Ingresa el código que enviamos por oorreo electrónico:</label>
-                    <input type="text" id="codigo" name="codigo" maxlength="6" required class="codigo-input">
-                    <br />
-                    <button type="submit">Continuar</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="register-modal" class="modal">
-            <!-- Dentro del contenido del modal -->
-            <div class="modal-content">
-                <span class="close" id="close-register-modal">&times;</span>
-                <h2>Registro</h2>
-                <hr />
-                <!-- Agregamos una línea horizontal -->
-
-                <h1 class="welcome-text">Únete a <span class="brand-name">DreamPlace</span></h1>
-
-                <form id="register-form">
-
-                    <input type="text" id="registerCedula" runat="server" name="registerCedula" placeholder="Cédula" /><br />
-                    <input type="text" id="register-username" name="register-username" placeholder="Correo Electrónico" /><br />
-                    <input type="text" id="register-nombre" name="register-nombre" placeholder="Nombre" /><br />
-                    <input type="text" id="register-apellidos" name="register-apellidos" placeholder="Apellidos" /><br />
-                    <input type="text" id="register-fecha-nac" name="register-fecha-nac" placeholder="Fecha de Nacimiento" /><br />
-                    <input type="text" id="register-telefono" name="register-telefono" placeholder="Teléfono" /><br />
-                    <input type="text" id="register-tipoUsuario" name="register-tipoUsuario" placeholder="Anfitrión o Húesped" /><br />
-
-                    <button type="submit">Registrarse</button>
-                    <asp:Button ID="btnGuardar" runat="server" Text="Button" />
-
-                </form>
-                <asp:Button ID="btnRegistrar" runat="server" Text="Button" />
-                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-
-            </div>
-        </div>
-
-        <div id="confirma-modalR" class="modal">
-            <!-- Dentro del contenido del modal -->
-            <div class="modal-content">
-                <span class="close" id="confima-login-modalR">&times;</span>
-                <h2>Confirma tu correo electronico para validar tu cuenta</h2>
-                <hr />
-                <!-- Agregamos una línea horizontal -->
-                <br />
-
-                <h1 class="welcome-text">Te damos la bienvenida a <span class="brand-name">DreamPlace</span></h1>
-                <br />
-                <form>
-                    <label for="username">Ingresa el código que enviamos por oorreo electrónico:</label>
-                    <input type="text" id="codigo" name="codigo" maxlength="6" required class="codigo-input">
-                    <br />
-                    <button type="submit">Continuar</button>
-                </form>
-            </div>
-        </div>
+       
 
         <header style="background-color: #BDE038;">
             <div class="logo">

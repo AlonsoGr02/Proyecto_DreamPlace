@@ -22,7 +22,7 @@
 
         <header style="background-color: #BDE038;">
             <div class="logo">
-                <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo">
+                <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo"/>
             </div>
             
 

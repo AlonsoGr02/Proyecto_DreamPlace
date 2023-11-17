@@ -22,7 +22,7 @@
 
         <header style="background-color: #BDE038;">
             <div class="logo">
-                <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo">
+                <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo"/>
             </div>
             
 
@@ -49,6 +49,7 @@
                     <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
                     <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
                     <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
+                    <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
                     <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                 </ul>
             </div>

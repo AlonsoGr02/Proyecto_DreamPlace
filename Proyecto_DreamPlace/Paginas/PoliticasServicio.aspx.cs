@@ -11,7 +11,18 @@ namespace Proyecto_DreamPlace.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                topnav.Visible = false;
+                if (Session["Correo"] != null)
+                {
+                    string correo = Session["Correo"].ToString();
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
         }
     }
 }

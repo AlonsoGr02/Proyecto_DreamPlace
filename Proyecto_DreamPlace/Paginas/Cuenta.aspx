@@ -46,6 +46,7 @@
             <div id="user-menu" class="user-menu">
                 <ul>
                     <li><a href="PrincipalHuesped.aspx?Correo=<%= Session["Correo"] %>">Principal</a></li>
+                    <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
                     <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                 </ul>
             </div>

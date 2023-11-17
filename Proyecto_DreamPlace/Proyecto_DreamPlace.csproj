@@ -134,6 +134,7 @@
     <Content Include="Estilos\Css_MiBanco.css" />
     <Content Include="Estilos\Css_Notificaciones.css" />
     <Content Include="Estilos\Css_PerfilHuesped.css" />
+    <Content Include="Estilos\Css_PoliticasS.css" />
     <Content Include="Estilos\Css_PublicarA.css" />
     <Content Include="Estilos\Css_PublicarA2.css" />
     <Content Include="Estilos\Css_Inicio.css" />

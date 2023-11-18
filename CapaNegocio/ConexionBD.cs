@@ -1187,7 +1187,98 @@ namespace CapaNegocio
             return mensajes;
         }
 
-       
+
+        public static void InsertarFechaReservada( DateTime fechaInicio, DateTime fechaFin, int idInmueble, string IdCedula)
+        {
+            string insertQuery = "INSERT INTO FechasReservadas (FechaI, FechaF, IdInmueble, IdCedula) VALUES (@FechaInicio, @FechaFin, @IdInmueble, @IdCedula)";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    insertCommand.Parameters.AddWithValue("@FechaFin", fechaFin);
+                    insertCommand.Parameters.AddWithValue("@IdInmueble", idInmueble);
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public static int ObtenerIdFechaReservada(string idCedula)
+        {
+            int idFechaReservada = 0;
+
+            string selectQuery = "SELECT IdFechaReservada FROM FechasReservadas WHERE IdCedula = @IdCedula";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectQuery, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@IdCedula", idCedula);
+
+                    var result = selectCommand.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        idFechaReservada = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return idFechaReservada;
+        }
+
+
+
+        public static void InsertarReserva( string idCedula, int idInmueble, int cantidadHuespedes, string idNTarjeta, int IdFechaReservada)
+        {
+            string insertQuery = "INSERT INTO Reservas (IdCedula, IdInmueble, CantidadHuespedes, IdNTarjeta, IdFechaReservada) " +
+                                 "VALUES (@IdCedula, @IdInmueble, @CantidadHuespedes, @IdNTarjeta, @IdFechaReservada)";
+
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@IdCedula", idCedula);
+                    insertCommand.Parameters.AddWithValue("@IdInmueble", idInmueble);
+                    insertCommand.Parameters.AddWithValue("@CantidadHuespedes", cantidadHuespedes);
+                    insertCommand.Parameters.AddWithValue("@IdNTarjeta", idNTarjeta);
+                    insertCommand.Parameters.AddWithValue("@IdFechaReservada", IdFechaReservada);
+
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void InsertarPagos(string IdNTarjeta, decimal TotalAPagar,int IdInmueble,string IdCedula)
+        {
+            string insertQuery = "INSERT INTO HistorialPagos (IdNTarjeta, TotalAPagar, IdInmueble, IdCedula) " +
+                                 "VALUES (@IdNTarjeta, @TotalAPagar, @IdInmueble,@IdCedula)";
+
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@IdNTarjeta", IdNTarjeta);
+                    insertCommand.Parameters.AddWithValue("@TotalAPagar", TotalAPagar);
+                    insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    
+
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }// Fin de la clase Conexion
 }
 

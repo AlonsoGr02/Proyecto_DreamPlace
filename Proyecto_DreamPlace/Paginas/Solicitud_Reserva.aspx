@@ -94,7 +94,7 @@
 
 
 
-                    <asp:Button ID="ConfirmarReservaButton" runat="server" Text="Confirmar Reserva" />
+                    <asp:Button ID="ConfirmarReservaButton" runat="server" Text="Confirmar Reserva" OnClick="ConfirmarReservaButton_Click" />
 
                 </div>
                 </div>

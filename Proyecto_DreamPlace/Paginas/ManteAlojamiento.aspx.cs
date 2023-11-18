@@ -23,7 +23,6 @@ namespace Proyecto_DreamPlace.Paginas
                     string correoSession = Session["Correo"].ToString();
                     BD.CargarAlojamientosEnDropDownList(ddlAlojamientos, correoSession);
                     CargarImagenes();
-                    CargarAlojamientos();
                 }
                 else
                 {
@@ -49,47 +48,9 @@ namespace Proyecto_DreamPlace.Paginas
         }
         protected void ddlAlojamientos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Llamar al método que carga los detalles del alojamiento seleccionado
             CargarDetallesAlojamiento();
         }
 
-        private void CargarAlojamientos()
-        {
-            string correoUsuario = Session["Correo"].ToString();
-            string cadenaConexion = "Server=tiusr23pl.cuc-carrera-ti.ac.cr.\\MSSQLSERVER2019;Database=ProyectoGrupo5;User Id=Grupo5_Dreamplace;Password=grupo512345;";
-
-            // Obtener los nombres de los alojamientos
-            string query = "SELECT Nombre " +
-                           "FROM Inmuebles i " +
-                           "JOIN Usuarios u ON u.IdCedula = i.IdCedula " +
-                           "WHERE u.Correo = @Correo";
-
-            using (SqlConnection connection = new SqlConnection(cadenaConexion))
-            {
-                connection.Open();
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Correo", correoUsuario);
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Verificar si hay filas devueltas
-                        if (reader.HasRows)
-                        {
-                            // Asignar los nombres al DropDownList ddlAlojamientos
-                            ddlAlojamientos.DataSource = reader;
-                            ddlAlojamientos.DataTextField = "Nombre";
-                            ddlAlojamientos.DataValueField = "Nombre";
-                            ddlAlojamientos.DataBind();
-                        }
-                    }
-                }
-            }
-
-            // Agregar un elemento predeterminado si es necesario
-            ddlAlojamientos.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Selecciona un alojamiento", ""));
-        }
 
         private void CargarDetallesAlojamiento()
         {

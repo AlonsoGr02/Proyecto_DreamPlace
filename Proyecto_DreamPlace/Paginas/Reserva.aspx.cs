@@ -80,7 +80,6 @@ namespace Proyecto_DreamPlace
         {
 
         }
-
         protected void ReservarButton_Click(object sender, EventArgs e)
         {
             int idInmueble;
@@ -88,15 +87,30 @@ namespace Proyecto_DreamPlace
             {
                 Session["IdInmueble"] = idInmueble;
                 Session["CantidadAdultos"] = txtcantidadAdultos.Text;
-                Session["FechaLlegada"] = txtfechaLlegada.Text;
-                Session["FechaSalida"] = txtfechaSalida.Text;
 
-                string correo = Request.QueryString["Correo"];
+                DateTime fechaLlegada, fechaSalida;
+                if (DateTime.TryParse(txtfechaLlegada.Text, out fechaLlegada) && DateTime.TryParse(txtfechaSalida.Text, out fechaSalida))
+                {
+                    Session["FechaLlegada"] = fechaLlegada;
+                    Session["FechaSalida"] = fechaSalida;
 
-                Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
+                    string correo = Request.QueryString["Correo"];
+
+                    string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+
+                    ConexionBD.InsertarFechaReservada(fechaLlegada, fechaSalida, idInmueble, IdCedula);
+
+
+                    Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");                    
+                 }
+                else
+                {
+
+
+                }
             }
-
         }
+
 
         public string ObtenerIconClass(byte[] icono, string nombre)
         {

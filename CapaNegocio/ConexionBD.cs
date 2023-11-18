@@ -311,7 +311,7 @@ namespace CapaNegocio
                 {
                     conexion.Open();
 
-                    using (SqlCommand comando = new SqlCommand("ObtenerInmueblesPorCategoria", conexion))
+                    using (SqlCommand comando = new SqlCommand("FiltrarInmueblesPorCategoria", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 

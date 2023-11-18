@@ -336,3 +336,91 @@ p {
 .icon {
     margin-right: 5px;
 }
+
+
+.content-wrapper {
+    display: flex;
+}
+
+.side-section {
+    flex: 1; /* Distribuye el espacio disponible */
+    padding: 0 15px; /* Espacio entre secciones */
+}
+
+.fechas-disponibles {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 30%; /* Ancho deseado del elemento */
+    box-sizing: border-box; /* Incluye padding y border en el ancho */
+}
+
+
+/* Estilos para el calendario, si es necesario */
+#datepicker {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+
+.month {
+    padding: 20px 25px;
+    width: 100%;
+    background: #A3AB78;
+    text-align: center;
+}
+
+    .month ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .month ul li {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd;
+    display: flex;
+}
+
+    .weekdays li {
+        list-style-type: none;
+        width: calc(100% / 7);
+        text-align: center;
+    }
+
+.days {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+    .days li {
+        width: calc(100% / 7);
+        text-align: center;
+        padding: 20px 0;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+        .days li.active {
+            background-color: #A3AB78;
+            color: white;
+        }
+
+        .days li:not(:empty) {
+            cursor: pointer;
+        }
+
+        .days li:hover {
+            background-color: #f2f2f2;
+        }

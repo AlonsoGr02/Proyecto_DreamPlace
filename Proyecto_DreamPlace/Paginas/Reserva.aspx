@@ -10,6 +10,13 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
     <%--    Navbar--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
 
@@ -279,70 +286,160 @@
                             </div>
 
                         </div>
+                        <br />
+                        <div>
+                            <label class="hotel-title" id="Label7">Fechas disponibles:</label>
+                        </div>
+                        <br />
+                        <div class="month">
+                            <ul>
+                                <li class="prev">&#10094;</li>
+                                <li class="next">&#10095;</li>
+                                <li id="month-year"></li>
+                            </ul>
+                        </div>
+
+                        <ul class="weekdays">
+                            <li>Mo</li>
+                            <li>Tu</li>
+                            <li>We</li>
+                            <li>Th</li>
+                            <li>Fr</li>
+                            <li>Sa</li>
+                            <li>Su</li>
+                        </ul>
+
+                        <ul class="days" id="calendar-days">
+                            <!-- Días del mes actual se añadirán aquí -->
+                        </ul>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                let currentMonth;
+                                let currentYear;
+
+                                function getDaysInMonth(month, year) {
+                                    return new Date(year, month + 1, 0).getDate();
+                                }
+
+                                function generateCalendar(month, year) {
+                                    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+                                    const firstDay = new Date(year, month, 1).getDay();
+                                    const daysInMonth = getDaysInMonth(month, year);
+
+                                    $('#month-year').text(monthNames[month] + ' ' + year);
+
+                                    let daysHtml = '';
+                                    let day = 1;
+
+                                    for (let i = 0; i < 6; i++) {
+                                        for (let j = 0; j < 7; j++) {
+                                            if ((i === 0 && j < firstDay) || (day > daysInMonth)) {
+                                                daysHtml += '<li></li>';
+                                            } else {
+                                                daysHtml += `<li>${day}</li>`;
+                                                day++;
+                                            }
+                                        }
+                                    }
+
+                                    $('#calendar-days').html(daysHtml);
+                                }
 
 
+                                function showPreviousMonth() {
+                                    currentMonth--;
+                                    if (currentMonth < 0) {
+                                        currentMonth = 11;
+                                        currentYear--;
+                                    }
+                                    generateCalendar(currentMonth, currentYear);
+                                }
 
-                    <%--ModalReserva--%>
+                                function showNextMonth() {
+                                    currentMonth++;
+                                    if (currentMonth > 11) {
+                                        currentMonth = 0;
+                                        currentYear++;
+                                    }
+                                    generateCalendar(currentMonth, currentYear);
+                                }
 
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" id="closeModalButton">&times;</span>
-                            <!-- Contenido del modal -->
+                                $('.prev').on('click', showPreviousMonth);
+                                $('.next').on('click', showNextMonth);
 
-                            <div class="modal-content-inner">
-                                <h2>Reservar habitación</h2>
-                                <div class="container">
-                                    <div class="row mb-8 justify-content-center">
-                                        <div class="col-md-6 col-12">
-                                            <div class="mb-4 border-bottom pb-2">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div>
-                                                            <p class="text-dark">Cantidad de huéspedes</p>
-                                                        </div>
+                                // Obtener el mes y año actual y generar el calendario
+                                const today = new Date();
+                                currentMonth = today.getMonth();
+                                currentYear = today.getFullYear();
+                                generateCalendar(currentMonth, currentYear);
+                            });
+                        </script>
 
-                                                        <div class="input-group w-auto justify-content-end align-items-center">
-                                                            <asp:Button ID="btnMenosAdultos" class="button-minus border rounded-circle icon-shape icon-sm mx-1" data-field="adultos" runat="server" Text="-" OnClientClick="return RestarAdultos();" />
-                                                            <asp:TextBox ID="txtcantidadAdultos" class="comment-modal" runat="server"></asp:TextBox>
-                                                            <asp:Button ID="btnMasAdultos" class="button-plus border rounded-circle icon-shape icon-sm" data-field="adultos" runat="server" Text="+" OnClientClick="return SumarAdultos();" />
+                        <%--ModalReserva--%>
+
+                        <div id="myModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" id="closeModalButton">&times;</span>
+                                <!-- Contenido del modal -->
+
+                                <div class="modal-content-inner">
+                                    <h2>Reservar habitación</h2>
+                                    <div class="container">
+                                        <div class="row mb-8 justify-content-center">
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-4 border-bottom pb-2">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p class="text-dark">Cantidad de huéspedes</p>
+                                                            </div>
+
+                                                            <div class="input-group w-auto justify-content-end align-items-center">
+                                                                <asp:Button ID="btnMenosAdultos" class="button-minus border rounded-circle icon-shape icon-sm mx-1" data-field="adultos" runat="server" Text="-" OnClientClick="return RestarAdultos();" />
+                                                                <asp:TextBox ID="txtcantidadAdultos" class="comment-modal" runat="server"></asp:TextBox>
+                                                                <asp:Button ID="btnMasAdultos" class="button-plus border rounded-circle icon-shape icon-sm" data-field="adultos" runat="server" Text="+" OnClientClick="return SumarAdultos();" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="d-flex justify-content-between">
-                                                        <%--                                                            <div>
+                                                    <div class="col-12">
+                                                        <div class="d-flex justify-content-between">
+                                                            <%--                                                            <div>
                                                                 <p class="text-dark">Cantidad de Niños</p>
                                                             </div>--%>
 
-                                                        <%--                                                            <div class="input-group w-auto justify-content-end align-items-center">
+                                                            <%--                                                            <div class="input-group w-auto justify-content-end align-items-center">
                                                                 <asp:Button ID="btnMenosNinos" runat="server" Text="-" OnClientClick="return RestarNinos();"></asp:Button>
                                                                 <asp:TextBox ID="txtCantidadNinos" class="comment-modal" runat="server"></asp:TextBox>
                                                                 <asp:Button ID="btnMasNinos" runat="server" Text="+" OnClientClick="return SumarNinos();" />
                                                             </div>--%>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
-                                        <div class="row mt-4">
-                                            <div class="col-12">
-                                                <div class="d-flex justify-content-between">
-                                                    <br />
-                                                    <div>
-                                                        <label for="fechaLlegada">Fecha de llegada:</label>
-                                                        <asp:TextBox ID="txtfechaLlegada" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
-
+                                            <div class="row mt-4">
+                                                <div class="col-12">
+                                                    <div class="d-flex justify-content-between">
                                                         <br />
-                                                        <label for="fechaSalida">Fecha de salida:</label>
-                                                        <asp:TextBox ID="txtfechaSalida" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
+                                                        <div>
+                                                            <label for="fechaLlegada">Fecha de llegada:</label>
+                                                            <asp:TextBox ID="txtfechaLlegada" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
+
+                                                            <br />
+                                                            <label for="fechaSalida">Fecha de salida:</label>
+                                                            <asp:TextBox ID="txtfechaSalida" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
+
+                                                        </div>
+
+                                                        <asp:Button ID="ReservarButton" runat="server" Text="Confirmar" OnClick="ReservarButton_Click" class="send-button" />
 
                                                     </div>
-
-                                                    <asp:Button ID="ReservarButton" runat="server" Text="Confirmar" OnClick="ReservarButton_Click" class="send-button" />
-
                                                 </div>
                                             </div>
                                         </div>
@@ -350,112 +447,111 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <script>
-                        // Función para mostrar el calendario al hacer clic en fechaSalida
-                        function mostrarCalendariosalida() {
-                            $("#fechaSalida").datepicker({
-                                dateFormat: 'yy-mm-dd', // Puedes ajustar el formato de fecha
-                                onSelect: function (dateText, inst) {
-                                }
-                            });
-                        }
-                    </script>
+                        <script>
+                            // Función para mostrar el calendario al hacer clic en fechaSalida
+                            function mostrarCalendariosalida() {
+                                $("#fechaSalida").datepicker({
+                                    dateFormat: 'yy-mm-dd', // Puedes ajustar el formato de fecha
+                                    onSelect: function (dateText, inst) {
+                                    }
+                                });
+                            }
+                        </script>
 
-                    <script>
-                        function mostrarCalendarioentrada() {
-                            $("#fechaLlegada").datepicker({
-                                dateFormat: 'yy-mm-dd',
-                                onSelect: function (dateText, inst) {
-                                }
-                            });
-                        }
-                    </script>
+                        <script>
+                            function mostrarCalendarioentrada() {
+                                $("#fechaLlegada").datepicker({
+                                    dateFormat: 'yy-mm-dd',
+                                    onSelect: function (dateText, inst) {
+                                    }
+                                });
+                            }
+                        </script>
 
-                    <script>
-                        function AbrirModal() {
-                            // Abre el modal al hacer clic en el botón
-                            var modal = document.getElementById("myModal");
-                            modal.style.display = "block";
-                            // Puedes agregar más lógica aquí si es necesario
-                        }
+                        <script>
+                            function AbrirModal() {
+                                // Abre el modal al hacer clic en el botón
+                                var modal = document.getElementById("myModal");
+                                modal.style.display = "block";
+                                // Puedes agregar más lógica aquí si es necesario
+                            }
 
-                        // Cierra el modal si se hace clic en la "x"
-                        document.getElementById("closeModalButton").onclick = function () {
-                            var modal = document.getElementById("myModal");
-                            modal.style.display = "none";
-                        }
-
-                        // Cierra el modal si se hace clic fuera del contenido del modal
-                        window.onclick = function (event) {
-                            var modal = document.getElementById("myModal");
-                            if (event.target == modal) {
+                            // Cierra el modal si se hace clic en la "x"
+                            document.getElementById("closeModalButton").onclick = function () {
+                                var modal = document.getElementById("myModal");
                                 modal.style.display = "none";
                             }
-                        }
-                    </script>
 
-                    <script>
-                        function RestarAdultos() {
-                            var txtCantidadNinos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
-
-                            var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
-
-
-                            if (cantidadNinos > 0) {
-                                cantidadNinos--;
-                                txtcantidadAdultos.value = cantidadNinos;
+                            // Cierra el modal si se hace clic fuera del contenido del modal
+                            window.onclick = function (event) {
+                                var modal = document.getElementById("myModal");
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+                                }
                             }
+                        </script>
 
-                            return false;
-                        }
-                    </script>
+                        <script>
+                            function RestarAdultos() {
+                                var txtCantidadNinos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
 
-                    <script>
-                        function SumarAdultos() {
-
-                            var txtcantidadAdultos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
+                                var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
 
 
-                            var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
+                                if (cantidadNinos > 0) {
+                                    cantidadNinos--;
+                                    txtcantidadAdultos.value = cantidadNinos;
+                                }
+
+                                return false;
+                            }
+                        </script>
+
+                        <script>
+                            function SumarAdultos() {
+
+                                var txtcantidadAdultos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
 
 
-                            cantidadNinos++;
-                            txtcantidadAdultos.value = cantidadNinos;
+                                var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
 
 
-                            return false;
-                        }
-                    </script>
+                                cantidadNinos++;
+                                txtcantidadAdultos.value = cantidadNinos;
 
 
-                    <div class="comments">
-                        <div class="comment-form">
-                            <h2>Deja un comentario</h2>
-                            <input class="comment-input" type="text" placeholder="Tu comentario">
-                            <button class="send-button">Enviar</button>
-                        </div>
+                                return false;
+                            }
+                        </script>
 
-                        <div class="comment-box">
-                            <div class="comment-author">Usuario 1</div>
-                            <div class="comment-date">6 de noviembre de 2023</div>
-                            <div class="comment-text">
-                                Este hotel es increíble. Las habitaciones son espaciosas y limpias, y el personal es muy amable. ¡Recomiendo este lugar!
+
+                        <div class="comments">
+                            <div class="comment-form">
+                                <h2>Deja un comentario</h2>
+                                <input class="comment-input" type="text" placeholder="Tu comentario">
+                                <button class="send-button">Enviar</button>
                             </div>
-                        </div>
 
-
-
-                        <div class="comment-box">
-                            <div class="comment-author">Usuario 2</div>
-                            <div class="comment-date">5 de noviembre de 2023</div>
-                            <div class="comment-text">
-                                ¡Una experiencia increíble! La piscina es perfecta para relajarse y el restaurante ofrece comida deliciosa.
+                            <div class="comment-box">
+                                <div class="comment-author">Usuario 1</div>
+                                <div class="comment-date">6 de noviembre de 2023</div>
+                                <div class="comment-text">
+                                    Este hotel es increíble. Las habitaciones son espaciosas y limpias, y el personal es muy amable. ¡Recomiendo este lugar!
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+
+
+                            <div class="comment-box">
+                                <div class="comment-author">Usuario 2</div>
+                                <div class="comment-date">5 de noviembre de 2023</div>
+                                <div class="comment-text">
+                                    ¡Una experiencia increíble! La piscina es perfecta para relajarse y el restaurante ofrece comida deliciosa.
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

@@ -31,7 +31,7 @@
                 </div>
                 <h1>Mantenimiento de tu Inmueble</h1>
             </div>
-            
+
             <br />
             <asp:DropDownList ID="ddlAlojamientos" runat="server"></asp:DropDownList><br />
             <hr />
@@ -56,7 +56,7 @@
                 <asp:TextBox ID="txtCantiCamas" runat="server" AutoCompleteType="Disabled"></asp:TextBox><br />
 
                 <asp:Label ID="Label8" runat="server" Text="Categoria:"></asp:Label><br />
-                <asp:DropDownList ID="ddlCategoria" runat="server" ></asp:DropDownList><br />
+                <asp:DropDownList ID="ddlCategoria" runat="server"></asp:DropDownList><br />
 
                 <asp:Label ID="Label9" runat="server" Text="Estado:"></asp:Label><br />
                 <asp:DropDownList ID="ddlEstado" runat="server"></asp:DropDownList><br />
@@ -64,11 +64,21 @@
                 <asp:Label ID="Label10" runat="server" Text="Descripción del Estado :"></asp:Label><br />
                 <asp:TextBox ID="txtDescripcionEstado" runat="server" AutoCompleteType="Disabled"></asp:TextBox><br />
             </div>
+            <div class="container-image">
+                <asp:FileUpload ID="FileUpload1" runat="server" /><br />
+                <asp:Image ID="Image1" runat="server" AlternateText="imagen 1" CssClass="imagen-estilo" /><br />
+                <asp:Image ID="Image2" runat="server" AlternateText="imagen 2" CssClass="imagen-estilo" /><br />
+                <asp:Image ID="Image3" runat="server" AlternateText="imagen 3" CssClass="imagen-estilo" /><br />
+                <asp:Image ID="Image4" runat="server" AlternateText="imagen 4" CssClass="imagen-estilo" /><br />
+                <asp:Image ID="Image5" runat="server" AlternateText="imagen 5" CssClass="imagen-estilo" /><br />
+
+            </div>
+
             <br />
             <br />
             <hr />
             <br />
-            <asp:Button ID="btnGuardar"  class="fa-solid" runat="server" Text="Guardar" />
+            <asp:Button ID="btnGuardar" class="fa-solid" runat="server" Text="Guardar" />
 
         </div>
     </form>

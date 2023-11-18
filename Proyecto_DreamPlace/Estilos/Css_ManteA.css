@@ -170,3 +170,20 @@ label {
         background-color: #BDE038; /* Cambia el color de fondo al pasar el ratón */
         color:black;
     }
+
+.container-image {
+    width: 45%; /* Ajusta el ancho según tus necesidades */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: solid #A3AB78;
+    border-radius: 10px;
+    float: right;
+    margin-top: -630px;
+    height:625px;
+}
+
+.imagen-estilo {
+    width: 20%; /* Ajusta el ancho según tus necesidades */
+    height: auto; /* Para mantener la proporción de aspecto */
+    border: 1px solid #ccc; /* Añade un borde si lo deseas */
+    /* Otros estilos según tus necesidades */
+}

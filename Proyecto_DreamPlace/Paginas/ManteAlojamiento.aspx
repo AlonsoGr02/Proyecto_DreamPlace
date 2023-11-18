@@ -65,7 +65,7 @@
                 <asp:TextBox ID="txtDescripcionEstado" runat="server" AutoCompleteType="Disabled"></asp:TextBox><br />
             </div>
             <div class="container-image">
-                <asp:FileUpload ID="FileUpload1" runat="server" /><br />
+                <asp:FileUpload ID="SubirImagen" runat="server" CssClass="botonSubir"/><br />
                 <asp:Image ID="Image1" runat="server" AlternateText="imagen 1" CssClass="imagen-estilo" /><br />
                 <asp:Image ID="Image2" runat="server" AlternateText="imagen 2" CssClass="imagen-estilo" /><br />
                 <asp:Image ID="Image3" runat="server" AlternateText="imagen 3" CssClass="imagen-estilo" /><br />

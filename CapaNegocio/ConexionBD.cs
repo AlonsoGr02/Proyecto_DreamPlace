@@ -14,6 +14,36 @@ namespace CapaNegocio
         private string cadenaConexion = "Server=tiusr23pl.cuc-carrera-ti.ac.cr.\\MSSQLSERVER2019;Database=ProyectoGrupo5;User Id=Grupo5_Dreamplace;Password=grupo512345;";
         public static string cadenaCon = "Server=tiusr23pl.cuc-carrera-ti.ac.cr.\\MSSQLSERVER2019;Database=ProyectoGrupo5;User Id=Grupo5_Dreamplace;Password=grupo512345;";
 
+        //Inicio
+        public DataTable ObtenerInmueblesPorNombre(string nombreInmueble)
+        {
+            DataTable dtInmuebles = new DataTable();
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    using (SqlCommand comando = new SqlCommand("FiltrarInmueblesPorNombre", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@NombreInmueble", nombreInmueble);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            adaptador.Fill(dtInmuebles);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener inmuebles por nombre: {ex.Message}");
+            }
+
+            return dtInmuebles;
+        }
         //METODOS INMUEBLES
         public void InsertarUbicacion(string provincia, string canton, string posicionGPS)
         {

@@ -100,3 +100,68 @@
         border-color: #007bff; /* Cambia el color del borde al enfocar el input */
         box-shadow: 0 2px 4px rgba(0, 123, 255, 0.4);
     }
+/* Estilos para el contenedor pegajoso */
+.prueba {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 3px;
+    background-color: #ffffff;
+    z-index: 1000;
+}
+
+/* Estilo de la barra de navegación */
+.topnav-container {
+    background-color: #f2f2f2; /* Cambia el color de fondo según tus preferencias */
+    border-radius: 25px; /* Bordex redondeados */
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor en la página */
+}
+
+.topnav input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    width: 350px;
+    border: 2px solid #ccc;
+}
+
+/* Estilo para el botón de búsqueda */
+.searchButton {
+    padding: 10px 15px;
+    background-color: #2a3f92; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .searchButton:hover {
+        background-color: #45a049; /* Cambia el color de fondo al pasar el mouse */
+    }
+
+.categoria {
+    flex: 0 0 auto; /* No crece ni se encoge, tamaño fijo */
+    margin: 0 10px; /* Espacio entre las categorías */
+    background-color: #f1f1f1; /* Color de fondo de las categorías */
+    border-radius: 5px; /* Borde redondeado para las categorías */
+    padding: 10px; /* Espacio interno dentro de las categorías */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: transform 0.3s; /* Transición suave al hacer hover */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse sobre las categorías */
+    width: 50px; /* Ancho deseado de la tarjeta */
+    height: 50px; /* Alto deseado de la tarjeta */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #333; /* Color de texto dentro de las categorías */
+    border: 1px solid #BDE038;
+}

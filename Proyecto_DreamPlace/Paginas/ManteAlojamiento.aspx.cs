@@ -17,9 +17,9 @@ namespace Proyecto_DreamPlace.Paginas
                 if (Session["Correo"] != null)
                 {
                     string correo = Session["Correo"].ToString();
-                    CargarImagenes();
+
                 }
-                
+                CargarImagenes();
             }
         }
         public void CargarImagenes()

@@ -187,3 +187,19 @@ label {
     border: 1px solid #ccc; /* Añade un borde si lo deseas */
     /* Otros estilos según tus necesidades */
 }
+
+.botonSubir {
+    background-color: #BDE038;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+    .botonSubir:hover {
+        background-color: #45a049;
+    }

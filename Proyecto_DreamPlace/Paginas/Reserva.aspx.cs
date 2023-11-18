@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CapaNegocio.Models;
-
+using Newtonsoft.Json;
 
 namespace Proyecto_DreamPlace
 {
@@ -95,18 +95,28 @@ namespace Proyecto_DreamPlace
                     Session["FechaSalida"] = fechaSalida;
 
                     string correo = Request.QueryString["Correo"];
-
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                    ConexionBD.InsertarFechaReservada(fechaLlegada, fechaSalida, idInmueble, IdCedula);
+                    // Verificar si las fechas ya están reservadas para el inmueble
+                    bool fechasReservadas = ConexionBD.FechasReservadasExisten(fechaLlegada, fechaSalida, idInmueble);
 
-
-                    Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");                    
-                 }
+                    if (!fechasReservadas)
+                    {
+                        // Las fechas no están reservadas, proceder con la reserva
+                        ConexionBD.InsertarFechaReservada(fechaLlegada, fechaSalida, idInmueble, IdCedula);
+                        Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
+                    }
+                    else
+                    {
+                        // Las fechas ya están reservadas, mostrar un mensaje de error
+                        // Por ejemplo, puedes establecer un mensaje en un label para informar al usuario
+                        lblMensajeError.Text = "Las fechas seleccionadas ya están reservadas para este inmueble.";
+                    }
+                }
                 else
                 {
-
-
+                    // Manejar el escenario en el que las fechas no son válidas
+                    lblMensajeError.Text = "Por favor, introduce fechas válidas.";
                 }
             }
         }

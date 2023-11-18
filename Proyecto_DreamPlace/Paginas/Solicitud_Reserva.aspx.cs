@@ -80,12 +80,22 @@ namespace Proyecto_DreamPlace.Paginas
 
                 lbTotal = lbTotal.Replace("$", "").Replace(",", "");
 
-                
                 decimal costoTotal;
                 if (decimal.TryParse(lbTotal, NumberStyles.Currency, CultureInfo.CurrentCulture, out costoTotal))
                 {
                     
-                    ConexionBD.InsertarPagos(numtarjeta, costoTotal, idInmueble, IdCedula);
+                    if (ConexionBD.TieneSaldoSuficiente(numtarjeta, costoTotal))
+                    {
+                        ConexionBD.InsertarPagos(numtarjeta, costoTotal, idInmueble, IdCedula);
+                        lblTotal.Text = "¡Pago realizado con exito!";
+
+                    }
+                    else
+                    {
+                        
+                        lblTotal.Text = "¡Saldo insuficiente para realizar el pago!";
+                        return; 
+                    }
                 }
                 else
                 {

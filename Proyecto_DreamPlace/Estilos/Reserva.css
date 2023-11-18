@@ -1,12 +1,12 @@
 ﻿body {
-    font-family: Arial, sans-serif;
     background-color: #A3AB78;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif; /* Establecer una fuente genérica para mayor consistencia */
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 2500px;
     margin: 10px auto;
     background-color: #fff;
     border-radius: 10px;
@@ -23,7 +23,10 @@
 }
 
 .image-box {
-    width: calc(33.33% - 20px);
+    max-width: 100%;
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    display: block;
+    /*width: calc(33.33% - 20px);*/
     margin: 10px;
     overflow: hidden;
     border-radius: 10px;
@@ -252,29 +255,73 @@
         margin: 5px 0;
     }
 
-body {
+/*body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-}
+}*/
 
-.mini-card {
+.mini-cardservicios {
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    width: 200px;
+    width: 1150px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
 }
 
-    .mini-card:hover {
-        transform: scale(1.05);
-    }
+
+.mini-cardDescription {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: auto;
+    height:auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+.mini-card {
+    width: auto; /* El 80% del ancho de la ventana gráfica */
+    height: auto; /* Altura automática basada en el contenido */
+    border-radius: 10px;
+}
+
+
+.info-container {
+    display: flex;
+    flex-wrap: wrap; /* Envuelve los elementos si no caben en una línea */
+}
+
+.info-item {
+    display: inline-block; /* Muestra los elementos en línea */
+    max-width: auto; /* Ancho máximo para cada elemento */
+    white-space: nowrap; /* Evita que los elementos se dividan en líneas */
+    overflow: hidden; /* Oculta el contenido extra si no cabe */
+    margin-right: 10px; /* Espacio entre elementos */
+}
+
+
+.icon {
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+    font-size: 28px; /* Tamaño del icono */
+}
+
+/* Ajusta el tamaño de las etiquetas si es necesario */
+span {
+    font-size: 25px;
+    /* Otros estilos de etiquetas si es necesario */
+}
+
 
 h3 {
     margin-top: 0;

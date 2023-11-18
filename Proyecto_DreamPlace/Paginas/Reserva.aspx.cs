@@ -50,7 +50,6 @@ namespace Proyecto_DreamPlace
                     lblCantidadDormitorios.Text = datosInmueble[3];
                     lblCantidadBanos.Text = datosInmueble[4];
                     lblCantidadCamas.Text = datosInmueble[5];
-                    lblTipo.Text = datosInmueble[6];
 
                     string[] datosInmueblePrecio = ConexionBD.ObtenerPrecioInmueble(idInmueble);
                     lblPrecio.Text = datosInmueblePrecio[0];

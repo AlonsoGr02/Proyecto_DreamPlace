@@ -143,6 +143,7 @@
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />
+    <Content Include="Estilos\Tarjeta.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="img\bars-solid.svg" />
@@ -151,11 +152,14 @@
     <Content Include="img\compartida.png" />
     <Content Include="img\completa.jpg" />
     <Content Include="img\cuarto.png" />
+    <Content Include="img\dolar.png" />
     <Content Include="img\DreamPlace.jpg" />
     <Content Include="img\DreamPlece Logo Lima.jpg" />
     <Content Include="img\Elegante.png" />
+    <Content Include="img\estrella.png" />
     <Content Include="img\Excepcional.png" />
     <Content Include="img\Familiar.png" />
+    <Content Include="img\gps.png" />
     <Content Include="img\images.png" />
     <Content Include="img\invitado.png" />
     <Content Include="img\Lavadora.png" />

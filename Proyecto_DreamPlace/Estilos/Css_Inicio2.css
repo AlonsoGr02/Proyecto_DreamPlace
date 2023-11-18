@@ -67,7 +67,7 @@ header {
 }
 
 /* Estilo para cada categoría individual */
-.categoria {
+/*.categoria {
     flex: 0 0 auto; 
     margin: 0 10px; 
     background-color: #f1f1f1; 
@@ -84,7 +84,7 @@ header {
     justify-content: center;
     text-align: center;
     color: #333; 
-}
+}*/
 
     .categoria:hover {
         transform: scale(1.05); 

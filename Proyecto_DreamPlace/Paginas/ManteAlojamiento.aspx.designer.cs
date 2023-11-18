@@ -213,13 +213,13 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.TextBox txtDescripcionEstado;
 
         /// <summary>
-        /// Control FileUpload1.
+        /// Control SubirImagen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.FileUpload SubirImagen;
 
         /// <summary>
         /// Control Image1.

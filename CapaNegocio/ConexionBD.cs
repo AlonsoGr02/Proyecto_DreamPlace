@@ -14,6 +14,36 @@ namespace CapaNegocio
         private string cadenaConexion = "Server=tiusr23pl.cuc-carrera-ti.ac.cr.\\MSSQLSERVER2019;Database=ProyectoGrupo5;User Id=Grupo5_Dreamplace;Password=grupo512345;";
         public static string cadenaCon = "Server=tiusr23pl.cuc-carrera-ti.ac.cr.\\MSSQLSERVER2019;Database=ProyectoGrupo5;User Id=Grupo5_Dreamplace;Password=grupo512345;";
 
+        //Inicio
+        public DataTable ObtenerInmueblesPorNombre(string nombreInmueble)
+        {
+            DataTable dtInmuebles = new DataTable();
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    using (SqlCommand comando = new SqlCommand("FiltrarInmueblesPorNombre", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@NombreInmueble", nombreInmueble);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            adaptador.Fill(dtInmuebles);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener inmuebles por nombre: {ex.Message}");
+            }
+
+            return dtInmuebles;
+        }
         //METODOS INMUEBLES
         public void InsertarUbicacion(string provincia, string canton, string posicionGPS)
         {
@@ -281,7 +311,7 @@ namespace CapaNegocio
                 {
                     conexion.Open();
 
-                    using (SqlCommand comando = new SqlCommand("ObtenerInmueblesPorCategoria", conexion))
+                    using (SqlCommand comando = new SqlCommand("FiltrarInmueblesPorCategoria", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
@@ -867,6 +897,89 @@ namespace CapaNegocio
 
             return usuario;
         }
+        #region Mantenimiento Alojamientos
+        public Inmueble ObtenerDetallesAlojamientos(string correo, string nombreAlojamiento)
+        {
+            Inmueble detalles = null;
+
+            // Obtener los detalles del alojamiento seleccionado
+            string query = "SELECT i.Nombre, i.Descripcion, i.CantidadPersonas, i.CantidadDormitorios, i.CantidadBanos, i.CantidadCamas, c.Categoria, e.NombreEstado, i.DescripcionEstado " +
+                           "FROM Inmuebles i " +
+                           "JOIN Estados e ON e.IdEstado = i.IdEstado " +
+                           "JOIN Categorias c ON c.IdCategoria = i.IdCategoria " +
+                           "JOIN Usuarios u ON u.IdCedula = i.IdCedula " +
+                           "WHERE u.Correo = @Correo AND i.Nombre = @NombreAlojamiento";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Correo", correo);
+                    command.Parameters.AddWithValue("@NombreAlojamiento", nombreAlojamiento);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            detalles = new Inmueble
+                            {
+                                Nombre = reader["Nombre"].ToString(),
+                                Descripcion = reader["Descripcion"].ToString(),
+                                CantidadPersonas = Convert.ToInt32(reader["CantidadPersonas"]),
+                                CantidadDormitorios = Convert.ToInt32(reader["CantidadDormitorios"]),
+                                CantidadBanos = Convert.ToInt32(reader["CantidadBanos"]),
+                                CantidadCamas = Convert.ToInt32(reader["CantidadCamas"]),
+                                IdCategoria = Convert.ToInt32(reader["Categoria"]),
+                                IdEstado = Convert.ToInt32(reader["NombreEstado"]),
+                                DescripcionEstado = reader["DescripcionEstado"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return detalles;
+        }
+
+        public void CargarAlojamientosEnDropDownList(DropDownList ddlAlojamientos, string correoUsuario)
+        {
+            // Obtener los nombres de los alojamientos
+            string query = "SELECT Nombre " +
+                           "FROM Inmuebles i " +
+                           "JOIN Usuarios u ON u.IdCedula = i.IdCedula " +
+                           "WHERE u.Correo = @Correo";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Correo", correoUsuario);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Agrega la opción inicial
+                        ddlAlojamientos.Items.Add(new ListItem("Selecciona un alojamiento", string.Empty));
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string nombreAlojamiento = reader["Nombre"].ToString();
+                            ddlAlojamientos.Items.Add(nombreAlojamiento);
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+
+
+
+
         public void ActualizarUsuario(string cedula, string nombre, string apellidos, string telefono)
         {
             using (SqlConnection con = new SqlConnection(cadenaConexion))

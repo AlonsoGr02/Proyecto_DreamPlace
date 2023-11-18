@@ -897,6 +897,7 @@ namespace CapaNegocio
 
             return usuario;
         }
+
         #region Mantenimiento Alojamientos
         public Inmueble ObtenerDetallesAlojamientos(string ddlAlojamientos)
         {

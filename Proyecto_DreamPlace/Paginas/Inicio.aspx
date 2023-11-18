@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"/>
 
-    <link href="../Estilos/Css_Inicio.css" rel="stylesheet"  />
+    <link href="../Estilos/Css_Inicio.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
+    <link href="../Estilos/Tarjeta.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -29,7 +30,7 @@
                     <div class="topnav">
                         <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" OnClick="btnLFamosos_Click" CssClass="searchButton"/>
                         <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton"/>
-                        <input type="text" id="txtBusqueda" placeholder="Buscar ..." runat="server" />
+                        <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
                     </div>
                 </div>
 

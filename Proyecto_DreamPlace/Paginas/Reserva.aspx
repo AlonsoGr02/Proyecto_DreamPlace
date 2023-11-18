@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
 
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-xjMY0gIb5Jjt/6ZcPlV16JdA85z3PkjGm9Uo8Mp+YOuLOxM5Ygv4dxX4STl3MgIbRYlpuT0D+qsMxZRdcti81A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -46,11 +47,18 @@
                         </div>
 
 
-                        <div id="topnav" class="topnav-container" runat="server">
+                        <%--<div id="topnav" class="topnav-container" runat="server">
                             <div class="topnav">
                                 <a class="active" href="#home">Destacados</a>
                                 <a href="#about">Lugares Famosos</a>
                                 <input type="text" placeholder="Buscar ..." />
+                            </div>
+                        </div>--%>
+                        <div id="topnav" class="topnav-container" runat="server">
+                            <div class="topnav">
+                                <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" CssClass="searchButton" />
+                                <asp:Button ID="Button1" runat="server" Text="Filtrar"  CssClass="searchButton" />
+                                <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
                             </div>
                         </div>
 
@@ -298,7 +306,7 @@
                             </ul>
                         </div>
 
-<%--                        <ul class="weekdays">
+                        <%--                        <ul class="weekdays">
                             <li>Su</li>
                             <li>Mo</li>
                             <li>Tu</li>

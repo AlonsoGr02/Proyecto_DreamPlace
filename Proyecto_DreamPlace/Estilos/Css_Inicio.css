@@ -1,13 +1,13 @@
 ﻿
-.contenedor-tarjetas {
+/*.contenedor-tarjetas {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-}
+}*/
 
 /* Estilo de las tarjetas */
-.tarjeta {
-    width: 350px; /* Ajusta el tamaño de las tarjetas */
+/*.tarjeta {
+    width: 300px;  Ajusta el tamaño de las tarjetas 
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -27,7 +27,7 @@
         object-fit: cover;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-    }
+    }*/
 
 /* Estilo de la información */
 .informacion {

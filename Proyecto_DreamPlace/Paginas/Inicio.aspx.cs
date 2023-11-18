@@ -377,13 +377,20 @@ namespace Proyecto_DreamPlace.Paginas
         {
             if (!string.IsNullOrEmpty(HiddenFieldIdCategoria.Value))
             {
+                // Limpiar los controles existentes en el contenedor
+                contenedorTarjetasFiltradas.Controls.Clear();
+
                 int idCategoria = Convert.ToInt32(HiddenFieldIdCategoria.Value);
                 FiltrarTarjetasInmuebles(idCategoria);
             }
             if (!string.IsNullOrEmpty(txtBusqueda.Value))
             {
+                // Limpiar los controles existentes en el contenedor
+                contenedorTarjetasFiltradas.Controls.Clear();
+
                 string nombreI = txtBusqueda.Value;
                 FiltrarTarjetasInmueblesNombre(nombreI);
+                txtBusqueda.Value ="";
             }
 
         }

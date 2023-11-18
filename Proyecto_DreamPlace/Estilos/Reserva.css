@@ -424,3 +424,22 @@ p {
         .days li:hover {
             background-color: #f2f2f2;
         }
+/* Agrega tus estilos CSS personalizados aquí */
+.reservada {
+    background-color: red;
+    color: white;
+}
+
+.no-reservada {
+    background-color: green;
+    color: white;
+}
+/* Estilos básicos para el calendario */
+.month {
+    /* Agrega estilos para el encabezado del calendario si es necesario */
+}
+
+.days {
+    /* Agrega estilos para los días del calendario si es necesario */
+}
+

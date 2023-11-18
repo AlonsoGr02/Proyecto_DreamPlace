@@ -33,7 +33,8 @@
             </div>
 
             <br />
-            <asp:DropDownList ID="ddlAlojamientos" runat="server" OnSelectedIndexChanged="ddlAlojamientos_SelectedIndexChanged"></asp:DropDownList><br />
+            <asp:DropDownList ID="ddlAlojamientos" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAlojamientos_SelectedIndexChanged">
+            </asp:DropDownList><br />
             <hr />
             <div class="container-info">
                 <h2>Caracteristicas de tu Inmueble</h2>
@@ -62,7 +63,7 @@
                 <asp:DropDownList ID="ddlEstado" runat="server"></asp:DropDownList><br />
 
                 <asp:Label ID="Label10" runat="server" Text="Descripción del Estado :"></asp:Label><br />
-                <asp:TextBox ID="txtDescripcionEstado" runat="server" AutoCompleteType="Disabled"></asp:TextBox><br />
+                <asp:TextBox ID="txtDescripcionEstado" runat="server" palaceholder="Sin Descripción" AutoCompleteType="Disabled"></asp:TextBox><br />
             </div>
             <div class="container-image">
                 <asp:FileUpload ID="SubirImagen" runat="server" CssClass="botonSubir"/><br />

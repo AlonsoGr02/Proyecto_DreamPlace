@@ -286,7 +286,6 @@
                             </div>
 
                         </div>
-                        <br />
                         <div>
                             <label class="hotel-title" id="Label7">Fechas disponibles:</label>
                         </div>
@@ -299,15 +298,15 @@
                             </ul>
                         </div>
 
-                        <ul class="weekdays">
+<%--                        <ul class="weekdays">
+                            <li>Su</li>
                             <li>Mo</li>
                             <li>Tu</li>
                             <li>We</li>
                             <li>Th</li>
                             <li>Fr</li>
                             <li>Sa</li>
-                            <li>Su</li>
-                        </ul>
+                        </ul>--%>
 
                         <ul class="days" id="calendar-days">
                             <!-- Días del mes actual se añadirán aquí -->
@@ -324,18 +323,23 @@
                                 }
 
                                 function generateCalendar(month, year) {
-                                    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                    const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+                                    let daysHtml = '';
+                                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+                                    $('#month-year').text(months[month] + ' ' + year);
+
+                                    for (let i = 0; i < 6; i++) {
+                                        daysHtml += `<li>${weekdays[i]}</li>`;
+                                    }
 
                                     const firstDay = new Date(year, month, 1).getDay();
                                     const daysInMonth = getDaysInMonth(month, year);
 
-                                    $('#month-year').text(monthNames[month] + ' ' + year);
-
-                                    let daysHtml = '';
                                     let day = 1;
 
                                     for (let i = 0; i < 6; i++) {
-                                        for (let j = 0; j < 7; j++) {
+                                        for (let j = 0; j < 6; j++) {
                                             if ((i === 0 && j < firstDay) || (day > daysInMonth)) {
                                                 daysHtml += '<li></li>';
                                             } else {
@@ -343,11 +347,13 @@
                                                 day++;
                                             }
                                         }
+                                        if (day > daysInMonth) {
+                                            break;
+                                        }
                                     }
 
                                     $('#calendar-days').html(daysHtml);
                                 }
-
 
                                 function showPreviousMonth() {
                                     currentMonth--;

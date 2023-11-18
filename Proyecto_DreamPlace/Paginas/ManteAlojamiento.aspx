@@ -33,7 +33,8 @@
             </div>
 
             <br />
-            <asp:DropDownList ID="ddlAlojamientos" runat="server" OnSelectedIndexChanged="ddlAlojamientos_SelectedIndexChanged"></asp:DropDownList><br />
+            <asp:DropDownList ID="ddlAlojamientos" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAlojamientos_SelectedIndexChanged">
+            </asp:DropDownList><br />
             <hr />
             <div class="container-info">
                 <h2>Caracteristicas de tu Inmueble</h2>

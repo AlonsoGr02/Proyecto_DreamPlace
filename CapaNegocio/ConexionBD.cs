@@ -898,26 +898,18 @@ namespace CapaNegocio
             return usuario;
         }
         #region Mantenimiento Alojamientos
-        public Inmueble ObtenerDetallesAlojamientos(string correo, string nombreAlojamiento)
+        public Inmueble ObtenerDetallesAlojamientos(string ddlAlojamientos)
         {
             Inmueble detalles = null;
-
-            // Obtener los detalles del alojamiento seleccionado
-            string query = "SELECT i.Nombre, i.Descripcion, i.CantidadPersonas, i.CantidadDormitorios, i.CantidadBanos, i.CantidadCamas, c.Categoria, e.NombreEstado, i.DescripcionEstado " +
-                           "FROM Inmuebles i " +
-                           "JOIN Estados e ON e.IdEstado = i.IdEstado " +
-                           "JOIN Categorias c ON c.IdCategoria = i.IdCategoria " +
-                           "JOIN Usuarios u ON u.IdCedula = i.IdCedula " +
-                           "WHERE u.Correo = @Correo AND i.Nombre = @NombreAlojamiento";
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("SP_DatosInmueblePersonal", connection))
                 {
-                    command.Parameters.AddWithValue("@Correo", correo);
-                    command.Parameters.AddWithValue("@NombreAlojamiento", nombreAlojamiento);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Nombre", ddlAlojamientos);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -927,12 +919,12 @@ namespace CapaNegocio
                             {
                                 Nombre = reader["Nombre"].ToString(),
                                 Descripcion = reader["Descripcion"].ToString(),
-                                CantidadPersonas = Convert.ToInt32(reader["CantidadPersonas"]),
-                                CantidadDormitorios = Convert.ToInt32(reader["CantidadDormitorios"]),
-                                CantidadBanos = Convert.ToInt32(reader["CantidadBanos"]),
-                                CantidadCamas = Convert.ToInt32(reader["CantidadCamas"]),
-                                IdCategoria = Convert.ToInt32(reader["Categoria"]),
-                                IdEstado = Convert.ToInt32(reader["NombreEstado"]),
+                                CantidadPersonas = GetSafeInt(reader, "CantidadPersonas"),
+                                CantidadDormitorios = GetSafeInt(reader, "CantidadDormitorios"),
+                                CantidadBanos = GetSafeInt(reader, "CantidadBanos"),
+                                CantidadCamas = GetSafeInt(reader, "CantidadCamas"),
+                                IdCategoria = GetSafeInt(reader, "Categoria"),
+                                IdEstado = GetSafeInt(reader, "NombreEstado"),
                                 DescripcionEstado = reader["DescripcionEstado"].ToString()
                             };
                         }
@@ -942,8 +934,13 @@ namespace CapaNegocio
 
             return detalles;
         }
+        private int GetSafeInt(SqlDataReader reader, string columnName)
+        {
+            int result;
+            return int.TryParse(reader[columnName].ToString(), out result) ? result : 0;
+        }
 
-        public void CargarAlojamientosEnDropDownList(DropDownList ddlAlojamientos, string correoUsuario)
+        public void CargarNombresInmuebles(DropDownList ddlAlojamientos, string correoUsuario)
         {
             // Obtener los nombres de los alojamientos
             string query = "SELECT Nombre " +

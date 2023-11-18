@@ -21,8 +21,9 @@ namespace Proyecto_DreamPlace.Paginas
                 if (Session["Correo"] != null)
                 {
                     string correoSession = Session["Correo"].ToString();
-                    BD.CargarAlojamientosEnDropDownList(ddlAlojamientos, correoSession);
+                    BD.CargarNombresInmuebles(ddlAlojamientos, correoSession);
                     CargarImagenes();
+
                 }
                 else
                 {
@@ -48,31 +49,20 @@ namespace Proyecto_DreamPlace.Paginas
         }
         protected void ddlAlojamientos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarDetallesAlojamiento();
-        }
-
-
-        private void CargarDetallesAlojamiento()
-        {
-            
-            string correoUsuario = Session["Correo"].ToString();
             string nombreAlojamiento = ddlAlojamientos.SelectedValue;
+            Inmueble inmueble = BD.ObtenerDetallesAlojamientos(nombreAlojamiento);
 
-            // Llamar al método para obtener detalles del alojamiento
-            Inmueble detallesAlojamiento = BD.ObtenerDetallesAlojamientos(correoUsuario, nombreAlojamiento);
-
-            if (detallesAlojamiento != null)
+            if (inmueble != null)
             {
-                // Asignar los valores a los controles correspondientes
-                txtNombre.Text = detallesAlojamiento.Nombre;
-                txtDescripcion.Text = detallesAlojamiento.Descripcion;
-                txtCantidadP.Text = detallesAlojamiento.CantidadPersonas.ToString();
-                txtCantidadD.Text = detallesAlojamiento.CantidadDormitorios.ToString();
-                txtCantidadB.Text = detallesAlojamiento.CantidadBanos.ToString();
-                txtCantiCamas.Text = detallesAlojamiento.CantidadCamas.ToString();
-                ddlCategoria.SelectedValue = detallesAlojamiento.IdCategoria.ToString();
-                ddlEstado.SelectedValue = detallesAlojamiento.IdEstado.ToString();
-                txtDescripcionEstado.Text = detallesAlojamiento.DescripcionEstado;
+                txtNombre.Text = inmueble.Nombre;
+                txtDescripcion.Text = inmueble.Descripcion;
+                txtCantidadP.Text = inmueble.CantidadPersonas.ToString();
+                txtCantidadD.Text = inmueble.CantidadDormitorios.ToString();
+                txtCantidadB.Text = inmueble.CantidadBanos.ToString();
+                txtCantiCamas.Text = inmueble.CantidadCamas.ToString();
+                ddlCategoria.SelectedValue = inmueble.IdCategoria.ToString();
+                ddlEstado.SelectedValue = inmueble.IdEstado.ToString();
+                txtDescripcionEstado.Text = inmueble.DescripcionEstado;
             }
         }
     }

@@ -136,7 +136,7 @@
     background-color: #2a3f92; /* Color de fondo */
     color: #fff; /* Color del texto */
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-family: 'Montserrat', sans-serif;

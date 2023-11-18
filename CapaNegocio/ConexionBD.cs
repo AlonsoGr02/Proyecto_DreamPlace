@@ -1366,11 +1366,57 @@ namespace CapaNegocio
             }
         }
 
-        public static void InsertarPagos(string IdNTarjeta, decimal TotalAPagar,int IdInmueble,string IdCedula)
-        {
-            string insertQuery = "INSERT INTO HistorialPagos (IdNTarjeta, TotalAPagar, IdInmueble, IdCedula) " +
-                                 "VALUES (@IdNTarjeta, @TotalAPagar, @IdInmueble,@IdCedula)";
 
+        public static bool TieneSaldoSuficiente(string IdNTarjeta, decimal montoAPagar)
+        {
+            string selectQuery = "SELECT Saldo FROM MiBanco WHERE IdNTarjeta = @IdNTarjeta";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectQuery, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@IdNTarjeta", IdNTarjeta);
+
+                    object result = selectCommand.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        decimal saldo = Convert.ToDecimal(result);
+                        return saldo >= montoAPagar; 
+                    }
+                }
+            }
+
+            return false; // Si no se encuentra la tarjeta o hay un problema de conexión
+        }
+        public static decimal ObtenerSaldo(string IdNTarjeta)
+        {
+            string selectQuery = "SELECT Saldo FROM MiBanco WHERE IdNTarjeta = @IdNTarjeta";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectQuery, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@IdNTarjeta", IdNTarjeta);
+
+                    object result = selectCommand.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return Convert.ToDecimal(result);
+                    }
+                }
+            }
+
+            return 0; // Si no se encuentra la tarjeta o hay un problema de conexión
+        }
+
+
+        public static void InsertarPagos(string IdNTarjeta, decimal TotalAPagar, int IdInmueble, string IdCedula)
+        {
+            // Realizar la inserción en el historial de pagos
+            string insertQuery = "INSERT INTO HistorialPagos (IdNTarjeta, TotalAPagar, IdInmueble, IdCedula) " +
+                                 "VALUES (@IdNTarjeta, @TotalAPagar, @IdInmueble, @IdCedula)";
 
             using (SqlConnection connection = new SqlConnection(cadenaCon))
             {
@@ -1381,15 +1427,79 @@ namespace CapaNegocio
                     insertCommand.Parameters.AddWithValue("@TotalAPagar", TotalAPagar);
                     insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);
                     insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
-                    
 
                     insertCommand.ExecuteNonQuery();
+                }
+
+                decimal saldoActual = ObtenerSaldo(IdNTarjeta);
+                decimal nuevoSaldo = saldoActual - TotalAPagar;
+
+                string updateQuery = "UPDATE MiBanco SET Saldo = @NuevoSaldo WHERE IdNTarjeta = @IdNTarjeta";
+                using (SqlCommand updateCommand = new SqlCommand(updateQuery, connection))
+                {
+                    updateCommand.Parameters.AddWithValue("@NuevoSaldo", nuevoSaldo);
+                    updateCommand.Parameters.AddWithValue("@IdNTarjeta", IdNTarjeta);
+
+                    updateCommand.ExecuteNonQuery();
                 }
             }
         }
 
 
-    }// Fin de la clase Conexion
+        public static bool FechasReservadasExisten(DateTime FechaI, DateTime FechaF, int idInmueble)
+        {
+            string consulta = "SELECT COUNT(*) FROM FechasReservadas " +
+                              "WHERE IdInmueble = @IdInmueble AND " +
+                              "((FechaI BETWEEN @FechaI AND @FechaF) OR " +
+                              "(FechaF BETWEEN @FechaI AND @FechaF))";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdInmueble", idInmueble);
+                    cmd.Parameters.AddWithValue("@FechaI", FechaI);
+                    cmd.Parameters.AddWithValue("@FechaF", FechaF);
+
+                    conexion.Open();
+                    int cantidadReservas = (int)cmd.ExecuteScalar();
+
+                    return cantidadReservas > 0;
+                }
+            }
+        }
+
+        public static List<DateTime> ObtenerFechasReservadas()
+        {
+            List<DateTime> fechasReservadas = new List<DateTime>();
+
+            string consulta = "SELECT FechaI, FechaF FROM FechasReservadas";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    conexion.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime fechaI = Convert.ToDateTime(reader["FechaI"]);
+                        DateTime fechaF = Convert.ToDateTime(reader["FechaF"]);
+
+                        for (DateTime fecha = fechaI; fecha <= fechaF; fecha = fecha.AddDays(1))
+                        {
+                            fechasReservadas.Add(fecha);
+                        }
+                    }
+                }
+            }
+
+            return fechasReservadas;
+        }
+
+
+    }
 }
 
 

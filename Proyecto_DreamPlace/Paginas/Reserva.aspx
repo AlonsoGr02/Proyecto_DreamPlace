@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Reserva.aspx.cs" Inherits="Proyecto_DreamPlace.Reserva" %>
 
+<%@ Import Namespace="Newtonsoft.Json" %>
+<%@ Import Namespace="CapaNegocio" %>
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -57,10 +60,14 @@
                         <div id="topnav" class="topnav-container" runat="server">
                             <div class="topnav">
                                 <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" CssClass="searchButton" />
-                                <asp:Button ID="Button1" runat="server" Text="Filtrar"  CssClass="searchButton" />
+                                <asp:Button ID="Button1" runat="server" Text="Filtrar" CssClass="searchButton" />
                                 <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
                             </div>
                         </div>
+
+
+                        <asp:Label class="hotel-title" ID="lblMensajeError" runat="server" Text=""></asp:Label>
+
 
                         <div class="icon-container" id="menu-trigger">
                             <div class="menu-icon">
@@ -306,16 +313,6 @@
                             </ul>
                         </div>
 
-                        <%--                        <ul class="weekdays">
-                            <li>Su</li>
-                            <li>Mo</li>
-                            <li>Tu</li>
-                            <li>We</li>
-                            <li>Th</li>
-                            <li>Fr</li>
-                            <li>Sa</li>
-                        </ul>--%>
-
                         <ul class="days" id="calendar-days">
                             <!-- Días del mes actual se añadirán aquí -->
                         </ul>
@@ -325,6 +322,7 @@
                             $(document).ready(function () {
                                 let currentMonth;
                                 let currentYear;
+                                let fechasReservadas = <%= Newtonsoft.Json.JsonConvert.SerializeObject(CapaNegocio.ConexionBD.ObtenerFechasReservadas()) %>;
 
                                 function getDaysInMonth(month, year) {
                                     return new Date(year, month + 1, 0).getDate();
@@ -337,7 +335,7 @@
 
                                     $('#month-year').text(months[month] + ' ' + year);
 
-                                    for (let i = 0; i < 6; i++) {
+                                    for (let i = 0; i < 7; i++) {
                                         daysHtml += `<li>${weekdays[i]}</li>`;
                                     }
 
@@ -347,7 +345,7 @@
                                     let day = 1;
 
                                     for (let i = 0; i < 6; i++) {
-                                        for (let j = 0; j < 6; j++) {
+                                        for (let j = 0; j < 7; j++) {
                                             if ((i === 0 && j < firstDay) || (day > daysInMonth)) {
                                                 daysHtml += '<li></li>';
                                             } else {
@@ -361,6 +359,22 @@
                                     }
 
                                     $('#calendar-days').html(daysHtml);
+
+                                    applyReservationClasses(); // Aplicar clases de reserva después de generar el calendario
+                                }
+
+                                function applyReservationClasses() {
+                                    $('ul.days li').each(function () {
+                                        const day = parseInt($(this).text(), 10);
+                                        const currentDate = new Date(currentYear, currentMonth, day);
+                                        const formattedCurrentDate = currentDate.toISOString().split('T')[0]; // Convertir a formato YYYY-MM-DD
+
+                                        if (fechasReservadas.includes(formattedCurrentDate)) {
+                                            $(this).addClass('reservada'); // Aplicar estilo para fechas reservadas
+                                        } else {
+                                            $(this).addClass('no-reservada'); // Aplicar estilo para fechas no reservadas
+                                        }
+                                    });
                                 }
 
                                 function showPreviousMonth() {
@@ -391,6 +405,7 @@
                                 generateCalendar(currentMonth, currentYear);
                             });
                         </script>
+
 
                         <%--ModalReserva--%>
 

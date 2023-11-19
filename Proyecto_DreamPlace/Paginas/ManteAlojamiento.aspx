@@ -57,13 +57,13 @@
                 <asp:TextBox ID="txtCantiCamas" runat="server" AutoCompleteType="Disabled"></asp:TextBox><br />
 
                 <asp:Label ID="Label8" runat="server" Text="Categoria:"></asp:Label><br />
-                <asp:DropDownList ID="ddlCategoria" runat="server"></asp:DropDownList><br />
+                <asp:DropDownList ID="ddlCategoria" runat="server" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"></asp:DropDownList><br />
 
                 <asp:Label ID="Label9" runat="server" Text="Estado:"></asp:Label><br />
                 <asp:DropDownList ID="ddlEstado" runat="server"></asp:DropDownList><br />
 
                 <asp:Label ID="Label10" runat="server" Text="Descripción del Estado :"></asp:Label><br />
-                <asp:TextBox ID="txtDescripcionEstado" runat="server" palaceholder="Sin Descripción" AutoCompleteType="Disabled"></asp:TextBox><br />
+                <asp:TextBox ID="txtDescripcionEstado" runat="server" placeholder="Sin Descripción" AutoCompleteType="Disabled"></asp:TextBox><br />
             </div>
             <div class="container-image">
                 <asp:FileUpload ID="SubirImagen" runat="server" CssClass="botonSubir"/><br />

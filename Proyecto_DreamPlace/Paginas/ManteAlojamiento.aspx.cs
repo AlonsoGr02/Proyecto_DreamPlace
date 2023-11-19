@@ -22,6 +22,7 @@ namespace Proyecto_DreamPlace.Paginas
                 {
                     string correoSession = Session["Correo"].ToString();
                     BD.CargarNombresInmuebles(ddlAlojamientos, correoSession);
+                    BD.CargarCategorias(ddlCategoria);
                     CargarImagenes();
 
                 }
@@ -51,6 +52,7 @@ namespace Proyecto_DreamPlace.Paginas
         {
             string nombreAlojamiento = ddlAlojamientos.SelectedValue;
             Inmueble inmueble = BD.ObtenerDetallesAlojamientos(nombreAlojamiento);
+          
 
             if (inmueble != null)
             {
@@ -60,11 +62,19 @@ namespace Proyecto_DreamPlace.Paginas
                 txtCantidadD.Text = inmueble.CantidadDormitorios.ToString();
                 txtCantidadB.Text = inmueble.CantidadBanos.ToString();
                 txtCantiCamas.Text = inmueble.CantidadCamas.ToString();
-                //ddlCategoria.SelectedValue = inmueble.IdCategoria.ToString();
-                BD.CargarCategoriasInmueble(ddlCategoria, ddlAlojamientos);
-                ddlEstado.SelectedValue = inmueble.IdEstado.ToString();
+
+                BD.CargarCategoriasInmueble(ddlCategoria, nombreAlojamiento);
+                BD.CargarCategorias(ddlCategoria);
+
+                BD.CargarEstadosInmueble(ddlEstado, nombreAlojamiento);
+                BD.CargarEstados(ddlEstado);
+
                 txtDescripcionEstado.Text = inmueble.DescripcionEstado;
             }
+        }
+
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }

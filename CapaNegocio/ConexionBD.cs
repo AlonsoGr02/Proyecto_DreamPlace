@@ -1507,35 +1507,42 @@ namespace CapaNegocio
             }
         }
 
-        public static List<DateTime> ObtenerFechasReservadas()
+        public static List<string> ObtenerFechasReservadas(int idInmueble)
         {
-            List<DateTime> fechasReservadas = new List<DateTime>();
+            List<string> fechasReservadas = new List<string>();
 
-            string consulta = "SELECT FechaI, FechaF FROM FechasReservadas";
+            string consulta = "SELECT FechaI, FechaF FROM FechasReservadas WHERE IdInmueble = @IdInmueble";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {
                 using (SqlCommand cmd = new SqlCommand(consulta, conexion))
                 {
-                    conexion.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@IdInmueble", idInmueble);
 
-                    while (reader.Read())
+                    try
                     {
-                        DateTime fechaI = Convert.ToDateTime(reader["FechaI"]);
-                        DateTime fechaF = Convert.ToDateTime(reader["FechaF"]);
+                        conexion.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
 
-                        for (DateTime fecha = fechaI; fecha <= fechaF; fecha = fecha.AddDays(1))
+                        while (reader.Read())
                         {
-                            fechasReservadas.Add(fecha);
+                            DateTime fechaI = Convert.ToDateTime(reader["FechaI"]);
+                            DateTime fechaF = Convert.ToDateTime(reader["FechaF"]);
+
+                            for (DateTime fecha = fechaI; fecha <= fechaF; fecha = fecha.AddDays(1))
+                            {
+                                fechasReservadas.Add(fecha.ToString("yyyy-MM-dd"));
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al obtener fechas reservadas: " + ex.Message);
                     }
                 }
             }
-
             return fechasReservadas;
         }
-
 
     }
 }

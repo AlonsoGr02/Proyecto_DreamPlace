@@ -14,6 +14,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -183,6 +185,54 @@
                                 <asp:Button class="send-button" ID="btnAbrirmodalReserva" runat="server" Text="Reservar" OnClick="AbrirModal" />
                             </div>
 
+                            <%--Modal error reserva--%>
+                            <div id="MostrarModalError" class="modal" style="display: none; justify-content: center; align-items: center;">
+                                <div class="modal-content" style="text-align: center;">
+                                    <span onclick="CerrarModalError()" style="cursor: pointer; float: right;">&times;</span>
+                                    <h2 style="font-size: 2em;">Error</h2>
+                                    <div style="font-size: 1.2em; margin-bottom: 10px;">La fecha seleccionada no está disponible</div>
+                                    <div>
+                                        <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                function AbrirModalError() {
+                                    var modal = document.getElementById("MostrarModalError");
+                                    modal.style.display = "flex"; // Cambiamos a "flex" para mostrar el modal
+                                }
+
+                                function CerrarModalError() {
+                                    var modal = document.getElementById("MostrarModalError");
+                                    modal.style.display = "none";
+                                }
+                            </script>
+
+
+                            <%--Modal error reserva--%>
+                            <div id="MostrarModalError" class="modal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="CerrarModalError()">&times;</span>
+                                    <h2>Error <i class="fa fa-times-circle" style="color: red;"></i></h2>
+                                    <p>La fecha seleccionada no está disponible</p>
+                                </div>
+                            </div>
+
+                            <script>
+                                function AbrirModalError() {
+                                    var modal = document.getElementById("MostrarModalError");
+                                    modal.style.display = "block";
+                                }
+
+                                function CerrarModalError() {
+                                    var modal = document.getElementById("MostrarModalError");
+                                    modal.style.display = "none";
+                                }
+
+                            </script>
+
 
                             <asp:Panel ID="imageGallery" runat="server" CssClass="image-gallery">
                                 <div class="image-gallery">
@@ -305,7 +355,7 @@
                             <label class="hotel-title" id="Label7">Fechas disponibles:</label>
                         </div>
                         <br />
-                        <div class="month">
+                        <%--  <div class="month">
                             <ul>
                                 <li class="prev">&#10094;</li>
                                 <li class="next">&#10095;</li>
@@ -370,9 +420,15 @@
                                         const formattedCurrentDate = currentDate.toISOString().split('T')[0]; // Convertir a formato YYYY-MM-DD
 
                                         if (fechasReservadas.includes(formattedCurrentDate)) {
-                                            $(this).addClass('reservada'); // Aplicar estilo para fechas reservadas
+                                            $(this).css({
+                                                'background-color': 'red',    // Color de fondo para fechas reservadas
+                                                'color': 'white'              // Color del texto para fechas reservadas
+                                            });
                                         } else {
-                                            $(this).addClass('no-reservada'); // Aplicar estilo para fechas no reservadas
+                                            $(this).css({
+                                                'background-color': 'green',  // Color de fondo para fechas no reservadas
+                                                'color': 'white'              // Color del texto para fechas no reservadas
+                                            });
                                         }
                                     });
                                 }
@@ -404,7 +460,12 @@
                                 currentYear = today.getFullYear();
                                 generateCalendar(currentMonth, currentYear);
                             });
-                        </script>
+                        </script>--%>
+
+
+
+
+                        <asp:Calendar ID="calendar" runat="server" CssClass="customCalendar" OnDayRender="calendar_DayRender"></asp:Calendar>
 
 
                         <%--ModalReserva--%>

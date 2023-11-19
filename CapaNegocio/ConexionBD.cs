@@ -897,27 +897,20 @@ namespace CapaNegocio
 
             return usuario;
         }
+
         #region Mantenimiento Alojamientos
-        public Inmueble ObtenerDetallesAlojamientos(string correo, string nombreAlojamiento)
+        public Inmueble ObtenerDetallesAlojamientos(string ddlAlojamientos)
         {
             Inmueble detalles = null;
-
-            // Obtener los detalles del alojamiento seleccionado
-            string query = "SELECT i.Nombre, i.Descripcion, i.CantidadPersonas, i.CantidadDormitorios, i.CantidadBanos, i.CantidadCamas, c.Categoria, e.NombreEstado, i.DescripcionEstado " +
-                           "FROM Inmuebles i " +
-                           "JOIN Estados e ON e.IdEstado = i.IdEstado " +
-                           "JOIN Categorias c ON c.IdCategoria = i.IdCategoria " +
-                           "JOIN Usuarios u ON u.IdCedula = i.IdCedula " +
-                           "WHERE u.Correo = @Correo AND i.Nombre = @NombreAlojamiento";
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("SP_DatosInmueblePersonal", connection))
                 {
-                    command.Parameters.AddWithValue("@Correo", correo);
-                    command.Parameters.AddWithValue("@NombreAlojamiento", nombreAlojamiento);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Nombre", ddlAlojamientos);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -927,12 +920,12 @@ namespace CapaNegocio
                             {
                                 Nombre = reader["Nombre"].ToString(),
                                 Descripcion = reader["Descripcion"].ToString(),
-                                CantidadPersonas = Convert.ToInt32(reader["CantidadPersonas"]),
-                                CantidadDormitorios = Convert.ToInt32(reader["CantidadDormitorios"]),
-                                CantidadBanos = Convert.ToInt32(reader["CantidadBanos"]),
-                                CantidadCamas = Convert.ToInt32(reader["CantidadCamas"]),
-                                IdCategoria = Convert.ToInt32(reader["Categoria"]),
-                                IdEstado = Convert.ToInt32(reader["NombreEstado"]),
+                                CantidadPersonas = GetSafeInt(reader, "CantidadPersonas"),
+                                CantidadDormitorios = GetSafeInt(reader, "CantidadDormitorios"),
+                                CantidadBanos = GetSafeInt(reader, "CantidadBanos"),
+                                CantidadCamas = GetSafeInt(reader, "CantidadCamas"),
+                                IdCategoria = GetSafeInt(reader, "Categoria"),
+                                IdEstado = GetSafeInt(reader, "NombreEstado"),
                                 DescripcionEstado = reader["DescripcionEstado"].ToString()
                             };
                         }
@@ -942,8 +935,13 @@ namespace CapaNegocio
 
             return detalles;
         }
+        private int GetSafeInt(SqlDataReader reader, string columnName)
+        {
+            int result;
+            return int.TryParse(reader[columnName].ToString(), out result) ? result : 0;
+        }
 
-        public void CargarAlojamientosEnDropDownList(DropDownList ddlAlojamientos, string correoUsuario)
+        public void CargarNombresInmuebles(DropDownList ddlAlojamientos, string correoUsuario)
         {
             // Obtener los nombres de los alojamientos
             string query = "SELECT Nombre " +
@@ -974,6 +972,40 @@ namespace CapaNegocio
                 }
             }
         }
+
+        public void CargarCategoriasInmueble(DropDownList ddlCategorias)
+        {
+            string query = @"
+                     SELECT DISTINCT c.Categoria
+                     FROM Categorias c
+                     LEFT JOIN Inmuebles i ON c.IdCategoria = i.IdCategoria
+                     LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula;";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlCategorias.Items.Clear(); // Limpiar las opciones existentes
+
+                        // Agrega la opción inicial
+                        ddlCategorias.Items.Add(new ListItem("Selecciona una categoría", string.Empty));
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string categoria = reader["Categoria"].ToString();
+                            ddlCategorias.Items.Add(categoria);
+                        }
+                    }
+                }
+            }
+        }
+
+
         #endregion
 
 
@@ -1174,7 +1206,7 @@ namespace CapaNegocio
             }
         }
 
-        
+
         public static string[] ObtenerPrecioInmueble(int idInmueble)
         {
             string obtenerDatosInmuebleQuery = "SELECT  Total FROM Total WHERE IdInmueble = @IdInmueble";
@@ -1301,7 +1333,7 @@ namespace CapaNegocio
         }
 
 
-        public static void InsertarFechaReservada( DateTime fechaInicio, DateTime fechaFin, int idInmueble, string IdCedula)
+        public static void InsertarFechaReservada(DateTime fechaInicio, DateTime fechaFin, int idInmueble, string IdCedula)
         {
             string insertQuery = "INSERT INTO FechasReservadas (FechaI, FechaF, IdInmueble, IdCedula) VALUES (@FechaInicio, @FechaFin, @IdInmueble, @IdCedula)";
 
@@ -1347,7 +1379,7 @@ namespace CapaNegocio
 
 
 
-        public static void InsertarReserva( string idCedula, int idInmueble, int cantidadHuespedes, string idNTarjeta, int IdFechaReservada)
+        public static void InsertarReserva(string idCedula, int idInmueble, int cantidadHuespedes, string idNTarjeta, int IdFechaReservada)
         {
             string insertQuery = "INSERT INTO Reservas (IdCedula, IdInmueble, CantidadHuespedes, IdNTarjeta, IdFechaReservada) " +
                                  "VALUES (@IdCedula, @IdInmueble, @CantidadHuespedes, @IdNTarjeta, @IdFechaReservada)";
@@ -1385,7 +1417,7 @@ namespace CapaNegocio
                     if (result != null && result != DBNull.Value)
                     {
                         decimal saldo = Convert.ToDecimal(result);
-                        return saldo >= montoAPagar; 
+                        return saldo >= montoAPagar;
                     }
                 }
             }
@@ -1512,5 +1544,5 @@ namespace CapaNegocio
 
 
 
-       
+
 

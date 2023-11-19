@@ -31,12 +31,12 @@
             </div>
             <br />
             
-            <asp:TextBox ID="registerCedula" runat="server" placeholder="Cédula" required></asp:TextBox><br />
-            <asp:TextBox ID="registerUsername" runat="server" placeholder="Correo Electrónico" required></asp:TextBox><br />
-            <asp:TextBox ID="registerNombre" runat="server" placeholder="Nombre" required></asp:TextBox><br />
-            <asp:TextBox ID="registerApellidos" runat="server" placeholder="Apellidos" required></asp:TextBox><br />
-            <asp:TextBox ID="registerFechaNac" runat="server" type="date" CssClass="date-input" required></asp:TextBox><br />
-            <asp:TextBox ID="registerTelefono" runat="server" placeholder="Teléfono" required></asp:TextBox><br />
+            <asp:TextBox ID="registerCedula" runat="server" placeholder="Cédula" ></asp:TextBox><br />
+            <asp:TextBox ID="registerUsername" runat="server" placeholder="Correo Electrónico" ></asp:TextBox><br />
+            <asp:TextBox ID="registerNombre" runat="server" placeholder="Nombre" ></asp:TextBox><br />
+            <asp:TextBox ID="registerApellidos" runat="server" placeholder="Apellidos" ></asp:TextBox><br />
+            <asp:TextBox ID="registerFechaNac" runat="server" type="date" CssClass="date-input" ></asp:TextBox><br />
+            <asp:TextBox ID="registerTelefono" runat="server" placeholder="Teléfono" ></asp:TextBox><br />
             <select id="seleccionarOp" runat="server">
                             <option value="1">Húesped</option>
                             <option value="2">Anfitrión</option>
@@ -44,10 +44,10 @@
             <br />
             <hr />
             <asp:Label ID="lblInfo" runat="server" Text="Adjunta la foto frontal de la cédula"></asp:Label><br />
-            <asp:FileUpload ID="FileUploadFrontal" runat="server" CssClass="botonSubir" required/><br />
+            <asp:FileUpload ID="FileUploadFrontal" runat="server" CssClass="botonSubir" /><br />
 
             <asp:Label ID="lblInfoTrasera" runat="server" Text="Adjunta la foto trasera de la cédula"></asp:Label><br />
-            <asp:FileUpload ID="FileUploadTrasera" runat="server" CssClass="botonSubir" required/><br />
+            <asp:FileUpload ID="FileUploadTrasera" runat="server" CssClass="botonSubir" /><br />
 
             <asp:Button ID="btnGuardar" runat="server" Text="Registrarme" OnClick="btnGuardar_Click" CssClass="botonSubir" /><br />
             <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>

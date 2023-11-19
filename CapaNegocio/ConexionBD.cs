@@ -973,13 +973,42 @@ namespace CapaNegocio
             }
         }
 
-        public void CargarCategoriasInmueble(DropDownList ddlCategorias)
+        public void CargarCategoriasInmueble(DropDownList ddlCategorias, string nombreInmueble)
         {
             string query = @"
-                     SELECT DISTINCT c.Categoria
+                   SELECT c.Categoria
                      FROM Categorias c
                      LEFT JOIN Inmuebles i ON c.IdCategoria = i.IdCategoria
-                     LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula;";
+                     LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula
+                       WHERE i.Nombre = @Nombre;";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nombre", nombreInmueble);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlCategorias.Items.Clear(); // Limpiar las opciones existentes
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string categoria = reader["Categoria"].ToString();
+                            ddlCategorias.Items.Add(categoria);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public void CargarCategorias(DropDownList ddlCategoria)
+        {
+            string query = "SELECT DISTINCT Categoria FROM Categorias";
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
@@ -989,16 +1018,71 @@ namespace CapaNegocio
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        ddlCategorias.Items.Clear(); // Limpiar las opciones existentes
-
-                        // Agrega la opción inicial
-                        ddlCategorias.Items.Add(new ListItem("Selecciona una categoría", string.Empty));
+                        ddlCategoria.Items.Clear(); // Limpiar las opciones existentes
 
                         // Verificar si hay filas devueltas
                         while (reader.Read())
                         {
                             string categoria = reader["Categoria"].ToString();
-                            ddlCategorias.Items.Add(categoria);
+                            ddlCategoria.Items.Add(categoria);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void CargarEstadosInmueble(DropDownList ddlEstado, string nombreInmueble)
+        {
+            string query = @"
+                   SELECT DISTINCT e.NombreEstado
+                        FROM Estados e
+                        LEFT JOIN Inmuebles i ON e.IdEstado = i.IdEstado
+                        LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula
+                        WHERE i.Nombre = @Nombre;";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nombre", nombreInmueble);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlEstado.Items.Clear(); // Limpiar las opciones existentes
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string categoria = reader["NombreEstado"].ToString();
+                            ddlEstado.Items.Add(categoria);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public void CargarEstados(DropDownList ddlEstados)
+        {
+            string query = "SELECT  distinct NombreEstado FROM Estados";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlEstados.Items.Clear(); // Limpiar las opciones existentes
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string categoria = reader["NombreEstado"].ToString();
+                            ddlEstados.Items.Add(categoria);
                         }
                     }
                 }

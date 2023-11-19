@@ -51,5 +51,10 @@ namespace Proyecto_DreamPlace.Paginas
                 }
             }
         }
+
+        protected void btnDepositar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("LoginMiBanco.aspx");
+        }
     }
 }

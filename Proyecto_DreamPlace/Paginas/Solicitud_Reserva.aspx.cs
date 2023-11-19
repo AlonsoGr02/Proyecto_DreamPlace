@@ -73,8 +73,6 @@ namespace Proyecto_DreamPlace.Paginas
                 string IdCedula = txtCedula.Text;
                 int idInmueble = (int)Session["IdInmueble"];
                 string numtarjeta = txtNumeroTarjeta.Text;
-                int idFechaReservada = ConexionBD.ObtenerIdFechaReservada(IdCedula);
-                ConexionBD.InsertarReserva(IdCedula, idInmueble, cantidadAdultos, numtarjeta, idFechaReservada);
 
                 string lbTotal = lblTotal.Text;
 
@@ -87,13 +85,23 @@ namespace Proyecto_DreamPlace.Paginas
                     if (ConexionBD.TieneSaldoSuficiente(numtarjeta, costoTotal))
                     {
                         ConexionBD.InsertarPagos(numtarjeta, costoTotal, idInmueble, IdCedula);
-                        lblTotal.Text = "¡Pago realizado con exito!";
 
+                        DateTime fechaLlegada, fechaSalida;
+                        if (DateTime.TryParse(txtfechaLlegada.Text, out fechaLlegada) && DateTime.TryParse(txtfechaSalida.Text, out fechaSalida))
+                        {
+                            Session["FechaLlegada"] = fechaLlegada;
+                            Session["FechaSalida"] = fechaSalida;
+                            ConexionBD.InsertarFechaReservada(fechaLlegada, fechaSalida, idInmueble, IdCedula);
+
+                            int idFechaReservada = ConexionBD.ObtenerIdFechaReservada(IdCedula);
+                            ConexionBD.InsertarReserva(IdCedula, idInmueble, cantidadAdultos, numtarjeta, idFechaReservada);
+
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
+                        }
                     }
                     else
                     {
-                        
-                        lblTotal.Text = "¡Saldo insuficiente para realizar el pago!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalSaldoInsuficiente();", true);
                         return; 
                     }
                 }
@@ -102,26 +110,6 @@ namespace Proyecto_DreamPlace.Paginas
                     // Manejar el escenario en el que lbTotal no es un valor decimal válido después de la limpieza
                     // Por ejemplo, mostrar un mensaje de error o establecer un valor predeterminado
                 }
-
-
-
-
-
-
-                DateTime fechaLlegada, fechaSalida;
-                if (DateTime.TryParse(txtfechaLlegada.Text, out fechaLlegada) && DateTime.TryParse(txtfechaSalida.Text, out fechaSalida))
-                {
-                    if (idFechaReservada > 0)
-                    {
-                        // Por si se modifica la FECHA
-                    }
-                    else
-                    {
-                        // Manejar la situación en la que no se encuentra IdFechaReservada para el IdCedula dado
-                        // Por ejemplo, mostrar un mensaje de error o tomar alguna otra acción adecuada
-                    }
-                }
-
             }
         }
 

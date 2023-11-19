@@ -9,7 +9,7 @@
     <link href="Estilos/reservas.css" rel="stylesheet" />
     <link href="Estilos/navbar.css" rel="stylesheet" />
     <link href="../Estilos/solicitudreserva.css" rel="stylesheet" />
-
+    <link href="../Estilos/Modal.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -17,14 +17,14 @@
         <asp:ScriptManager runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                    <nav class="navbar">
-                        <a href="Inicio.aspx">
-                            <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo" class="logo" />
-                        </a>
-                        <div class="navbar-links">
-                            <a href="#"><i class="fa-solid fa-user" style="color: #000000; font-size: 30px;"></i></a>
-                        </div>
-                    </nav>
+                <nav class="navbar">
+                    <a href="Inicio.aspx">
+                        <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo" class="logo" />
+                    </a>
+                    <div class="navbar-links">
+                        <a href="#"><i class="fa-solid fa-user" style="color: #000000; font-size: 30px;"></i></a>
+                    </div>
+                </nav>
 
 
                 <div class="container">
@@ -85,7 +85,7 @@
                     <asp:Label ID="Label2" runat="server" Text="Costo por noche:"></asp:Label>
                     <asp:Label ID="lblCostoxNoche" runat="server" Text=""></asp:Label><br />
 
-<%--                    <asp:Label ID="Label3" runat="server" Text="Impuestos:"></asp:Label>
+                    <%--                    <asp:Label ID="Label3" runat="server" Text="Impuestos:"></asp:Label>
                     <asp:Label ID="lblImpuestos" runat="server" Text=""></asp:Label><br />--%>
 
                     <asp:Label ID="Label4" runat="server" Text="Total:"></asp:Label>
@@ -99,6 +99,64 @@
                 </div>
                 </div>
                 </div>
+
+                <!-- Modal de reserva exitosa -->
+                <div id="MostrarModalExito" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">¡Reserva Exitosa!</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Tu reserva se ha realizado con éxito</div>
+                        <div>
+                            <i class="fa fa-check-circle" style="color: green; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "flex"; 
+                        setTimeout(function () {
+                            CerrarModalExito();
+                        }, 6000);
+                    }
+                    function CerrarModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "none"; 
+                    }
+
+
+                </script>
+
+
+                <%--saldo insuficiente--%>
+
+                <!-- Modal de saldo insuficiente -->
+                <div id="MostrarModalSaldoInsuficiente" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">Saldo Insuficiente</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">No hay saldo suficiente en tu tarjeta</div>
+                        <div>
+                            <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalSaldoInsuficiente() {
+                        var modal = document.getElementById("MostrarModalSaldoInsuficiente");
+                        modal.style.display = "flex"; // Mostrar el modal
+                        setTimeout(function () {
+                            CerrarModalSaldoInsuficiente();
+                        }, 6000);
+                    }
+
+                    function CerrarModalSaldoInsuficiente() {
+                        var modal = document.getElementById("MostrarModalSaldoInsuficiente");
+                        modal.style.display = "none"; // Ocultar el modal
+                    }
+                </script>
+
+
             </ContentTemplate>
         </asp:UpdatePanel>
     </form>

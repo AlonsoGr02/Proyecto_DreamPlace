@@ -188,7 +188,6 @@
                             <%--Modal error reserva--%>
                             <div id="MostrarModalError" class="modal" style="display: none; justify-content: center; align-items: center;">
                                 <div class="modal-content" style="text-align: center;">
-                                    <span onclick="CerrarModalError()" style="cursor: pointer; float: right;">&times;</span>
                                     <h2 style="font-size: 2em;">Error</h2>
                                     <div style="font-size: 1.2em; margin-bottom: 10px;">La fecha seleccionada no está disponible</div>
                                     <div>
@@ -201,8 +200,12 @@
                             <script>
                                 function AbrirModalError() {
                                     var modal = document.getElementById("MostrarModalError");
-                                    modal.style.display = "flex"; // Cambiamos a "flex" para mostrar el modal
+                                    modal.style.display = "flex";
+                                    setTimeout(function () {
+                                        CerrarModalError();
+                                    }, 6000);
                                 }
+                                
 
                                 function CerrarModalError() {
                                     var modal = document.getElementById("MostrarModalError");
@@ -210,28 +213,6 @@
                                 }
                             </script>
 
-
-                            <%--Modal error reserva--%>
-                            <div id="MostrarModalError" class="modal">
-                                <div class="modal-content">
-                                    <span class="close" onclick="CerrarModalError()">&times;</span>
-                                    <h2>Error <i class="fa fa-times-circle" style="color: red;"></i></h2>
-                                    <p>La fecha seleccionada no está disponible</p>
-                                </div>
-                            </div>
-
-                            <script>
-                                function AbrirModalError() {
-                                    var modal = document.getElementById("MostrarModalError");
-                                    modal.style.display = "block";
-                                }
-
-                                function CerrarModalError() {
-                                    var modal = document.getElementById("MostrarModalError");
-                                    modal.style.display = "none";
-                                }
-
-                            </script>
 
 
                             <asp:Panel ID="imageGallery" runat="server" CssClass="image-gallery">

@@ -145,7 +145,6 @@ namespace Proyecto_DreamPlace
 
                     if (!fechasReservadas)
                     {
-                        ConexionBD.InsertarFechaReservada(fechaLlegada, fechaSalida, idInmueble, IdCedula);
                         Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
                     }
                     else

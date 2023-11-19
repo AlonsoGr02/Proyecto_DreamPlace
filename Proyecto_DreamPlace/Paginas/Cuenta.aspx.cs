@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using CapaNegocio.Models;
 using CapaNegocio;
 using System.Data;
+using System.Reflection.Emit;
+using Label = System.Web.UI.WebControls.Label;
 
 namespace Proyecto_DreamPlace.Paginas
 {
@@ -84,34 +86,71 @@ namespace Proyecto_DreamPlace.Paginas
             }
         }
 
-        protected void btnStar_Click(object sender, EventArgs e)
+        protected void chkStar_CheckedChanged(object sender, EventArgs e)
         {
-            Button clickedButton = (Button)sender;
-            int value = int.Parse(clickedButton.Attributes["data-value"]);
+            RepeaterItem item = ((Control)sender).NamingContainer as RepeaterItem;
 
-            // Almacena el estado de la estrella en una variable de sesión
-            Session["StarValue"] = value;
+            CheckBox chkStar1 = (CheckBox)item.FindControl("chkStar1");
+            CheckBox chkStar2 = (CheckBox)item.FindControl("chkStar2");
+            CheckBox chkStar3 = (CheckBox)item.FindControl("chkStar3");
+            CheckBox chkStar4 = (CheckBox)item.FindControl("chkStar4");
+            CheckBox chkStar5 = (CheckBox)item.FindControl("chkStar5");
 
-            // Marca las estrellas seleccionadas hasta el valor clickeado
-            foreach (Control control in Controls)
-            {
-                if (control is Button starButton)
-                {
-                    int buttonValue = int.Parse(starButton.Attributes["data-value"]);
-                    starButton.CssClass = buttonValue <= value ? "star-button-selected" : "star-button";
-                }
-            }
+            int totalStars = 0;
+
+            if (chkStar1.Checked) totalStars += 1;
+            if (chkStar2.Checked) totalStars += 1;
+            if (chkStar3.Checked) totalStars += 1;
+            if (chkStar4.Checked) totalStars += 1;
+            if (chkStar5.Checked) totalStars += 1;
+
+            // Mostrar el total en una etiqueta
+            Label4.Text = totalStars.ToString();
         }
+
+
+
 
         protected void btnEnviarCalificacion_Click(object sender, EventArgs e)
         {
-            // Obtiene la suma de las estrellas seleccionadas desde la variable de sesión
-            int sumaEstrellas = Convert.ToInt32(Session["StarValue"]);
+            try
+            {
+                string correoC = Session["Correo"].ToString();
+                int totalStars = Convert.ToInt32(Label4.Text);
+                int idInmueble = -1; // Valor por defecto, puede ser -1 o cualquier otro valor que represente "no encontrado"
 
-            // Aquí puedes utilizar 'sumaEstrellas' para enviar la calificación al servidor
-            // Realiza las operaciones necesarias con 'sumaEstrellas'
+                // Recorrer el Repeater para obtener el IdInmueble correspondiente al ítem seleccionado
+                foreach (RepeaterItem item in repeaterInmuebles.Items)
+                {
+                    CheckBox chkStar1 = (CheckBox)item.FindControl("chkStar1");
+                    if (chkStar1 != null && chkStar1.Checked)
+                    {
+                        // Obtener el IdInmueble desde el Repeater
+                        System.Web.UI.WebControls.Label lblIdInmueble = (Label)item.FindControl("lblIdInmueble");
+                        if (lblIdInmueble != null)
+                        {
+                            idInmueble = Convert.ToInt32(lblIdInmueble.Text); // Convertir el texto del Label a int
+                            break; 
+                        }
+                    }
+                }
+
+                string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
+
+                // Guardar en variables de sesión
+                Session["IdCedula"] = IdCedula;
+                Session["TotalCalificacion"] = totalStars;
+                Session["IdInmueble"] = idInmueble;
+
+          
+                ConexionBD.InsertarCalificacion(totalStars, IdCedula, idInmueble);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalErrorCalificacion();", true);
+            } 
+
         }
-
-
     }
 }

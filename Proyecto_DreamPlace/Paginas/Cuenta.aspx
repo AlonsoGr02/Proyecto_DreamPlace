@@ -355,7 +355,7 @@
                 </div>
 
                 <!-- Tarjeta de Evaluancion Experiencias -->
-                <div class="flip-card" onclick="AbrirModalEvalucion()">
+                <div class="flip-card" onclick="AbrirModalEvalucion(event)">
 
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
@@ -373,7 +373,6 @@
                 <!-- Modal Evaluación -->
                 <div id="modalEvaluacion" class="modal">
                     <div class="modal-content">
-                        <span class="close" id="closeModalButton">&times;</span>
                         <div class="modal-content-inner">
                             <h2>Calificar Anfitrión</h2>
                             <div class="container">
@@ -394,56 +393,123 @@
                                             <td><%# Eval("NombreInmueble") %></td>
                                             <td>
                                                 <%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %>
-                                            </td>                                            
-                                                <td>
-                                                    <asp:Button ID="btnStar1" runat="server" CssClass="star-button" Text="&#9733;" data-value="1" OnClick="btnStar_Click" />
-                                                    <asp:Button ID="btnStar2" runat="server" CssClass="star-button" Text="&#9733;" data-value="2" OnClick="btnStar_Click" />
-                                                    <asp:Button ID="btnStar3" runat="server" CssClass="star-button" Text="&#9733;" data-value="3" OnClick="btnStar_Click" />
-                                                    <asp:Button ID="btnStar4" runat="server" CssClass="star-button" Text="&#9733;" data-value="4" OnClick="btnStar_Click" />
-                                                    <asp:Button ID="btnStar5" runat="server" CssClass="star-button" Text="&#9733;" data-value="5" OnClick="btnStar_Click" />
-                                                </td>                                            
+                                            </td>
+                                            <td>
+                                                <label class="star-checkbox" style="display: flex; align-items: center;">
+                                                    <asp:CheckBox ID="chkStar1" runat="server" CssClass="star-checkbox" Text="1" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar2" runat="server" CssClass="star-checkbox" Text="2" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar3" runat="server" CssClass="star-checkbox" Text="3" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar4" runat="server" CssClass="star-checkbox" Text="4" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar5" runat="server" CssClass="star-checkbox" Text="5" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                </label>
+                                            </td>
+                                            <td style="display: none;">
+                                                <asp:Label ID="lblIdInmueble" runat="server" Text='<%# Eval("IdInmueble") %>' Visible="false"></asp:Label>
+                                            </td>
                                         </tr>
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         </tbody>
-                                     </table>
+                        </table>
                                     </FooterTemplate>
                                 </asp:Repeater>
-
-                                <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Anfitrión" />
+                                <asp:Label ID="Label4" runat="server" Text="Label" Visible="false"></asp:Label>
+                                <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Anfitrión" OnClick="btnEnviarCalificacion_Click" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-
-                <!-- Agrega este script al final de tu archivo HTML -->
                 <script>
-                    function AbrirModalEvalucion() {
-                        // Abre el modal al hacer clic en la tarjeta                       
+                    function AbrirModalEvalucion(event) {
+                        event.stopPropagation(); // Detener la propagación del clic para evitar cerrar el modal
                         var modal = document.getElementById("modalEvaluacion");
                         modal.style.display = "block";
-                        // Puedes agregar más lógica aquí si es necesario
                     }
 
-                    // Cierra el modal si se hace clic en la "x"
-                    document.getElementById("closeModalButton").onclick = function () {
+                    document.getElementById("btnEvaluarAnfitrion").onclick = function () {
                         var modal = document.getElementById("modalEvaluacion");
                         modal.style.display = "none";
                     }
 
-                    // Cierra el modal si se hace clic fuera del contenido del modal
+                    var checkboxes = document.querySelectorAll('.star-checkbox input[type="checkbox"]');
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.onclick = function (event) {
+                            event.stopPropagation();
+                        };
+                    });
+
                     window.onclick = function (event) {
                         var modal = document.getElementById("modalEvaluacion");
-                        var isStarButtonClick = event.target.classList.contains("star-button");
+                        var clickedElement = event.target;
 
-                        if (event.target == modal && !isStarButtonClick) {
+                        var isOutsideModal = !modal.contains(clickedElement);
+
+                        if (isOutsideModal) {
                             modal.style.display = "none";
                         }
                     }
+
                 </script>
 
 
+
+
+                <!-- Modal de calificacion exitosa -->
+                <div id="MostrarModalExito" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">¡Calificación Exitosa!</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Tu calificación se realizó con exito!</div>
+                        <div>
+                            <i class="fa fa-check-circle" style="color: green; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "flex";
+                        setTimeout(function () {
+                            CerrarModalExito();
+                        }, 6000);
+                    }
+                    function CerrarModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "none";
+                    }
+
+
+                </script>
+
+
+                <%--saldo insuficiente--%>
+
+                <!-- Modal de saldo insuficiente -->
+                <div id="MostrarModalErrorCalificacion" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">¡Error!</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Error al calificar</div>
+                        <div>
+                            <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalErrorCalificacion() {
+                        var modal = document.getElementById("MostrarModalErrorCalificacion");
+                        modal.style.display = "flex"; // Mostrar el modal
+                        setTimeout(function () {
+                            CerrarModalSaldoInsuficiente();
+                        }, 6000);
+                    }
+
+                    function CerrarModalSaldoInsuficiente() {
+                        var modal = document.getElementById("MostrarModalErrorCalificacion");
+                        modal.style.display = "none"; // Ocultar el modal
+                    }
+                </script>
 
 
                 <!-- Tarjeta de Denuncias -->

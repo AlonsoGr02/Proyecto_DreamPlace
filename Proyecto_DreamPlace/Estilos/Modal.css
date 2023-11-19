@@ -451,16 +451,25 @@ th, td {
         color: #ffcc00;
     }
 
-.star-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 20px;
-    color: #ffd700; /* Color amarillo para las estrellas */
-    outline: none;
+/* Clase para el estilo base de los checkboxes */
+.star-checkbox input[type="checkbox"] {
+    display: none;
 }
 
-    .star-button:hover,
-    .star-button:focus {
-        color: #ffcc00; /* Color amarillo más claro al pasar el ratón o enfocar */
-    }
+/* Clases para las estrellas vacías */
+.star-checkbox label:before {
+    content: '\2606'; /* Código de estrella vacía */
+    margin-right: 5px;
+}
+
+/* Clases para las estrellas llenas */
+.star-checkbox input[type="checkbox"]:checked + label:before {
+    content: '\2605'; /* Código de estrella llena */
+}
+
+/* Estilo para ocultar los checkboxes y mostrar solo las estrellas */
+.star-checkbox label {
+    display: inline-block;
+    font-size: 24px;
+    cursor: pointer;
+}

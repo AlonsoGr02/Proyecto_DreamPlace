@@ -1631,18 +1631,18 @@ namespace CapaNegocio
             DataTable datos = new DataTable();
 
             string consulta = @"SELECT 
-                                    Inmuebles.Nombre AS NombreInmueble, 
+                                    Inmuebles.Nombre AS NombreInmueble,
+                                    Inmuebles.IdInmueble,
                                     Identificaciones.Nombre AS NombrePropietario, 
                                     Identificaciones.Apellidos AS ApellidoPropietario,
-                                    CASE 
-                                        WHEN CA.IdCalificacion IS NOT NULL THEN 1 
-                                        ELSE 0 
-                                    END AS YaCalificado
+                                    0 AS YaCalificado
                                 FROM Inmuebles
                                 INNER JOIN Reservas ON Inmuebles.IdInmueble = Reservas.IdInmueble
                                 INNER JOIN Identificaciones ON Reservas.IdCedula = Identificaciones.IdCedula
-                                LEFT JOIN CalificacionAlojamiento CA ON Inmuebles.IdInmueble = CA.IdInmueble AND Identificaciones.IdCedula = CA.IdCedula
-                                WHERE Reservas.IdCedula = @IdCedula";
+                                LEFT JOIN CalificacionAlojamiento CA ON Inmuebles.IdInmueble = CA.IdInmueble 
+                                                                     AND Identificaciones.IdCedula = CA.IdCedula
+                                WHERE Reservas.IdCedula = @IdCedula
+                                AND CA.IdCalificacion IS NULL; -- Filtra solo las reservas no calificadas";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {
@@ -1658,6 +1658,25 @@ namespace CapaNegocio
             }
 
             return datos;
+        }
+
+        public static void InsertarCalificacion(int Calificacion, string IdCedula, int IdInmueble)
+        {
+            string insertQuery = "INSERT INTO CalificacionAlojamiento (Calificacion, IdCedula, IdInmueble) " +
+                                 "VALUES (@Calificacion, @IdCedula, @IdInmueble)";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@Calificacion", Calificacion);
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);                    
+
+                    insertCommand.ExecuteNonQuery();
+                }               
+            }
         }
 
     }

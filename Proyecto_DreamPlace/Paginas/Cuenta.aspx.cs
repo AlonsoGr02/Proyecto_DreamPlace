@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CapaNegocio.Models;
 using CapaNegocio;
+using System.Data;
+
 namespace Proyecto_DreamPlace.Paginas
 {
     public partial class Cuenta : System.Web.UI.Page
@@ -27,13 +29,36 @@ namespace Proyecto_DreamPlace.Paginas
                         lblApellido.Text = usuario.Apellidos;
                         lblCorreo.Text = usuario.Correo;
                     }
+
+
+
+                    string correoC = Session["Correo"].ToString();
+
+                    string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
+
+                    DataTable datosAnfitrion = BD.ObtenerDatosAnfitrion(IdCedula);
+
+                    if (datosAnfitrion != null && datosAnfitrion.Rows.Count > 0)
+                    {
+                        repeaterInmuebles.DataSource = datosAnfitrion;
+                        repeaterInmuebles.DataBind();
+                    }
+                    else
+                    {
+                        // Manejar la situación en la que no se encuentran datos
+                    }
+
                 }
                 else
                 {
                     Response.Redirect("Login.aspx");
                 }
+              
+
             }
         }
+
+
         protected void BtnAgregarTarjeta_Click(object sender, EventArgs e)
         {
             try
@@ -58,6 +83,35 @@ namespace Proyecto_DreamPlace.Paginas
 
             }
         }
+
+        protected void btnStar_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            int value = int.Parse(clickedButton.Attributes["data-value"]);
+
+            // Almacena el estado de la estrella en una variable de sesión
+            Session["StarValue"] = value;
+
+            // Marca las estrellas seleccionadas hasta el valor clickeado
+            foreach (Control control in Controls)
+            {
+                if (control is Button starButton)
+                {
+                    int buttonValue = int.Parse(starButton.Attributes["data-value"]);
+                    starButton.CssClass = buttonValue <= value ? "star-button-selected" : "star-button";
+                }
+            }
+        }
+
+        protected void btnEnviarCalificacion_Click(object sender, EventArgs e)
+        {
+            // Obtiene la suma de las estrellas seleccionadas desde la variable de sesión
+            int sumaEstrellas = Convert.ToInt32(Session["StarValue"]);
+
+            // Aquí puedes utilizar 'sumaEstrellas' para enviar la calificación al servidor
+            // Realiza las operaciones necesarias con 'sumaEstrellas'
+        }
+
 
     }
 }

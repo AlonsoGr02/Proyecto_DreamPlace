@@ -1625,6 +1625,41 @@ namespace CapaNegocio
             return fechasReservadas;
         }
 
+
+        public DataTable ObtenerDatosAnfitrion(string IdCedula)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT 
+                                    Inmuebles.Nombre AS NombreInmueble, 
+                                    Identificaciones.Nombre AS NombrePropietario, 
+                                    Identificaciones.Apellidos AS ApellidoPropietario,
+                                    CASE 
+                                        WHEN CA.IdCalificacion IS NOT NULL THEN 1 
+                                        ELSE 0 
+                                    END AS YaCalificado
+                                FROM Inmuebles
+                                INNER JOIN Reservas ON Inmuebles.IdInmueble = Reservas.IdInmueble
+                                INNER JOIN Identificaciones ON Reservas.IdCedula = Identificaciones.IdCedula
+                                LEFT JOIN CalificacionAlojamiento CA ON Inmuebles.IdInmueble = CA.IdInmueble AND Identificaciones.IdCedula = CA.IdCedula
+                                WHERE Reservas.IdCedula = @IdCedula";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
     }
 }
 

@@ -21,15 +21,15 @@
     <form id="form1" runat="server">
         <header style="background-color: #BDE038;">
             <div class="logo">
-                <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo"/>
+                <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo" />
             </div>
-            
+
 
             <div id="topnav" class="topnav-container" runat="server">
                 <div class="topnav">
                     <a class="active" href="#home">Destacados</a>
                     <a href="#about">Lugares Famosos</a>
-                    <input type="text" placeholder="Buscar ..."/>
+                    <input type="text" placeholder="Buscar ..." />
                 </div>
             </div>
 
@@ -137,7 +137,7 @@
             <div class="information">
                 <h1>Cuenta</h1>
                 <div class="flex-container">
-                    
+
                     <asp:Label ID="Label2" runat="server" Text=" · "></asp:Label>
                     <asp:Label ID="Label1" runat="server" Text=" · "></asp:Label>
                     <asp:Label ID="lblNombre" runat="server" Text="Nombre completo"></asp:Label>
@@ -355,7 +355,7 @@
                 </div>
 
                 <!-- Tarjeta de Evaluancion Experiencias -->
-                <div class="flip-card">
+                <div class="flip-card" onclick="AbrirModalEvalucion()">
 
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
@@ -367,6 +367,84 @@
                         </div>
                     </div>
                 </div>
+
+
+
+                <!-- Modal Evaluación -->
+                <div id="modalEvaluacion" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeModalButton">&times;</span>
+                        <div class="modal-content-inner">
+                            <h2>Calificar Anfitrión</h2>
+                            <div class="container">
+                                <asp:Repeater ID="repeaterInmuebles" runat="server">
+                                    <HeaderTemplate>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre Inmueble</th>
+                                                    <th>Propietario</th>
+                                                    <th>Calificación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%# Eval("NombreInmueble") %></td>
+                                            <td>
+                                                <%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %>
+                                            </td>                                            
+                                                <td>
+                                                    <asp:Button ID="btnStar1" runat="server" CssClass="star-button" Text="&#9733;" data-value="1" OnClick="btnStar_Click" />
+                                                    <asp:Button ID="btnStar2" runat="server" CssClass="star-button" Text="&#9733;" data-value="2" OnClick="btnStar_Click" />
+                                                    <asp:Button ID="btnStar3" runat="server" CssClass="star-button" Text="&#9733;" data-value="3" OnClick="btnStar_Click" />
+                                                    <asp:Button ID="btnStar4" runat="server" CssClass="star-button" Text="&#9733;" data-value="4" OnClick="btnStar_Click" />
+                                                    <asp:Button ID="btnStar5" runat="server" CssClass="star-button" Text="&#9733;" data-value="5" OnClick="btnStar_Click" />
+                                                </td>                                            
+                                        </tr>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+                                     </table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+
+                                <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Anfitrión" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Agrega este script al final de tu archivo HTML -->
+                <script>
+                    function AbrirModalEvalucion() {
+                        // Abre el modal al hacer clic en la tarjeta                       
+                        var modal = document.getElementById("modalEvaluacion");
+                        modal.style.display = "block";
+                        // Puedes agregar más lógica aquí si es necesario
+                    }
+
+                    // Cierra el modal si se hace clic en la "x"
+                    document.getElementById("closeModalButton").onclick = function () {
+                        var modal = document.getElementById("modalEvaluacion");
+                        modal.style.display = "none";
+                    }
+
+                    // Cierra el modal si se hace clic fuera del contenido del modal
+                    window.onclick = function (event) {
+                        var modal = document.getElementById("modalEvaluacion");
+                        var isStarButtonClick = event.target.classList.contains("star-button");
+
+                        if (event.target == modal && !isStarButtonClick) {
+                            modal.style.display = "none";
+                        }
+                    }
+                </script>
+
+
+
 
                 <!-- Tarjeta de Denuncias -->
                 <div class="flip-card">

@@ -7,22 +7,22 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CapaNegocio.Models;
 using Newtonsoft.Json;
+using System.Web.Optimization;
 
 namespace Proyecto_DreamPlace
 {
     public partial class Reserva : System.Web.UI.Page
     {
-
+        private int idInmueble;
         protected void Page_Load(object sender, EventArgs e)
         {
-            int idInmueble;
 
             if (!IsPostBack)
             {
                 if (int.TryParse(Request.QueryString["IdInmueble"], out idInmueble))
                 {
                     string correo = Request.QueryString["Correo"];
-
+                    Session["IdInmueble"] = idInmueble;
 
                     List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
 
@@ -60,7 +60,7 @@ namespace Proyecto_DreamPlace
                     rptAmenities.DataSource = listaServicios;
                     rptAmenities.DataBind();
 
-                    List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas();
+                    List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas(idInmueble);
 
                     CalendarUpdate(DateTime.Today.Year, DateTime.Today.Month);
 
@@ -83,28 +83,25 @@ namespace Proyecto_DreamPlace
         protected void CalendarUpdate(int year, int month)
         {
             calendar.VisibleDate = new DateTime(year, month, 1);
-            monthYearLabel.Text = calendar.VisibleDate.ToString("MMMM yyyy");
 
         }
 
         protected void calendar_DayRender(object sender, DayRenderEventArgs e)
         {
-            // Implementa aquí la lógica para personalizar la apariencia de cada día del calendario
-            // Por ejemplo, puedes cambiar el color o estilo de fondo de días específicos según su estado de reserva
-
-            // Obtener la fecha del día actual que se está renderizando
             DateTime currentDay = e.Day.Date;
 
-            // Verificar si la fecha actual está entre las fechas reservadas y aplicar un estilo específico
-            List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas();
-            if (fechasReservadas.Contains(currentDay.ToString("yyyy-MM-dd")))
+            if (Session["IdInmueble"] != null && int.TryParse(Session["IdInmueble"].ToString(), out idInmueble))
             {
-                e.Cell.BackColor = System.Drawing.Color.Red; // Establecer el fondo en rojo para fechas reservadas
-                                                             // Otros estilos o acciones si es necesario para fechas reservadas
-            }
-            else
-            {
-                e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#A3AB78");
+                List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas(idInmueble);
+
+                if (fechasReservadas.Contains(currentDay.ToString("yyyy-MM-dd")))
+                {
+                    e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#E53935");
+                }
+                else
+                {
+                    e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#A3AB78");
+                }
             }
         }
 
@@ -125,6 +122,8 @@ namespace Proyecto_DreamPlace
         {
 
         }
+ 
+
         protected void ReservarButton_Click(object sender, EventArgs e)
         {
             int idInmueble;
@@ -142,30 +141,24 @@ namespace Proyecto_DreamPlace
                     string correo = Request.QueryString["Correo"];
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                    // Verificar si las fechas ya están reservadas para el inmueble
                     bool fechasReservadas = ConexionBD.FechasReservadasExisten(fechaLlegada, fechaSalida, idInmueble);
 
                     if (!fechasReservadas)
                     {
-                        // Las fechas no están reservadas, proceder con la reserva
                         ConexionBD.InsertarFechaReservada(fechaLlegada, fechaSalida, idInmueble, IdCedula);
                         Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
                     }
                     else
                     {
-                        // Las fechas ya están reservadas, mostrar un mensaje de error
-                        // Por ejemplo, puedes establecer un mensaje en un label para informar al usuario
-                        lblMensajeError.Text = "Las fechas seleccionadas ya están reservadas para este inmueble.";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalError();", true);
                     }
                 }
                 else
                 {
-                    // Manejar el escenario en el que las fechas no son válidas
                     lblMensajeError.Text = "Por favor, introduce fechas válidas.";
                 }
             }
         }
-
 
         public string ObtenerIconClass(byte[] icono, string nombre)
         {

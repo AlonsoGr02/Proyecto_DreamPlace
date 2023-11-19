@@ -431,7 +431,7 @@ p {
         }
 
         .no-reservada {
-            background-color: green;
+            background-color: #fff;
             color: white;
         }
         /* Estilos básicos para el calendario */
@@ -447,7 +447,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid limegreen;
+    border-bottom: 2px solid ;
     margin-bottom: 10px;
 }
 
@@ -461,13 +461,14 @@ p {
         display: inline-block;
         cursor: pointer;
         font-size: 20px;
-        color: limegreen;
+        background-color: #BDE038;
+        
     }
 
 .customCalendar {
     width: 100%;
     border-collapse: collapse;
-    border: 2px solid limegreen;
+    border: 2px solid;
     padding: 20px 25px;
     width: 100%;
     background: #BDE038;
@@ -475,7 +476,7 @@ p {
 }
 
     .customCalendar th {
-        background-color: lightgray;
+        background-color: #BDE038;
         color: black;
     }
 
@@ -483,6 +484,7 @@ p {
         text-align: center;
         padding: 5px;
         border: 1px solid;
+
     }
 
     .customCalendar .otherMonth {

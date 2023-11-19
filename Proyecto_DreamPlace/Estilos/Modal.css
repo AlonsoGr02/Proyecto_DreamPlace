@@ -36,3 +36,362 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+/*Modal error reserva*/
+
+/* Estilo del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Botón para cerrar el modal */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+
+/*intento modal error */
+#modal-success {
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+    #modal-success .Modal {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 80px 50%;
+        -webkit-transform: translate(-50%);
+        -ms-transform: translate(-50%);
+        transform: translate(-50%);
+        width: 33% !important;
+        background: url(https://ucarecdn.com/ac0455c1-5e73-4139-af3a-4c5981b5db43/patternsuccess.png) repeat;
+    }
+
+        #modal-success .Modal .ModalHeader {
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+            #modal-success .Modal .ModalHeader a {
+                margin: 0;
+                text-align: right;
+                font-size: 1.5em;
+                color: #d3d3d3;
+            }
+
+                #modal-success .Modal .ModalHeader a:hover {
+                    color: #000;
+                }
+
+        #modal-success .Modal .ModalBody {
+            background-color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 auto !important;
+        }
+
+            #modal-success .Modal .ModalBody .icon {
+                padding: 15px;
+                width: 80px;
+                height: 80px;
+                background-color: #98fb98;
+                border-radius: 50%;
+                position: relative;
+                left: 50%;
+                -webkit-transform: translate(-50%);
+                -ms-transform: translate(-50%);
+                transform: translate(-50%);
+            }
+
+                #modal-success .Modal .ModalBody .icon i {
+                    font-size: 2.5em;
+                    color: #fff;
+                    line-height: 50px;
+                }
+
+            #modal-success .Modal .ModalBody h2 {
+                font-size: 3em;
+                font-family: 'Roboto';
+                font-weight: 900;
+                margin: 20px 0 6px 0;
+                color: #000;
+            }
+
+            #modal-success .Modal .ModalBody p {
+                font-family: 'Roboto';
+                font-weight: 300;
+                font-size: 1em;
+                color: #333;
+            }
+
+        #modal-success .Modal .ModalFooter {
+            margin: 20px 0 30px 0;
+            padding: 0;
+        }
+
+            #modal-success .Modal .ModalFooter a {
+                display: block;
+                font-family: 'SourceSansPro', sans-serif;
+                color: #000;
+                font-size: 1.5em;
+                font-weight: 400;
+                padding: 10px 30px;
+                background-color: #f5f5f5;
+                width: 30%;
+                text-align: center;
+                border-radius: 3px;
+                margin: 0 auto;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+                #modal-success .Modal .ModalFooter a:hover {
+                    background-color: #000;
+                    color: #fff;
+                }
+
+#modal-error {
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+    #modal-error .Modal {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 80px 50%;
+        -webkit-transform: translate(-50%);
+        -ms-transform: translate(-50%);
+        transform: translate(-50%);
+        width: 33% !important;
+        background: url(https://ucarecdn.com/4c718ce5-e13e-4a2a-8d84-5b01d9c88e9b/patternerror.png) repeat;
+    }
+
+        #modal-error .Modal .ModalHeader {
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+            #modal-error .Modal .ModalHeader a {
+                margin: 0;
+                text-align: right;
+                font-size: 1.5em;
+                color: #d3d3d3;
+            }
+
+                #modal-error .Modal .ModalHeader a:hover {
+                    color: #000;
+                }
+
+        #modal-error .Modal .ModalBody {
+            background-color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 auto !important;
+        }
+
+            #modal-error .Modal .ModalBody .icon {
+                padding: 15px;
+                width: 80px;
+                height: 80px;
+                background-color: #ff4500;
+                border-radius: 50%;
+                position: relative;
+                left: 50%;
+                -webkit-transform: translate(-50%);
+                -ms-transform: translate(-50%);
+                transform: translate(-50%);
+            }
+
+                #modal-error .Modal .ModalBody .icon i {
+                    font-size: 2.5em;
+                    color: #fff;
+                    line-height: 50px;
+                }
+
+            #modal-error .Modal .ModalBody h2 {
+                font-size: 3em;
+                font-family: 'Roboto';
+                font-weight: 900;
+                margin: 20px 0 6px 0;
+                color: #000;
+            }
+
+            #modal-error .Modal .ModalBody p {
+                font-family: 'Roboto';
+                font-weight: 300;
+                font-size: 1em;
+                color: #333;
+            }
+
+        #modal-error .Modal .ModalFooter {
+            margin: 20px 0 30px 0;
+            padding: 0;
+        }
+
+            #modal-error .Modal .ModalFooter a {
+                display: block;
+                font-family: 'SourceSansPro', sans-serif;
+                color: #000;
+                font-size: 1.5em;
+                font-weight: 400;
+                padding: 10px 30px;
+                background-color: #f5f5f5;
+                width: 30%;
+                text-align: center;
+                border-radius: 3px;
+                margin: 0 auto;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+                #modal-error .Modal .ModalFooter a:hover {
+                    background-color: #000;
+                    color: #fff;
+                }
+
+#modal-popup {
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+    #modal-popup .Modal {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 80px 50%;
+        -webkit-transform: translate(-50%);
+        -ms-transform: translate(-50%);
+        transform: translate(-50%);
+        width: 33% !important;
+        background: url(https://ucarecdn.com/6ef92b9e-7023-4615-aa8b-c6b8911909ad/patternnewsletter.png) repeat;
+    }
+
+        #modal-popup .Modal .ModalHeader {
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+            #modal-popup .Modal .ModalHeader a {
+                margin: 0;
+                text-align: right;
+                font-size: 1.5em;
+                color: #d3d3d3;
+            }
+
+                #modal-popup .Modal .ModalHeader a:hover {
+                    color: #000;
+                }
+
+        #modal-popup .Modal .ModalBody {
+            background-color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 auto !important;
+        }
+
+            #modal-popup .Modal .ModalBody .icon {
+                padding: 15px;
+                width: 80px;
+                height: 80px;
+                background-color: #ffd700;
+                border-radius: 50%;
+                position: relative;
+                left: 50%;
+                -webkit-transform: translate(-50%);
+                -ms-transform: translate(-50%);
+                transform: translate(-50%);
+            }
+
+                #modal-popup .Modal .ModalBody .icon i {
+                    font-size: 2.5em;
+                    color: #fff;
+                    line-height: 50px;
+                }
+
+            #modal-popup .Modal .ModalBody h2 {
+                font-size: 3em;
+                font-family: 'Roboto';
+                font-weight: 900;
+                margin: 20px 0 6px 0;
+                color: #000;
+            }
+
+            #modal-popup .Modal .ModalBody p {
+                font-family: 'Roboto';
+                font-weight: 300;
+                font-size: 1em;
+                color: #333;
+            }
+
+            #modal-popup .Modal .ModalBody form {
+                margin: 30px 0;
+                padding: 0;
+            }
+
+                #modal-popup .Modal .ModalBody form input[type="submit"] {
+                    border-radius: 3px !important;
+                    border: none !important;
+                    background-color: #ffd700;
+                    font-size: 1.1em;
+                    font-family: 'SourceSansPro', sans-serif;
+                    font-weight: 700;
+                    color: #000;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+
+                #modal-popup .Modal .ModalBody form input[type="email"] {
+                    border-radius: 3px !important;
+                    border: 1px solid #ccc !important;
+                    font-size: 1.1em;
+                    font-family: 'SourceSansPro', sans-serif;
+                    font-weight: 400;
+                    color: #ccc;
+                }
+
+        #modal-popup .Modal .ModalFooter {
+            margin: 20px 0 30px 0;
+            padding: 0;
+        }
+
+            #modal-popup .Modal .ModalFooter a {
+                font-family: 'SourceSansPro', sans-serif;
+                color: #000;
+                font-size: 1em;
+                font-weight: 300;
+                padding: 10px 30px;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+                #modal-popup .Modal .ModalFooter a:hover {
+                    text-decoration: underline;
+                }

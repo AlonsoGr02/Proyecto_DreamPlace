@@ -1504,16 +1504,18 @@ namespace CapaNegocio
             }
         }
 
-        public static List<string> ObtenerFechasReservadas()
+        public static List<string> ObtenerFechasReservadas(int idInmueble)
         {
             List<string> fechasReservadas = new List<string>();
 
-            string consulta = "SELECT FechaI, FechaF FROM FechasReservadas";
+            string consulta = "SELECT FechaI, FechaF FROM FechasReservadas WHERE IdInmueble = @IdInmueble";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {
                 using (SqlCommand cmd = new SqlCommand(consulta, conexion))
                 {
+                    cmd.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
                     try
                     {
                         conexion.Open();
@@ -1531,7 +1533,7 @@ namespace CapaNegocio
                         }
                     }
                     catch (Exception ex)
-                    {                        
+                    {
                         Console.WriteLine("Error al obtener fechas reservadas: " + ex.Message);
                     }
                 }

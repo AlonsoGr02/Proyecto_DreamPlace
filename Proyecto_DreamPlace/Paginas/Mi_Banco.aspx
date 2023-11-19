@@ -26,6 +26,7 @@
                     <asp:Label ID="Label1" runat="server">  >  </asp:Label>
                     <asp:Label ID="Labelseparador" runat="server" Text="Mi Banco "></asp:Label>
                 </div>
+                <br />
                 <h1>Mi Banco</h1>
             </div>
             <hr />
@@ -47,7 +48,7 @@
             <asp:TextBox ID="txtMontoTotal" runat="server" ReadOnly></asp:TextBox>
             <br />
             <hr />
-            <asp:Button ID="btnDepositar" runat="server" Text="Depositar  Fondos" CssClass="fa-solid" />
+            <asp:Button ID="btnDepositar" runat="server" Text="Depositar  Fondos" CssClass="fa-solid" OnClick="btnDepositar_Click" />
 
         </div>
     </form>

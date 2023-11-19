@@ -128,6 +128,7 @@
     <Content Include="Estilos\Css_InfoReservas.css" />
     <Content Include="Estilos\Css_Inicio2.css" />
     <Content Include="Estilos\Css_Inicio3.css" />
+    <Content Include="Estilos\Css_InicioMiBanco.css" />
     <Content Include="Estilos\Css_Login1.css" />
     <Content Include="Estilos\Css_LoginBanco.css" />
     <Content Include="Estilos\Css_ManteA.css" />
@@ -165,6 +166,8 @@
     <Content Include="img\invitado.png" />
     <Content Include="img\Lavadora.png" />
     <Content Include="img\Menu.png" />
+    <Content Include="img\MiBanco.jpg" />
+    <Content Include="img\Mi_Banco.jpg" />
     <Content Include="img\Oficina.png" />
     <Content Include="img\paso1.png" />
     <Content Include="img\paso2.png" />
@@ -183,6 +186,7 @@
     <Content Include="Paginas\Info_Reservas.aspx" />
     <Content Include="Paginas\Inicio.aspx" />
     <Content Include="Paginas\InicioMiBanco.aspx" />
+    <Content Include="Paginas\InicioMiBancoAnf.aspx" />
     <Content Include="Paginas\Login.aspx" />
     <Content Include="Paginas\LoginMiBanco.aspx" />
     <Content Include="Paginas\ManteAlojamiento.aspx" />
@@ -344,6 +348,13 @@
     </Compile>
     <Compile Include="Paginas\InicioMiBanco.aspx.designer.cs">
       <DependentUpon>InicioMiBanco.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\InicioMiBancoAnf.aspx.cs">
+      <DependentUpon>InicioMiBancoAnf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\InicioMiBancoAnf.aspx.designer.cs">
+      <DependentUpon>InicioMiBancoAnf.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

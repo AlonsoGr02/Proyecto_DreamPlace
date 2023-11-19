@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InicioMiBanco.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.InicioMiBanco" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InicioMiBancoAnf.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.InicioMiBancoAnf" %>
 
 <!DOCTYPE html>
 
@@ -134,7 +134,7 @@
                 <hr />
             </div>
             <br />
-              <asp:Label ID="lblCedula" runat="server" Text="Cédula:"></asp:Label><br />
+            <asp:Label ID="lblCedula" runat="server" Text="Cédula:"></asp:Label><br />
             <asp:TextBox ID="txtCedula" runat="server" ReadOnly></asp:TextBox>
             <br />
 
@@ -222,3 +222,4 @@
     </form>
 </body>
 </html>
+

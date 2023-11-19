@@ -14,30 +14,9 @@ namespace Proyecto_DreamPlace.Paginas
         {
 
         }
-
-        protected void Conectar_Click(object sender, EventArgs e)
-        {
-            string correo = Request.Form["idUsuario"];
-            string codigo = Request.Form["password"];
-
-            if (ValidarLogin(correo, codigo))
-            {
-                string CorreoSession = Request.Form["idUsuario"];
-                Session["Correo"] = CorreoSession;
-                lblMensaje.Text = "Inicio de sesión exitoso";
-
-                Response.Redirect("InicioMiBanco.aspx?Correo=" + CorreoSession);
-            }
-            else
-            {
-                lblMensaje.Text = "Código de verificación incorrecto";
-            }
-
-        }
-
         protected void btnSoliCodigo_Click(object sender, EventArgs e)
         {
-            string correo = Request.Form["idUsuario"];
+            string correo = txtcorreo.Text;
 
             if (ValidarCorreo(correo))
             {
@@ -47,18 +26,55 @@ namespace Proyecto_DreamPlace.Paginas
                 string clave = objMetodos.GenerarCodigoNumerico();
                 objConexion.ActualizarClaveUsuario(clave, correo);
                 objMetodos.EnviarCorreo(correo, clave);
-                lblMensaje.Text = "El código de verificación fue enviado al correo " + correo;
+                lblRespu.Text = "El código de verificación fue enviado al correo " + correo;
             }
             else
             {
-                lblMensaje.Text = "El correo proporcionado no está registrado en la base de datos.";
+                lblRespu.Text = "El correo proporcionado no está registrado en la base de datos.";
             }
         }
-
         private bool ValidarCorreo(string correo)
         {
             ConexionBD objConexion = new ConexionBD();
             return objConexion.ExisteCorreo(correo);
+        }
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            ConexionBD Mante = new ConexionBD();
+            string correo = txtcorreo.Text;
+            string codigo = txtcodigoVerificion.Text;
+
+            if (ValidarLogin(correo, codigo))
+            {
+                // Realiza la lógica de obtención del IdRol (asumo que tienes una función para obtener el IdRol del usuario)
+                int idRol = Mante.ObtenerIdRol(correo); // Ajusta esta línea según tu implementación
+
+                // Almacena el IdRol en la sesión para poder acceder a él en la página de destino
+                Session["IdRol"] = idRol;
+
+                string CorreoSession = txtcorreo.Text;
+                Session["Correo"] = CorreoSession;
+                lblRespu.Text = "Inicio de sesión exitoso";
+
+                // Redirige según el IdRol
+                if (idRol == 1)
+                {
+                    Response.Redirect("InicioMiBanco.aspx?Correo=" + CorreoSession);
+                }
+                else if (idRol == 2)
+                {
+                    Response.Redirect("InicioMiBancoAnf.aspx?Correo=" + CorreoSession);
+                }
+                else
+                {
+                    // Maneja cualquier otro caso o muestra un mensaje de error
+                    lblRespu.Text = "Rol no reconocido";
+                }
+            }
+            else
+            {
+                lblRespu.Text = "Código de verificación incorrecto";
+            }
         }
 
         private bool ValidarLogin(string correo, string codigo)
@@ -67,5 +83,6 @@ namespace Proyecto_DreamPlace.Paginas
 
             return objConexion.ValidarLogin(correo, codigo);
         }
+
     }
 }

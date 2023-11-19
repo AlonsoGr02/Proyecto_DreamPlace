@@ -26,9 +26,10 @@
                     <asp:Label ID="Label1" runat="server">  >  </asp:Label>
                     <asp:Label ID="Labelseparador" runat="server" Text="Mi Banco "></asp:Label>
                 </div>
+                <br />
                 <h1>Mi Banco</h1>
             </div>
-            <asp:Label ID="Label6" runat="server" Text="_____________________________"></asp:Label><br />
+            <hr />
   
             <asp:Label ID="lblCedula" runat="server" Text="Cédula:"></asp:Label><br />
             <asp:TextBox ID="txtCedula" runat="server" ReadOnly></asp:TextBox>
@@ -46,8 +47,8 @@
             <asp:Label ID="Label4" runat="server" Text="Monto Total:"></asp:Label><br />
             <asp:TextBox ID="txtMontoTotal" runat="server" ReadOnly></asp:TextBox>
             <br />
-            <asp:Label ID="Label5" runat="server" Text="_____________________________"></asp:Label><br /><br />
-            <asp:Button ID="btnDepositar" runat="server" Text="Depositar  Fondos" CssClass="fa-solid" />
+           <hr />
+            <asp:Button ID="btnDepositar" runat="server" Text="Depositar  Fondos" CssClass="fa-solid" OnClick="btnDepositar_Click" />
 
         </div>
     </form>

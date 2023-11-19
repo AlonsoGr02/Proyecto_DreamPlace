@@ -972,6 +972,40 @@ namespace CapaNegocio
                 }
             }
         }
+
+        public void CargarCategoriasInmueble(DropDownList ddlCategorias)
+        {
+            string query = @"
+                     SELECT DISTINCT c.Categoria
+                     FROM Categorias c
+                     LEFT JOIN Inmuebles i ON c.IdCategoria = i.IdCategoria
+                     LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula;";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlCategorias.Items.Clear(); // Limpiar las opciones existentes
+
+                        // Agrega la opción inicial
+                        ddlCategorias.Items.Add(new ListItem("Selecciona una categoría", string.Empty));
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string categoria = reader["Categoria"].ToString();
+                            ddlCategorias.Items.Add(categoria);
+                        }
+                    }
+                }
+            }
+        }
+
+
         #endregion
 
 
@@ -1172,7 +1206,7 @@ namespace CapaNegocio
             }
         }
 
-        
+
         public static string[] ObtenerPrecioInmueble(int idInmueble)
         {
             string obtenerDatosInmuebleQuery = "SELECT  Total FROM Total WHERE IdInmueble = @IdInmueble";
@@ -1299,7 +1333,7 @@ namespace CapaNegocio
         }
 
 
-        public static void InsertarFechaReservada( DateTime fechaInicio, DateTime fechaFin, int idInmueble, string IdCedula)
+        public static void InsertarFechaReservada(DateTime fechaInicio, DateTime fechaFin, int idInmueble, string IdCedula)
         {
             string insertQuery = "INSERT INTO FechasReservadas (FechaI, FechaF, IdInmueble, IdCedula) VALUES (@FechaInicio, @FechaFin, @IdInmueble, @IdCedula)";
 
@@ -1345,7 +1379,7 @@ namespace CapaNegocio
 
 
 
-        public static void InsertarReserva( string idCedula, int idInmueble, int cantidadHuespedes, string idNTarjeta, int IdFechaReservada)
+        public static void InsertarReserva(string idCedula, int idInmueble, int cantidadHuespedes, string idNTarjeta, int IdFechaReservada)
         {
             string insertQuery = "INSERT INTO Reservas (IdCedula, IdInmueble, CantidadHuespedes, IdNTarjeta, IdFechaReservada) " +
                                  "VALUES (@IdCedula, @IdInmueble, @CantidadHuespedes, @IdNTarjeta, @IdFechaReservada)";
@@ -1383,7 +1417,7 @@ namespace CapaNegocio
                     if (result != null && result != DBNull.Value)
                     {
                         decimal saldo = Convert.ToDecimal(result);
-                        return saldo >= montoAPagar; 
+                        return saldo >= montoAPagar;
                     }
                 }
             }
@@ -1505,5 +1539,5 @@ namespace CapaNegocio
 
 
 
-       
+
 

@@ -1,7 +1,8 @@
 ﻿body {
     display: contents;
+    background-color:#022B42;
 }
-
+/*-----------------------NABVAR---------------------------------*/
 header {
     display: flex;
     justify-content: space-between;
@@ -159,4 +160,152 @@ header {
     /* Mostrar el menú cuando se hace clic */
     .user-menu.active {
         display: block;
+    }
+/*-----------------------CONTENIDO---------------------------------*/
+.container {
+    max-width: 1200px;
+    margin: 10px auto;
+    background-color: #fff;
+    border: solid #003554;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+}
+
+.information {
+    background-color: #004D74;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #004D74;
+    border-radius: 5px;
+    text-align: center;
+}
+
+    input[type="text"][readonly] {
+        background-color: #eee;
+        color: #666;
+        cursor: not-allowed;
+        text-align: center;
+    }
+
+#btnMovimientos {
+    background-color: #003554;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    
+    #btnMovimientos:hover {
+        background-color: #006494;
+    }
+#btnAbrirModalDep {
+    background-color: #003554;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+    #btnAbrirModalDep:hover{
+        background-color: #006494;
+    }
+
+
+/*-----------------------MODALES---------------------------------*/
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: translateY(-50%);
+    border-top: 2px solid rgba(0, 0, 0, 0.7);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .close:hover {
+        color: black;
+    }
+
+.modal-content {
+    background-color: #EEEEEE;
+    margin: 10% auto;
+    padding: 20px;
+    border: 3px solid #176B87;
+    width: 60%;
+    border-radius: 10px;
+}
+
+.close {
+    color: #176B87;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .close:hover {
+        color: #053B50;
+    }
+
+h2 {
+    color: #176B87;
+    margin-bottom: 15px;
+}
+#btnDepositar {
+    background-color: #003554;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    #btnDepositar:hover {
+        background-color: #006494;
+    }
+
+#btnCerrar {
+    background-color: #003554;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    #btnCerrar:hover {
+        background-color: #006494;
     }

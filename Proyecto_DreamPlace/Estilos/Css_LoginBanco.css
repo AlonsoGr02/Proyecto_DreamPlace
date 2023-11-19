@@ -1,150 +1,217 @@
 ﻿body {
-    background-color: #9f9da7;
-    font-size: 1.6rem;
-    font-family: "Open Sans", sans-serif;
-    color: #2b3e51;
+    display: contents;
+    background-color: #022B42;
+}
+/*-----------------------NABVAR---------------------------------*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003554;
+    padding: 10px;
+    color: #003554;
 }
 
-h2 {
-    font-weight: 300;
-    text-align: center;
+/* Estilos para el logo */
+.logo img {
+    width: 70px;
+    height: 70px;
 }
 
-p {
+/* Estilos para el menú */
+.menu img {
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Estilos para el avatar y su cuadro */
+.avatar {
     position: relative;
 }
 
-#login-form-wrap {
+.avatar-box {
+    width: 40px;
+    height: 40px;
     background-color: #fff;
-    width: 40%;
-    margin: 30px auto;
-    text-align: center;
-    padding: 20px 0 0 0;
-    border-radius: 4px;
-    box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    overflow: hidden;
 }
 
-#login-form {
-    padding: 0 60px;
-}
-
-input {
-    display: block;
-    box-sizing: border-box;
+.avatar img {
     width: 100%;
-    outline: none;
-    height: 60px;
-    line-height: 60px;
-    text-align:center;
-    border-radius: 4px;
+    height: 100%;
+    object-fit: cover;
 }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 0 0 0 10px;
-        margin: 0;
-        color: #8a8b8e;
-        border: 1px solid #c2c0ca;
-        font-style: normal;
-        font-size: 16px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        position: relative;
-        display: inline-block;
-        background: none;
+.search-bar input {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.topnav-container {
+    background-color: #f2f2f2;
+    border-radius: 25px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* Estilo de los enlaces de navegación */
+.topnav a {
+    color: black;
+    text-decoration: none;
+    padding: 5px 5px; /* Espacio alrededor de los enlaces */
+    border-radius: 5px;
+}
+
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
     }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus,
-        input[type="email"]:focus {
-            border-color: #3ca9e2;
-        }
+/* Estilo de la barra de búsqueda */
+.topnav input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
 
-            input[type="text"]:focus:invalid,
-            input[type="passsword"]:focus:invalid,
-            input[type="email"]:focus:invalid {
-                color: #cc1e2b;
-                border-color: #cc1e2b;
-            }
+/* Estilo del contenedor de los íconos */
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 25px;
+    background-color: #e9e9e9;
+    padding: 10px 20px;
+    margin-right: 20px;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
 
-        input[type="text"]:valid ~ .validation,
-        input[type="password"]:valid ~ .validation,
-        input[type="email"]:valid ~ .validation {
-            display: block;
-            border-color: #0C0;
-        }
+/* Estilo del icono de usuario */
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #007BFF;
+    text-align: center;
+    line-height: 24px;
+    margin-left: 10px;
+    margin-top: -15px;
+}
 
-            input[type="text"]:valid ~ .validation span,
-            input[type="password"]:valid ~ .validation span,
-            input[type="email"]:valid ~ .validation span {
-                background: #0C0;
-                position: absolute;
-                border-radius: 6px;
-            }
+/* Estilo del icono de menú */
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #007BFF;
+    text-align: center;
+    line-height: 24px;
+}
 
-                input[type="text"]:valid ~ .validation span:first-child,
-                input[type="password"]:valid ~ .validation span:first-child,
-                input[type="email"]:valid ~ .validation span:first-child {
-                    top: 30px;
-                    left: 14px;
-                    width: 20px;
-                    height: 3px;
-                    -webkit-transform: rotate(-45deg);
-                    transform: rotate(-45deg);
-                }
-
-                input[type="text"]:valid ~ .validation span:last-child,
-                input[type="password"]:valid ~ .validation span:last-child,
-                input[type="email"]:valid ~ .validation span:last-child {
-                    top: 35px;
-                    left: 8px;
-                    width: 11px;
-                    height: 3px;
-                    -webkit-transform: rotate(45deg);
-                    transform: rotate(45deg);
-                }
-
-.validation {
+/* Estilo del menú desplegable */
+.user-menu {
     display: none;
     position: absolute;
-    content: " ";
-    height: 60px;
-    width: 30px;
-    right: 15px;
-    top: 0px;
+    top: 35px;
+    right: 0;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-input[type="submit"] {
-    border: none;
-    display: block;
-    background-color: #3ca9e2;
+    .user-menu ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .user-menu li {
+        padding: 10px;
+    }
+
+        /* Estilo para las opciones del menú */
+        .user-menu li a {
+            text-align: left;
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+
+            .user-menu li a:hover {
+                color: #007BFF;
+            }
+
+    /* Estilo para la raya que separa la opción 2 de la opción 3 */
+    .user-menu ul li:nth-child(3) {
+        border-top: 2px solid #ccc;
+    }
+
+    /* Mostrar el menú cuando se hace clic */
+    .user-menu.active {
+        display: block;
+    }
+
+
+.information {
+    background-color: #004D74;
     color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    font-size: 18px;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.container {
+    max-width: 800px;
+    margin: 10px auto;
+    background-color: #fff;
+    border: solid #003554;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
     text-align: center;
 }
 
-    input[type="submit"]:hover {
-        background-color: #329dd5;
-        -webkit-transition: all 0.2s ease;
-        transition: all 0.2s ease;
-    }
+input[type="text"],
+input[type="file"] {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #004D74;
+    border-radius: 5px;
+    text-align: center;
+}
 
-/*#create-account-wrap {
-    background-color: #eeedf1;
-    color: #8a8b8e;
-    font-size: 14px;
-    width: 100%;
-    padding: 10px 0;
-    border-radius: 0 0 4px 4px;
-}*/
+/* Estilo para Label */
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="button"],
+input[type="submit"] {
+    background-color: #003554;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+        background-color: #006494;
+    }

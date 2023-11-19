@@ -26,6 +26,7 @@
                     <asp:Label ID="Label1" runat="server">  >  </asp:Label>
                     <asp:Label ID="Labelseparador" runat="server" Text="Mi Banco "></asp:Label>
                 </div>
+                <br />
                 <h1>Mi Banco</h1>
             </div>
             <hr />

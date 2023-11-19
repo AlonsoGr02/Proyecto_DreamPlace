@@ -8,7 +8,7 @@ using CapaNegocio;
 
 namespace Proyecto_DreamPlace.Paginas
 {
-    public partial class Mi_BancoAnf : System.Web.UI.Page
+    public partial class InicioMiBancoAnf : System.Web.UI.Page
     {
         ConexionBD BD = new ConexionBD();
         protected void Page_Load(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace Proyecto_DreamPlace.Paginas
 
 
                                 txtNTarjeta.Text = infoMiBanco.Item4;
-                                txtMontoTotal.Text = infoMiBanco.Item2.ToString();
+                                txtSaldoDisponible.Text = infoMiBanco.Item2.ToString();
                             }
                         }
                     }
@@ -50,10 +50,6 @@ namespace Proyecto_DreamPlace.Paginas
                     }
                 }
             }
-        }
-        protected void btnDepositar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("LoginMiBanco.aspx");
         }
     }
 }

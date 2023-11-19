@@ -186,6 +186,7 @@
     <Content Include="Paginas\Info_Reservas.aspx" />
     <Content Include="Paginas\Inicio.aspx" />
     <Content Include="Paginas\InicioMiBanco.aspx" />
+    <Content Include="Paginas\InicioMiBancoAnf.aspx" />
     <Content Include="Paginas\Login.aspx" />
     <Content Include="Paginas\LoginMiBanco.aspx" />
     <Content Include="Paginas\ManteAlojamiento.aspx" />
@@ -347,6 +348,13 @@
     </Compile>
     <Compile Include="Paginas\InicioMiBanco.aspx.designer.cs">
       <DependentUpon>InicioMiBanco.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\InicioMiBancoAnf.aspx.cs">
+      <DependentUpon>InicioMiBancoAnf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\InicioMiBancoAnf.aspx.designer.cs">
+      <DependentUpon>InicioMiBancoAnf.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

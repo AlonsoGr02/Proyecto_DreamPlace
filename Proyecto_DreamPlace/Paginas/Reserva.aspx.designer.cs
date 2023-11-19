@@ -258,6 +258,24 @@ namespace Proyecto_DreamPlace
         protected global::System.Web.UI.WebControls.Repeater rptAmenities;
 
         /// <summary>
+        /// Control monthYearLabel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label monthYearLabel;
+
+        /// <summary>
+        /// Control calendar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar calendar;
+
+        /// <summary>
         /// Control btnMenosAdultos.
         /// </summary>
         /// <remarks>

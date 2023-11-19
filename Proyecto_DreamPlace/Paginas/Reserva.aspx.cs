@@ -60,9 +60,54 @@ namespace Proyecto_DreamPlace
                     rptAmenities.DataSource = listaServicios;
                     rptAmenities.DataBind();
 
+                    List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas();
+
+                    CalendarUpdate(DateTime.Today.Year, DateTime.Today.Month);
+
                 }
             }
         }
+
+        protected void PrevButton_Click(object sender, EventArgs e)
+        {
+            DateTime current = calendar.VisibleDate;
+            CalendarUpdate(current.AddMonths(-1).Year, current.AddMonths(-1).Month);
+        }
+
+        protected void NextButton_Click(object sender, EventArgs e)
+        {
+            DateTime current = calendar.VisibleDate;
+            CalendarUpdate(current.AddMonths(1).Year, current.AddMonths(1).Month);
+        }
+
+        protected void CalendarUpdate(int year, int month)
+        {
+            calendar.VisibleDate = new DateTime(year, month, 1);
+            monthYearLabel.Text = calendar.VisibleDate.ToString("MMMM yyyy");
+
+        }
+
+        protected void calendar_DayRender(object sender, DayRenderEventArgs e)
+        {
+            // Implementa aquí la lógica para personalizar la apariencia de cada día del calendario
+            // Por ejemplo, puedes cambiar el color o estilo de fondo de días específicos según su estado de reserva
+
+            // Obtener la fecha del día actual que se está renderizando
+            DateTime currentDay = e.Day.Date;
+
+            // Verificar si la fecha actual está entre las fechas reservadas y aplicar un estilo específico
+            List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas();
+            if (fechasReservadas.Contains(currentDay.ToString("yyyy-MM-dd")))
+            {
+                e.Cell.BackColor = System.Drawing.Color.Red; // Establecer el fondo en rojo para fechas reservadas
+                                                             // Otros estilos o acciones si es necesario para fechas reservadas
+            }
+            else
+            {
+                e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#A3AB78");
+            }
+        }
+
         protected void AbrirModal(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModal();", true);

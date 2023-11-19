@@ -305,7 +305,7 @@
                             <label class="hotel-title" id="Label7">Fechas disponibles:</label>
                         </div>
                         <br />
-                        <div class="month">
+                        <%--  <div class="month">
                             <ul>
                                 <li class="prev">&#10094;</li>
                                 <li class="next">&#10095;</li>
@@ -370,9 +370,15 @@
                                         const formattedCurrentDate = currentDate.toISOString().split('T')[0]; // Convertir a formato YYYY-MM-DD
 
                                         if (fechasReservadas.includes(formattedCurrentDate)) {
-                                            $(this).addClass('reservada'); // Aplicar estilo para fechas reservadas
+                                            $(this).css({
+                                                'background-color': 'red',    // Color de fondo para fechas reservadas
+                                                'color': 'white'              // Color del texto para fechas reservadas
+                                            });
                                         } else {
-                                            $(this).addClass('no-reservada'); // Aplicar estilo para fechas no reservadas
+                                            $(this).css({
+                                                'background-color': 'green',  // Color de fondo para fechas no reservadas
+                                                'color': 'white'              // Color del texto para fechas no reservadas
+                                            });
                                         }
                                     });
                                 }
@@ -404,7 +410,19 @@
                                 currentYear = today.getFullYear();
                                 generateCalendar(currentMonth, currentYear);
                             });
-                        </script>
+                        </script>--%>
+
+
+                        <div class="month">
+                            <ul>
+                                <asp:Label ID="monthYearLabel" runat="server" Text=""></asp:Label>
+
+
+
+                            </ul>
+                        </div>
+
+                        <asp:Calendar ID="calendar" runat="server" CssClass="customCalendar" OnDayRender="calendar_DayRender"></asp:Calendar>
 
 
                         <%--ModalReserva--%>

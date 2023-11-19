@@ -424,22 +424,67 @@ p {
         .days li:hover {
             background-color: #f2f2f2;
         }
-/* Agrega tus estilos CSS personalizados aquí */
-.reservada {
-    background-color: red;
-    color: white;
-}
+        /* Agrega tus estilos CSS personalizados aquí */
+        .reservada {
+            background-color: red;
+            color: white;
+        }
 
-.no-reservada {
-    background-color: green;
-    color: white;
-}
-/* Estilos básicos para el calendario */
+        .no-reservada {
+            background-color: green;
+            color: white;
+        }
+        /* Estilos básicos para el calendario */
+        .month {
+            /* Agrega estilos para el encabezado del calendario si es necesario */
+        }
+
+        .days {
+            /* Agrega estilos para los días del calendario si es necesario */
+        }
+
 .month {
-    /* Agrega estilos para el encabezado del calendario si es necesario */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid limegreen;
+    margin-bottom: 10px;
 }
 
-.days {
-    /* Agrega estilos para los días del calendario si es necesario */
+    .month ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .month li {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 20px;
+        color: limegreen;
+    }
+
+.customCalendar {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid limegreen;
+    padding: 20px 25px;
+    width: 100%;
+    background: #BDE038;
+    text-align: center;
 }
 
+    .customCalendar th {
+        background-color: lightgray;
+        color: black;
+    }
+
+    .customCalendar td {
+        text-align: center;
+        padding: 5px;
+        border: 1px solid;
+    }
+
+    .customCalendar .otherMonth {
+        color: black;
+    }

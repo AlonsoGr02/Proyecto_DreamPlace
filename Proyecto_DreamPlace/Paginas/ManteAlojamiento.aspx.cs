@@ -61,7 +61,7 @@ namespace Proyecto_DreamPlace.Paginas
                 txtCantidadB.Text = inmueble.CantidadBanos.ToString();
                 txtCantiCamas.Text = inmueble.CantidadCamas.ToString();
                 //ddlCategoria.SelectedValue = inmueble.IdCategoria.ToString();
-                BD.CargarCategoriasInmueble(ddlCategoria);
+                BD.CargarCategoriasInmueble(ddlCategoria, ddlAlojamientos);
                 ddlEstado.SelectedValue = inmueble.IdEstado.ToString();
                 txtDescripcionEstado.Text = inmueble.DescripcionEstado;
             }

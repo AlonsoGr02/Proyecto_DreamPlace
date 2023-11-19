@@ -973,13 +973,14 @@ namespace CapaNegocio
             }
         }
 
-        public void CargarCategoriasInmueble(DropDownList ddlCategorias)
+        public void CargarCategoriasInmueble(DropDownList ddlCategorias, DropDownList nombreInmueble)
         {
             string query = @"
-                     SELECT DISTINCT c.Categoria
+                    SELECT c.Categoria
                      FROM Categorias c
                      LEFT JOIN Inmuebles i ON c.IdCategoria = i.IdCategoria
-                     LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula;";
+                     LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula
+                     WHERE i.NombreInmueble = @Nombre;";
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
@@ -987,6 +988,8 @@ namespace CapaNegocio
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@Nombre", nombreInmueble);
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         ddlCategorias.Items.Clear(); // Limpiar las opciones existentes

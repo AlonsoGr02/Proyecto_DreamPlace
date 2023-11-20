@@ -30,7 +30,7 @@ namespace Proyecto_DreamPlace.Paginas
                 }
             }
         }
-
+        
         private void CargarCategorias()
         {
             DataTable categorias = objConexion.ObtenerCategoriasActivas();
@@ -91,6 +91,7 @@ namespace Proyecto_DreamPlace.Paginas
                 lblIdInmueble.Visible = false;
                 lblIdInmueble.Text = row["IdInmueble"].ToString();
                 informacionEnlace.Controls.Add(lblIdInmueble);
+                Session["IdInmueble"] = lblIdInmueble.Text;
 
                 Label lblNombreInmueble = new Label();
                 lblNombreInmueble.Text = row["NombreInmueble"].ToString();
@@ -136,6 +137,7 @@ namespace Proyecto_DreamPlace.Paginas
                 iconoP.Style.Add("margin-left", "10px");
                 informacionEnlace.Controls.Add(iconoP);
                 informacionEnlace.Controls.Add(lblPrecioTotal);
+                informacionEnlace.Controls.Add(new LiteralControl("<br />"));
 
                 // Agregar espacio entre las etiquetas
                 informacionEnlace.Controls.Add(new LiteralControl("<br />"));

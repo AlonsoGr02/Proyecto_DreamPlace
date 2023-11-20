@@ -105,6 +105,15 @@ namespace Proyecto_DreamPlace
         protected global::System.Web.UI.WebControls.Button btnAbrirmodalReserva;
 
         /// <summary>
+        /// Control btnFavorritos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFavorritos;
+
+        /// <summary>
         /// Control imageGallery.
         /// </summary>
         /// <remarks>

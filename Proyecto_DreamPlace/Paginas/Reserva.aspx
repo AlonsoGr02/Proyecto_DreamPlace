@@ -35,6 +35,24 @@
 
     <link href="Estilos/navbar.css" rel="stylesheet" />
     <link href="../Estilos/Reserva.css" rel="stylesheet" />
+    <style>
+        .btn-favorito {
+            background-color: #e74c3c; /* Color de fondo rojo */
+            color: #fff; /* Color del texto */
+            border: 1px solid #c0392b; /* Borde del botón */
+            padding: 10px 20px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño del texto */
+            cursor: pointer; /* Cambia el cursor al pasar el ratón por encima */
+            border-radius: 5px; /* Bordes redondeados */
+            display: block; /* Hace que el botón sea un bloque para centrarlo */
+            margin: 0 auto; /* Centra el botón horizontalmente */
+            transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+        }
+
+            .btn-favorito:hover {
+                background-color: #c0392b; /* Cambia el color de fondo al pasar el ratón por encima */
+            }
+    </style>
 </head>
 
 <body>
@@ -183,6 +201,7 @@
 
                                 <!-- Botón para abrir el modal -->
                                 <asp:Button class="send-button" ID="btnAbrirmodalReserva" runat="server" Text="Reservar" OnClick="AbrirModal" />
+                                <asp:Button ID="btnFavorritos" runat="server" Text="Agregar Favoritos" CssClass="btn-favorito" OnClick="btnFavorritos_Click" />
                             </div>
 
                             <%--Modal error reserva--%>

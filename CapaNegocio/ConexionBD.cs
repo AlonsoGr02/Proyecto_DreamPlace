@@ -1749,6 +1749,22 @@ namespace CapaNegocio
             return resultado;
         }
 
+        public void InsertarFavorito(string idCedula, int idInmueble)
+        {
+            string insertarFavoritoQuery = "INSERT INTO Favoritos (IdCedula, IdInmueble) VALUES (@IdCedula, @IdInmueble)";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertarFavoritoCommand = new SqlCommand(insertarFavoritoQuery, connection))
+                {
+                    insertarFavoritoCommand.Parameters.AddWithValue("@IdCedula", idCedula);
+                    insertarFavoritoCommand.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
+                    insertarFavoritoCommand.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
 

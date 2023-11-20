@@ -171,5 +171,20 @@ namespace Proyecto_DreamPlace
                 return "icon icon-por-defecto";
             }
         }
+
+        protected void btnFavorritos_Click(object sender, EventArgs e)
+        {
+            int idInmueble;
+            if (int.TryParse(Request.QueryString["IdInmueble"], out idInmueble))
+            {
+                Session["IdInmueble"] = idInmueble;
+            }
+
+            string correo = Session["Correo"].ToString();
+            string idCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+
+            ConexionBD objConexion = new ConexionBD();
+            objConexion.InsertarFavorito(idCedula, idInmueble);
+        }
     }
 }

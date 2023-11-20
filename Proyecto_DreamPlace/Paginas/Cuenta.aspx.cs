@@ -55,7 +55,7 @@ namespace Proyecto_DreamPlace.Paginas
                 {
                     Response.Redirect("Login.aspx");
                 }
-              
+
 
             }
         }
@@ -63,6 +63,7 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void BtnAgregarTarjeta_Click(object sender, EventArgs e)
         {
+            ConexionBD BD = new ConexionBD();
             try
             {
                 Usuario usuario = new Usuario
@@ -73,9 +74,13 @@ namespace Proyecto_DreamPlace.Paginas
                     FechaVencimientoTarjeta = DateTime.Parse(txtFechaVencimiento.Text)
                 };
 
+                int Tarjeta = Int32.Parse(txtNumeroDeTrajeta.Text);
+                string correoC = Session["Correo"].ToString();
+
+                string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
 
                 ConexionBD.InsertarMetodoPago(usuario.Correo, usuario.NumeroDeTarjeta, usuario.CVV, usuario.FechaVencimientoTarjeta);
-
+                BD.InsertarDatosMiBanco(Tarjeta, cedula, Tarjeta);
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccessModal", "$(document).ready(function () { $('#successModal').modal('show'); setTimeout(function () { $('#successModal').modal('hide'); }, 3000); });", true);
 
@@ -104,7 +109,6 @@ namespace Proyecto_DreamPlace.Paginas
             if (chkStar4.Checked) totalStars += 1;
             if (chkStar5.Checked) totalStars += 1;
 
-            // Mostrar el total en una etiqueta
             Label4.Text = totalStars.ToString();
         }
 
@@ -117,39 +121,36 @@ namespace Proyecto_DreamPlace.Paginas
             {
                 string correoC = Session["Correo"].ToString();
                 int totalStars = Convert.ToInt32(Label4.Text);
-                int idInmueble = -1; // Valor por defecto, puede ser -1 o cualquier otro valor que represente "no encontrado"
+                int idInmueble = -1;
 
-                // Recorrer el Repeater para obtener el IdInmueble correspondiente al ítem seleccionado
                 foreach (RepeaterItem item in repeaterInmuebles.Items)
                 {
                     CheckBox chkStar1 = (CheckBox)item.FindControl("chkStar1");
                     if (chkStar1 != null && chkStar1.Checked)
                     {
-                        // Obtener el IdInmueble desde el Repeater
                         System.Web.UI.WebControls.Label lblIdInmueble = (Label)item.FindControl("lblIdInmueble");
                         if (lblIdInmueble != null)
                         {
-                            idInmueble = Convert.ToInt32(lblIdInmueble.Text); // Convertir el texto del Label a int
-                            break; 
+                            idInmueble = Convert.ToInt32(lblIdInmueble.Text);
+                            break;
                         }
                     }
                 }
 
                 string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
 
-                // Guardar en variables de sesión
                 Session["IdCedula"] = IdCedula;
                 Session["TotalCalificacion"] = totalStars;
                 Session["IdInmueble"] = idInmueble;
 
-          
+
                 ConexionBD.InsertarCalificacion(totalStars, IdCedula, idInmueble);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
             }
             catch (Exception ex)
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalErrorCalificacion();", true);
-            } 
+            }
 
         }
     }

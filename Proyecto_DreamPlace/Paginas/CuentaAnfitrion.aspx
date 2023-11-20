@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CuentaAnfitrion.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.CuentaAnfitrion" %>
 
+
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link rel="StyleSheet" href="../Estilos/Css_Cuenta.css" type="text/css" />
     <link href="../Estilos/Modal.css" rel="stylesheet" type="text/css" />
@@ -19,17 +21,17 @@
 
 <body>
     <form id="form1" runat="server">
-         <header style="background-color: #BDE038;">
+        <header style="background-color: #BDE038;">
             <div class="logo">
                 <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo">
             </div>
-            
+
 
             <div id="topnav" class="topnav-container" runat="server">
                 <div class="topnav">
                     <a class="active" href="#home">Destacados</a>
                     <a href="#about">Lugares Famosos</a>
-                    <input type="text" placeholder="Buscar ..."/>
+                    <input type="text" placeholder="Buscar ..." />
                 </div>
             </div>
 
@@ -137,8 +139,8 @@
                 <div class="flex-container">
                     <asp:Label ID="Label2" runat="server" Text=" · "></asp:Label>
                     <asp:Label ID="Label1" runat="server" Text=" · "></asp:Label>
-                    <asp:Label ID="lblNombre" runat="server" Text="Nombre completo" ></asp:Label>
-                    <asp:Label ID="lblApellido" runat="server" Text="Apellidos" ></asp:Label>
+                    <asp:Label ID="lblNombre" runat="server" Text="Nombre completo"></asp:Label>
+                    <asp:Label ID="lblApellido" runat="server" Text="Apellidos"></asp:Label>
                     <asp:Label ID="Labelseparador" runat="server" Text=", "></asp:Label>
                     <asp:Label ID="lblCorreo" runat="server" Text="Correo"></asp:Label>
                     <asp:Label ID="Label3" runat="server" Text=" · "></asp:Label>
@@ -165,8 +167,8 @@
                     </div>
                 </div>
 
-                 <!-- Tarjeta de mante alojamiento -->
-                 <div class="flip-card">
+                <!-- Tarjeta de mante alojamiento -->
+                <div class="flip-card">
                     <a href="PublicarAnuncio.aspx?Correo=<%= Session["Correo"] %>">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
@@ -179,10 +181,10 @@
                         </div>
                     </a>
                 </div>
-             
+
 
                 <!-- Tarjeta de mante alojamiento -->
-                 <div class="flip-card">
+                <div class="flip-card">
                     <a href="ManteAlojamiento.aspx?Correo=<%= Session["Correo"] %>">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
@@ -196,7 +198,7 @@
                     </a>
                 </div>
                 <br />
-               
+
                 <!-- Tarjeta de Metodos de Pago -->
                 <div class="flip-card" onclick="AbrirModal()">
                     <div class="flip-card-inner">
@@ -354,7 +356,7 @@
                 </div>
 
                 <!-- Tarjeta de Evaluancion Experiencias -->
-                <div class="flip-card">
+                <div class="flip-card" onclick="AbrirModalEvaluacion(event)">
 
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
@@ -366,6 +368,150 @@
                         </div>
                     </div>
                 </div>
+
+
+
+                <!-- Modal Evaluación -->
+                <div id="modalEvaluacion" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-content-inner">
+                            <h2>Calificar Anfitrión</h2>
+                            <div class="container">
+
+<asp:DropDownList ID="DropDownListInmuebles" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListInmuebles_SelectedIndexChanged" OnClick="AbrirModalEvaluacion(event)"></asp:DropDownList>
+
+                                <asp:Repeater ID="repeaterInmuebles" runat="server">
+                                    <HeaderTemplate>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre Inmueble</th>
+                                                    <th>Huesped</th>
+                                                    <th>Calificación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%# Eval("NombreInmueble") %></td>
+                                            <td>
+                                                <%# Eval("NombrePersona") + " " + Eval("ApellidosPersona") %>
+                                            </td>
+                                            <td>
+                                                <label class="star-checkbox" style="display: flex; align-items: center;">
+                                                    <asp:CheckBox ID="chkStar1" runat="server" CssClass="star-checkbox" Text="1" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar2" runat="server" CssClass="star-checkbox" Text="2" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar3" runat="server" CssClass="star-checkbox" Text="3" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar4" runat="server" CssClass="star-checkbox" Text="4" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                    <asp:CheckBox ID="chkStar5" runat="server" CssClass="star-checkbox" Text="5" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
+                                                </label>
+                                            </td>
+                                            <td style="display: none;">
+                                                <asp:Label ID="lblIdInmueble" runat="server" Text='<%# Eval("IdInmueble") %>' Visible="false"></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+                        </table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+                                <asp:Label ID="Label4" runat="server" Text="Label" Visible="false"></asp:Label>
+                                <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Huésped" OnClick="btnEnviarCalificacion_Click" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+         <script>
+             function AbrirModalEvaluacion(event) {
+                 event.stopPropagation(); // Detener la propagación del clic para evitar cerrar el modal
+                 var modal = document.getElementById("modalEvaluacion");
+                 modal.style.display = "block";
+             }
+
+             // Función para cerrar el modal al hacer clic en el botón
+             document.getElementById("btnEvaluarAnfitrion").onclick = function () {
+                 var modal = document.getElementById("modalEvaluacion");
+                 modal.style.display = "none";
+             }
+
+             // Cerrar el modal si se hace clic fuera de él
+             window.onclick = function (event) {
+                 var modal = document.getElementById("modalEvaluacion");
+                 var clickedElement = event.target;
+
+                 var isOutsideModal = !modal.contains(clickedElement);
+
+                 if (isOutsideModal) {
+                     modal.style.display = "none";
+                 }
+             }
+         </script>
+                <!-- Modal de calificacion exitosa -->
+                <div id="MostrarModalExito" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">¡Calificación Exitosa!</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Tu calificación se realizó con exito!</div>
+                        <div>
+                            <i class="fa fa-check-circle" style="color: green; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "flex";
+                        setTimeout(function () {
+                            CerrarModalExito();
+                        }, 6000);
+                    }
+                    function CerrarModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "none";
+                    }
+
+
+                </script>
+
+
+
+                <!-- Modal de Error -->
+                <div id="MostrarModalErrorCalificacion" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">¡Error!</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Error al calificar</div>
+                        <div>
+                            <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalErrorCalificacion() {
+                        var modal = document.getElementById("MostrarModalErrorCalificacion");
+                        modal.style.display = "flex"; // Mostrar el modal
+                        setTimeout(function () {
+                            CerrarModalSaldoInsuficiente();
+                        }, 6000);
+                    }
+
+                    function CerrarModalSaldoInsuficiente() {
+                        var modal = document.getElementById("MostrarModalErrorCalificacion");
+                        modal.style.display = "none"; // Ocultar el modal
+                    }
+
+                    function DetenerPropagacion(event) {
+                        event.stopPropagation(); // Detener la propagación del clic en el DropDownList
+                    }
+
+                </script>
+
+
+
 
                 <!-- Tarjeta de Denuncias -->
                 <div class="flip-card">
@@ -381,9 +527,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
         </div>
     </form>

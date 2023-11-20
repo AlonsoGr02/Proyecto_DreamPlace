@@ -63,6 +63,65 @@ namespace CapaNegocio
             }
         }
 
+        public DataTable ObtenerDatosHuesped(int IdInmueble)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT r.IdReserva, r.IdCedula, r.IdInmueble, r.IdFechaReservada,
+                                       i.Nombre AS NombrePersona, i.Apellidos AS ApellidosPersona,
+                                       i2.Nombre AS NombreInmueble
+                                FROM Reservas r
+                                INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
+                                INNER JOIN Inmuebles i2 ON r.IdInmueble = i2.IdInmueble
+                                WHERE r.IdInmueble = @IdInmueble
+                                AND NOT EXISTS (
+                                    SELECT 1
+                                    FROM CalificacionHuesped ch
+                                    WHERE ch.IdCedula = r.IdCedula
+                                );";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
+
+
+        public DataTable ObtenerInmuebles(string IdCedula)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT *
+                                FROM Inmuebles
+                                WHERE IdCedula = @IdCedula";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
         public int ObtenerUltimoIdInmueble()
         {
             int idInmueble = 0;
@@ -336,7 +395,7 @@ namespace CapaNegocio
             return dtInmuebles;
         }
 
-        //METODOS DE PAGO
+        #region Metodos de Pago
         public static void InsertarMetodoPago(string correo, string numeroTarjeta, string cvv, DateTime fechaVencimiento)
         {
             using (SqlConnection connection = new SqlConnection(cadenaCon))
@@ -377,8 +436,48 @@ namespace CapaNegocio
                 }
             }
         }
+        public void InsertarDatosMiBanco(int numeroCuenta, string cedula, int numeroTarjeta)
+        {
+            // Definir la consulta SQL con parámetros
+            string consulta = "INSERT INTO MiBanco(IdNumeroCuenta, IdCedula, IdNTarjeta) " +
+                              "VALUES(@NCuenta, @Cedula, @NTarjeta)";
 
-        public static string ObtenerIdCedulaPorCorreo(string correo)
+            // Crear la conexión a la base de datos
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                // Crear el comando SQL con la consulta y la conexión
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    // Agregar parámetros a la consulta
+                    comando.Parameters.AddWithValue("@NCuenta", numeroCuenta);
+                    comando.Parameters.AddWithValue("@Cedula", cedula);
+                    comando.Parameters.AddWithValue("@NTarjeta", numeroTarjeta);
+
+                    try
+                    {
+                        // Abrir la conexión
+                        conexion.Open();
+
+                        // Ejecutar la consulta
+                        comando.ExecuteNonQuery();
+
+                        Console.WriteLine("Datos insertados correctamente.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al insertar datos: " + ex.Message);
+                    }
+                }
+            }
+        }
+    
+
+
+    #endregion
+
+
+
+    public static string ObtenerIdCedulaPorCorreo(string correo)
         {
             string obtenerIdCedulaQuery = "SELECT IdCedula FROM Usuarios WHERE Correo = @Correo";
             using (SqlConnection connection = new SqlConnection(cadenaCon))

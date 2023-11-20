@@ -63,6 +63,65 @@ namespace CapaNegocio
             }
         }
 
+        public DataTable ObtenerDatosHuesped(int IdInmueble)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT r.IdReserva, r.IdCedula, r.IdInmueble, r.IdFechaReservada,
+                                       i.Nombre AS NombrePersona, i.Apellidos AS ApellidosPersona,
+                                       i2.Nombre AS NombreInmueble
+                                FROM Reservas r
+                                INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
+                                INNER JOIN Inmuebles i2 ON r.IdInmueble = i2.IdInmueble
+                                WHERE r.IdInmueble = @IdInmueble
+                                AND NOT EXISTS (
+                                    SELECT 1
+                                    FROM CalificacionHuesped ch
+                                    WHERE ch.IdCedula = r.IdCedula
+                                );";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
+
+
+        public DataTable ObtenerInmuebles(string IdCedula)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT *
+                                FROM Inmuebles
+                                WHERE IdCedula = @IdCedula";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
         public int ObtenerUltimoIdInmueble()
         {
             int idInmueble = 0;

@@ -55,7 +55,7 @@ namespace Proyecto_DreamPlace.Paginas
                 {
                     Response.Redirect("Login.aspx");
                 }
-              
+
 
             }
         }
@@ -109,7 +109,6 @@ namespace Proyecto_DreamPlace.Paginas
             if (chkStar4.Checked) totalStars += 1;
             if (chkStar5.Checked) totalStars += 1;
 
-            // Mostrar el total en una etiqueta
             Label4.Text = totalStars.ToString();
         }
 
@@ -122,39 +121,36 @@ namespace Proyecto_DreamPlace.Paginas
             {
                 string correoC = Session["Correo"].ToString();
                 int totalStars = Convert.ToInt32(Label4.Text);
-                int idInmueble = -1; // Valor por defecto, puede ser -1 o cualquier otro valor que represente "no encontrado"
+                int idInmueble = -1;
 
-                // Recorrer el Repeater para obtener el IdInmueble correspondiente al ítem seleccionado
                 foreach (RepeaterItem item in repeaterInmuebles.Items)
                 {
                     CheckBox chkStar1 = (CheckBox)item.FindControl("chkStar1");
                     if (chkStar1 != null && chkStar1.Checked)
                     {
-                        // Obtener el IdInmueble desde el Repeater
                         System.Web.UI.WebControls.Label lblIdInmueble = (Label)item.FindControl("lblIdInmueble");
                         if (lblIdInmueble != null)
                         {
-                            idInmueble = Convert.ToInt32(lblIdInmueble.Text); // Convertir el texto del Label a int
-                            break; 
+                            idInmueble = Convert.ToInt32(lblIdInmueble.Text);
+                            break;
                         }
                     }
                 }
 
                 string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
 
-                // Guardar en variables de sesión
                 Session["IdCedula"] = IdCedula;
                 Session["TotalCalificacion"] = totalStars;
                 Session["IdInmueble"] = idInmueble;
 
-          
+
                 ConexionBD.InsertarCalificacion(totalStars, IdCedula, idInmueble);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
             }
             catch (Exception ex)
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalErrorCalificacion();", true);
-            } 
+            }
 
         }
     }

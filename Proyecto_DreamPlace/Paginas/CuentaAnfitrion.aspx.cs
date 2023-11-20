@@ -73,7 +73,7 @@ namespace Proyecto_DreamPlace.Paginas
                         repeaterInmuebles.DataBind();
 
                         // Ejecuta el script para abrir el modal después de cargar los datos
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalEvaluacion();", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalEvaluacion(event);", true);
                     }
                     else
                     {
@@ -150,7 +150,6 @@ namespace Proyecto_DreamPlace.Paginas
         {
             try
             {
-                string correoC = Session["Correo"].ToString();
                 int totalStars = Convert.ToInt32(Label4.Text);
                 int idInmueble = -1;
 
@@ -170,11 +169,16 @@ namespace Proyecto_DreamPlace.Paginas
 
 
 
+                string correoC = Session["Correo"].ToString();
+
+                string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
+
                 Session["TotalCalificacion"] = totalStars;
                 Session["IdInmueble"] = idInmueble;
 
 
-                //ConexionBD.InsertarCalificacion(totalStars, , idInmueble);
+                ConexionBD.CalificacionHuesped(totalStars, IdCedula);
+
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
             }
             catch (Exception ex)

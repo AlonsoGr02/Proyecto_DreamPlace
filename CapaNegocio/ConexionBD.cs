@@ -1787,6 +1787,25 @@ namespace CapaNegocio
         }
 
 
+        public static void CalificacionHuesped(int Calificacion, string IdCedula)
+        {
+            string insertQuery = "INSERT INTO CalificacionHuesped (Calificacion, IdCedula) " +
+                                 "VALUES (@Calificacion, @IdCedula)";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@Calificacion", Calificacion);
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);                    
+
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
         public DataTable ObtenerServiciosVistaP(int idInmueble)
         {

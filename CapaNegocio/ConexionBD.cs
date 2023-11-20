@@ -336,7 +336,7 @@ namespace CapaNegocio
             return dtInmuebles;
         }
 
-        //METODOS DE PAGO
+        #region Metodos de Pago
         public static void InsertarMetodoPago(string correo, string numeroTarjeta, string cvv, DateTime fechaVencimiento)
         {
             using (SqlConnection connection = new SqlConnection(cadenaCon))
@@ -377,8 +377,48 @@ namespace CapaNegocio
                 }
             }
         }
+        public void InsertarDatosMiBanco(int numeroCuenta, string cedula, int numeroTarjeta)
+        {
+            // Definir la consulta SQL con parámetros
+            string consulta = "INSERT INTO MiBanco(IdNumeroCuenta, IdCedula, IdNTarjeta) " +
+                              "VALUES(@NCuenta, @Cedula, @NTarjeta)";
 
-        public static string ObtenerIdCedulaPorCorreo(string correo)
+            // Crear la conexión a la base de datos
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                // Crear el comando SQL con la consulta y la conexión
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    // Agregar parámetros a la consulta
+                    comando.Parameters.AddWithValue("@NCuenta", numeroCuenta);
+                    comando.Parameters.AddWithValue("@Cedula", cedula);
+                    comando.Parameters.AddWithValue("@NTarjeta", numeroTarjeta);
+
+                    try
+                    {
+                        // Abrir la conexión
+                        conexion.Open();
+
+                        // Ejecutar la consulta
+                        comando.ExecuteNonQuery();
+
+                        Console.WriteLine("Datos insertados correctamente.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al insertar datos: " + ex.Message);
+                    }
+                }
+            }
+        }
+    
+
+
+    #endregion
+
+
+
+    public static string ObtenerIdCedulaPorCorreo(string correo)
         {
             string obtenerIdCedulaQuery = "SELECT IdCedula FROM Usuarios WHERE Correo = @Correo";
             using (SqlConnection connection = new SqlConnection(cadenaCon))

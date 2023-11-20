@@ -1679,6 +1679,76 @@ namespace CapaNegocio
             }
         }
 
+
+
+        public DataTable ObtenerServiciosVistaP(int idInmueble)
+        {
+            DataTable dtServicios = new DataTable();
+            dtServicios.Columns.Add("Nombre", typeof(string));
+            dtServicios.Columns.Add("Icono", typeof(byte[]));
+
+            string obtenerServiciosQuery = @"
+            SELECT S.Nombre, S.Icono
+            FROM ServiciosInmuebles SI
+            JOIN Servicios S ON SI.IdServiciosAlojamientos = S.IdServiciosAlojamientos
+            WHERE SI.IdInmueble = @IdInmueble";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand obtenerServiciosCommand = new SqlCommand(obtenerServiciosQuery, connection))
+                {
+                    obtenerServiciosCommand.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
+                    using (SqlDataReader reader = obtenerServiciosCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string nombre = reader["Nombre"].ToString();
+                            byte[] icono = reader["Icono"] as byte[];
+
+                            dtServicios.Rows.Add(nombre, icono);
+                        }
+                    }
+                }
+            }
+
+            return dtServicios;
+        }
+
+        public DataTable ObtenerDatosVistaPrevia(int idInmueble)
+        {
+            DataTable resultado = new DataTable();
+
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand("Grupo5_Dreamplace.sp_ObtenerDatosVistaPrevia", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro para el stored procedure
+                    comando.Parameters.AddWithValue("@idInmueble", idInmueble);
+
+                    try
+                    {
+                        conexion.Open();
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            adaptador.Fill(resultado);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de excepciones (personaliza según tus necesidades)
+                        Console.WriteLine("Error al ejecutar el stored procedure: " + ex.Message);
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
     }
 }
 

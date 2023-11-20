@@ -44,7 +44,8 @@ namespace Proyecto_DreamPlace.Paginas
                 {
                     Response.Redirect("Login.aspx");
                 }
-                    // Mostrar el primer paso y ocultar los demás
+
+                // Mostrar el primer paso y ocultar los demás
                 contenedorPrincipal.Visible = true;
                 contenedor2.Visible = false;
                 contenedor3.Visible = false;
@@ -64,7 +65,7 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-          
+
             if (contenedorPrincipal.Visible)
             {
                 // Luego, oculta el paso 1 y muestra el paso 1.1
@@ -91,8 +92,8 @@ namespace Proyecto_DreamPlace.Paginas
                 {
 
                 }
-                string Correo = (string) Session["Correo"];
-                string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(Correo); // cambiar luego con las de session **********************
+                string Correo = (string)Session["Correo"];
+                string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(Correo);
                 int idEstado = 1;
                 int idDescuento = 1;
                 objConexion.InsertarInmuebleCategoria(idCategoria, cedula, idEstado, idDescuento);
@@ -119,7 +120,8 @@ namespace Proyecto_DreamPlace.Paginas
             else if (contenedor4.Visible)
             {
                 // obtener los campos
-                provincia = txtProvincia.Text;
+                //provincia = txtProvincia.Text;
+                provincia = ddlProvincia.SelectedValue;
                 canton = txtCanton.Text;
                 direccionExacta = txtDirecExcata.Text;
 
@@ -231,18 +233,59 @@ namespace Proyecto_DreamPlace.Paginas
                 decimal iva;
                 decimal precioTotal;
                 if (!string.IsNullOrEmpty(hiddenPrecioBase.Value) && decimal.TryParse(hiddenPrecioBase.Value, out precioBase) &&
-        !string.IsNullOrEmpty(hiddenIva.Value) && decimal.TryParse(hiddenIva.Value, out iva) &&
-        !string.IsNullOrEmpty(hiddenPrecioTotal.Value) && decimal.TryParse(hiddenPrecioTotal.Value, out precioTotal))
+                !string.IsNullOrEmpty(hiddenIva.Value) && decimal.TryParse(hiddenIva.Value, out iva) &&
+                !string.IsNullOrEmpty(hiddenPrecioTotal.Value) && decimal.TryParse(hiddenPrecioTotal.Value, out precioTotal))
                 {
                     int idInm = objConexion.ObtenerUltimoIdInmueble();
                     objConexion.InsertarTotal(precioBase, iva, precioTotal, idInm);
                 }
                 string CorreoSession = (string)Session["Correo"];
+
                 // Luego, oculta el paso 2.1 y muestra el paso 2.2
                 contenedor12.Visible = false;
-                contenedor14.Visible = false;
-                Response.Redirect("CuentaAnfitrion.aspx?Correo=" + CorreoSession);
 
+                // Carga vista previa
+                int idInVistaP = objConexion.ObtenerUltimoIdInmueble();
+                Panel carousel = (Panel)FindControl("carousel");
+
+                List<byte[]> imagenesInmueble = objConexion.ObtenerImagenesInmueble(idInVistaP);
+
+                foreach (byte[] imagenBytes in imagenesInmueble)
+                {
+                    Image img = new Image();
+                    img.ImageUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(imagenBytes)}";
+                    carousel.Controls.Add(img);
+                }
+                DataTable datosVistaPrevia = objConexion.ObtenerDatosVistaPrevia(idInVistaP);
+
+                if (datosVistaPrevia != null && datosVistaPrevia.Rows.Count > 0)
+                {
+                    DataRow row = datosVistaPrevia.Rows[0];
+
+                    lblTituloAlojamiento.Text = "Titulo: " + row["Nombre"].ToString();
+                    lblDescripcion.Text = "Descripción: " + row["Descripcion"].ToString();
+                    lblTipoAlojamiento.Text = "Tipo de Inmueble: " + row["TipoInmueble"].ToString();
+                    lblCategoria.Text = "Categoría: " + row["Categoria"].ToString();
+                    lblEstado.Text = "Estado: " + row["NombreEstado"].ToString();
+
+                    lblCPersonas.Text = "Cantidad Huéspedes: " + row["CantidadPersonas"].ToString();
+                    lblCDormitorios.Text = "Cantidad Habitaciones: " + row["CantidadDormitorios"].ToString();
+                    lblCCamas.Text = "Cantidad Camas: " + row["CantidadCamas"].ToString();
+                    lblCBanos.Text = "Cantidad Baños: " + row["CantidadBanos"].ToString();
+
+                    DataTable dtServicios = objConexion.ObtenerServiciosVistaP(idInVistaP);
+                    if (dtServicios != null && dtServicios.Rows.Count > 0)
+                    {
+                        lblServicio1.Text = dtServicios.Rows.Count > 0 ? dtServicios.Rows[0]["Nombre"].ToString() : string.Empty;
+                        lblServicio2.Text = dtServicios.Rows.Count > 1 ? dtServicios.Rows[1]["Nombre"].ToString() : string.Empty;
+                    }
+                }
+                contenedor14.Visible = true;
+            }
+            else if (contenedor14.Visible)
+            {
+                string CorreoSession = (string)Session["Correo"];
+                Response.Redirect("CuentaAnfitrion.aspx?Correo=" + CorreoSession);
             }
         } // Fin del boton next
 
@@ -391,7 +434,5 @@ namespace Proyecto_DreamPlace.Paginas
                 Label2.Text = "Imagen subida exitosamente.";
             }
         }
-
-
     } // Fin de la clase 
 }

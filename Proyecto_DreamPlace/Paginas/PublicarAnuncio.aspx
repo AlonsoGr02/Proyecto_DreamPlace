@@ -2,12 +2,47 @@
 
 <!DOCTYPE html>
 
-<html>
+ <html>
 <head>
     <title>Publicar Anuncio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link href="../Estilos/Css_PublicarA.css" rel="stylesheet" />
     <link href="../Estilos/Css_PublicarA2.css" rel="stylesheet" />
+    <style>
+        .price-card {
+            width: 100%;
+            background-color: #ffffff; /* Card background color */
+            border-radius: 10px; /* Rounded borders */
+            border: 2px solid #a3ab78; /* Border color */
+            overflow: hidden;
+            margin-bottom: 20px; /* Bottom margin between cards */
+        }
+
+        .price-content {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            flex-direction: column; /* Organize content in column */
+        }
+
+        .price-pair {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .price-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #333; /* Text color */
+        }
+    </style>
 </head>
 <body>
     <form runat="server">
@@ -147,7 +182,17 @@
                 <h3>¿Dónde se encuentra tu espacio?</h3>
             </div>
             <div>
-                <asp:TextBox ID="txtProvincia" runat="server" class="miTextBox" placeholder="Provincia"></asp:TextBox>
+                <asp:DropDownList ID="ddlProvincia" runat="server" CssClass="miDropDownList" AppendDataBoundItems="true">
+                    <asp:ListItem Text="-- Selecciona una provincia --" Value="" Disabled="true" Selected="true"></asp:ListItem>
+                    <asp:ListItem Text="San Jose" Value="San Jose"></asp:ListItem>
+                    <asp:ListItem Text="Cartago" Value="Cartago"></asp:ListItem>
+                    <asp:ListItem Text="Heredia" Value="Heredia"></asp:ListItem>
+                    <asp:ListItem Text="Alajuela" Value="Alajuela"></asp:ListItem>
+                    <asp:ListItem Text="Puntarenas" Value="Puntarenas"></asp:ListItem>
+                    <asp:ListItem Text="Limon" Value="Limon"></asp:ListItem>
+                    <asp:ListItem Text="Guanacaste" Value="Guanacaste"></asp:ListItem>
+                </asp:DropDownList>
+
                 <asp:TextBox ID="txtCanton" runat="server" class="miTextBox" placeholder="Cantón"></asp:TextBox>
                 <asp:TextBox ID="txtDirecExcata" runat="server" class="miTextBox" placeholder="Dirección Exacta"></asp:TextBox>
             </div>
@@ -233,8 +278,8 @@
 
                     if (tarjetasSeleccionadas.length > 1) {
                         document.getElementById('<%= hfIdServicio2.ClientID %>').value = tarjetasSeleccionadas[1].idServicio;
-                   } else {
-                       document.getElementById('<%= hfIdServicio2.ClientID %>').value = '';
+                    } else {
+                        document.getElementById('<%= hfIdServicio2.ClientID %>').value = '';
                     }
                 }
             </script>
@@ -312,6 +357,11 @@
                             <span class="price-label">Precio para el Huésped:</span>
                             <asp:Label ID="lblPrecioHuesped" runat="server" CssClass="price"> 0</asp:Label>
                         </p>
+
+                        <p class="price-pair">
+                            <span class="price-label">Ganacias del Anfitrión:</span>
+                            <asp:Label ID="lblGanaciaAnfi" runat="server" CssClass="price"> 0</asp:Label>
+                        </p>
                     </div>
                 </div>
 
@@ -326,7 +376,7 @@
                 <asp:HiddenField ID="hiddenPrecioBase" runat="server" />
                 <asp:HiddenField ID="hiddenIva" runat="server" />
                 <asp:HiddenField ID="hiddenPrecioTotal" runat="server" />
-                
+
 
             </div>
             <script type="text/javascript">
@@ -338,12 +388,14 @@
                     var iva = precioBase * 0.13; // Supongamos un 20% de IVA
                     var precioHuesped = precioBase + iva;
                     var precioTotal = precioHuesped;
+                    var gananciaAnfi = precioTotal * 0.7;
 
                     // Actualiza los valores de los Labels
                     document.getElementById('<%= lblPrecioBase.ClientID %>').innerText = precioBase.toFixed(2);
                     document.getElementById('<%= lblTarifaServicio.ClientID %>').innerText = iva.toFixed(2);
                     document.getElementById('<%= lblPrecioHuesped.ClientID %>').innerText = precioHuesped.toFixed(2);
                     document.getElementById('<%= lblPrecioTotal.ClientID %>').innerText = precioTotal.toFixed(2);
+                    document.getElementById('<%= lblGanaciaAnfi.ClientID %>').innerText = gananciaAnfi.toFixed(2);
 
                     // Almacena los valores en campos ocultos
                     document.getElementById('<%= hiddenPrecioBase.ClientID %>').value = precioBase;
@@ -356,19 +408,35 @@
         <div class="contenedor" id="contenedor14" runat="server">
             <div class="contenedorVista">
                 <h2 class="h2-v">Vista Previa Completa</h2>
-                <img src="../img/completa.jpg" alt="Vista Previa" class="img-v" />
+                <div class="tarjeta-comodidades-v">
+                    <div class="carousel-container">
+                        <asp:Panel ID="carousel" runat="server" CssClass="carousel"></asp:Panel>
+                    </div>
+                </div>
 
-                <div class="informacion-dinamica-v">
-                    <asp:Label ID="lblTituloAlojamiento" runat="server" Text="Titulo Inmueble" CssClass="label-v"></asp:Label>
-                    <asp:Label ID="lblTipoAlojamiento" runat="server" Text="Tipo de Alojamiento: Un alojamiento completo" CssClass="label-v"></asp:Label>
-                    <asp:Label ID="lblAnfitrion" runat="server" Text="Anfitrión: nombreAnfitrion" CssClass="label-v"></asp:Label>
-                    <asp:Label ID="lblDescripcion" runat="server" Text="Descripción del Alojamiento" CssClass="label-v"></asp:Label>
+                <div class="tarjeta-comodidades-v">
+                    <h3>Información</h3>
+                    <div class="informacion-dinamica-v">
+                        <asp:Label ID="lblTituloAlojamiento" runat="server" Text="Titulo Inmueble" CssClass="label-v"></asp:Label>
+                        <asp:Label ID="lblDescripcion" runat="server" Text="Descripción del Alojamiento" CssClass="label-v"></asp:Label>
+                        <asp:Label ID="lblTipoAlojamiento" runat="server" Text="Tipo de Alojamiento: Un alojamiento completo" CssClass="label-v"></asp:Label>
+                        <asp:Label ID="lblCategoria" runat="server" Text="Categoría: nombreAnfitrion" CssClass="label-v"></asp:Label>
+                        <asp:Label ID="lblEstado" runat="server" Text="Estado: nombreAnfitrion" CssClass="label-v"></asp:Label>
+                    </div>
+                </div>
+
+                <div class="tarjeta-comodidades-v">
+                    <h3>Caracteristicas</h3>
+                    <asp:Label ID="lblCPersonas" runat="server" Text="Wifi" CssClass="label-v"></asp:Label>
+                    <asp:Label ID="lblCDormitorios" runat="server" Text="TV" CssClass="label-v"></asp:Label>
+                    <asp:Label ID="lblCCamas" runat="server" Text="Wifi" CssClass="label-v"></asp:Label>
+                    <asp:Label ID="lblCBanos" runat="server" Text="TV" CssClass="label-v"></asp:Label>
                 </div>
 
                 <div class="tarjeta-comodidades-v">
                     <h3>Comodidades</h3>
-                    <asp:Label ID="lblWifi" runat="server" Text="Wifi" CssClass="label-v"></asp:Label>
-                    <asp:Label ID="lblTV" runat="server" Text="TV" CssClass="label-v"></asp:Label>
+                    <asp:Label ID="lblServicio1" runat="server" Text="Wifi" CssClass="label-v"></asp:Label>
+                    <asp:Label ID="lblServicio2" runat="server" Text="TV" CssClass="label-v"></asp:Label>
                 </div>
             </div>
         </div>
@@ -377,6 +445,20 @@
             <asp:Button ID="btnPrev" CssClass="boton-anterior" runat="server" Text="Anterior" Visible="false" OnClick="btnPrev_Click" />
             <asp:Button ID="btnNext" CssClass="boton-siguiente" runat="server" Text="Siguiente" OnClick="btnNext_Click" />
         </div>
+
+        <!-- scripts para el carrusel de imagenes funcione -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.carousel').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&#9664;</button>', /* Flecha izquierda */
+                    nextArrow: '<button class="slick-next" aria-label="Next" type="button">&#9654;</button>' /* Flecha derecha */
+                });
+            });
+        </script>
     </form>
 </body>
 </html>

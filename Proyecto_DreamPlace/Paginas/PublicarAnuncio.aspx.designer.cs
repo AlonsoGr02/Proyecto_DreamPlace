@@ -96,13 +96,13 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl contenedor4;
 
         /// <summary>
-        /// Control txtProvincia.
+        /// Control ddlProvincia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProvincia;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvincia;
 
         /// <summary>
         /// Control txtCanton.
@@ -339,6 +339,15 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label lblPrecioHuesped;
 
         /// <summary>
+        /// Control lblGanaciaAnfi.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGanaciaAnfi;
+
+        /// <summary>
         /// Control lblPrecioTotal.
         /// </summary>
         /// <remarks>
@@ -384,6 +393,15 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl contenedor14;
 
         /// <summary>
+        /// Control carousel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel carousel;
+
+        /// <summary>
         /// Control lblTituloAlojamiento.
         /// </summary>
         /// <remarks>
@@ -391,24 +409,6 @@ namespace Proyecto_DreamPlace.Paginas
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTituloAlojamiento;
-
-        /// <summary>
-        /// Control lblTipoAlojamiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTipoAlojamiento;
-
-        /// <summary>
-        /// Control lblAnfitrion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAnfitrion;
 
         /// <summary>
         /// Control lblDescripcion.
@@ -420,22 +420,85 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label lblDescripcion;
 
         /// <summary>
-        /// Control lblWifi.
+        /// Control lblTipoAlojamiento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWifi;
+        protected global::System.Web.UI.WebControls.Label lblTipoAlojamiento;
 
         /// <summary>
-        /// Control lblTV.
+        /// Control lblCategoria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTV;
+        protected global::System.Web.UI.WebControls.Label lblCategoria;
+
+        /// <summary>
+        /// Control lblEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstado;
+
+        /// <summary>
+        /// Control lblCPersonas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCPersonas;
+
+        /// <summary>
+        /// Control lblCDormitorios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCDormitorios;
+
+        /// <summary>
+        /// Control lblCCamas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCCamas;
+
+        /// <summary>
+        /// Control lblCBanos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCBanos;
+
+        /// <summary>
+        /// Control lblServicio1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblServicio1;
+
+        /// <summary>
+        /// Control lblServicio2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblServicio2;
 
         /// <summary>
         /// Control btnPrev.

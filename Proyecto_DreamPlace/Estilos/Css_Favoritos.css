@@ -82,3 +82,82 @@
     padding: 20px;
     text-align: center;
 }
+
+/* Estilos para las tarjetas de inmuebles */
+.contenedor-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 0 7%;
+}
+
+.tarjeta {
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    transition: transform 0.2s;
+    margin: 10px;
+}
+
+    .tarjeta:hover {
+        transform: scale(1.05);
+    }
+
+.carousel {
+    width: 100%;
+}
+
+.informacion-inmueble {
+    text-align: left;
+    padding: 10px;
+    
+}
+    .informacion-inmueble h2 {
+        font-size: 20px;
+        margin: 0;
+        color: #333030;
+    }
+
+    .informacion-inmueble p {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+.imagen-carousel {
+    max-width: 100%; 
+    height: 220px; 
+    margin: 0 auto; 
+    display: block;
+}
+
+.tipo-container {
+    display: flex;
+    align-items: center; /* Centrar verticalmente los elementos dentro del contenedor */
+}
+
+.iconoFav {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+/* Estilos para las flechas */
+.slick-prev,
+.slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1; /* Asegura que las flechas estén encima de las imágenes */
+}
+
+.slick-prev {
+    left: 10px; /* Ajusta la posición de la flecha izquierda */
+}
+
+
+.slick-next {
+    right: 10px; /* Ajusta la posición de la flecha derecha */
+}

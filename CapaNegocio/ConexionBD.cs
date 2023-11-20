@@ -1864,6 +1864,36 @@ namespace CapaNegocio
                 }
             }
         }
+
+        public DataTable ObtenerInmueblesFavoritos(string idCedula)
+        {
+            DataTable dtInmuebles = new DataTable();
+            dtInmuebles.Columns.Add("IdInmueble", typeof(int));
+            dtInmuebles.Columns.Add("NombreInmueble", typeof(string));
+            dtInmuebles.Columns.Add("TipoInmueble", typeof(string));
+            dtInmuebles.Columns.Add("Provincia", typeof(string));
+            dtInmuebles.Columns.Add("Canton", typeof(string));
+            dtInmuebles.Columns.Add("Total", typeof(decimal));
+
+            string obtenerInmueblesFavoritosQuery = "Grupo5_Dreamplace.ObtenerInmueblesFavoritos";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand obtenerInmueblesFavoritosCommand = new SqlCommand(obtenerInmueblesFavoritosQuery, connection))
+                {
+                    obtenerInmueblesFavoritosCommand.CommandType = CommandType.StoredProcedure;
+                    obtenerInmueblesFavoritosCommand.Parameters.AddWithValue("@IdCedula", idCedula);
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(obtenerInmueblesFavoritosCommand))
+                    {
+                        adapter.Fill(dtInmuebles);
+                    }
+                }
+            }
+
+            return dtInmuebles;
+        }
     }
 }
 

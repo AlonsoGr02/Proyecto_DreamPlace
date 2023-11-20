@@ -7,7 +7,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Favoritos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
-    <link rel="StyleSheet" href="../Estilos/Css_Favoritos.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="StyleSheet" href="../Estilos/Css_Favoritos.css" type="text/css" />
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -28,8 +31,25 @@
                 </div>
                 <h1>Favoritos</h1>
             </div>
+            <div id="container" runat="server" class="contenedor-tarjetas">
+                <!-- Aquí se agregarán dinámicamente las tarjetas de inmuebles -->
+            </div>
             <br />
+           
         </div>
+        <!-- scripts para el carrusel de imagenes funcione -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.carousel').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&#9664;</button>', /* Flecha izquierda */
+                    nextArrow: '<button class="slick-next" aria-label="Next" type="button">&#9654;</button>' /* Flecha derecha */
+                });
+            });
+        </script>
     </form>
 </body>
 </html>

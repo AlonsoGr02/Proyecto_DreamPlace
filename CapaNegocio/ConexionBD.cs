@@ -537,34 +537,42 @@ namespace CapaNegocio
             }
         }
 
-        public static Tuple<string, decimal, string, string> ObtenerInfoMiBancoPorCedula(string idCedula)
+        public MiBanco ObtenerInfoMiBancoPorCorreo(string cedula)
         {
-            string obtenerInfoMiBancoQuery = "SELECT IdNumeroCuenta, Saldo, IdCedula, IdNTarjeta FROM MiBanco WHERE IdCedula = @IdCedula";
+            MiBanco infoMiBanco = null;
 
-            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            using (SqlConnection con = new SqlConnection(cadenaConexion))
             {
-                connection.Open();
-                using (SqlCommand obtenerInfoMiBancoCommand = new SqlCommand(obtenerInfoMiBancoQuery, connection))
+                con.Open();
+
+                string query = @"SELECT i.IdCedula, CONCAT(i.Nombre, ' ', i.Apellidos) as NombreCompleto, m.IdNTarjeta, m.Saldo
+                         FROM MiBanco m
+                         JOIN Identificaciones i ON i.IdCedula = m.IdCedula
+                         WHERE i.IdCedula = @Cedula";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    obtenerInfoMiBancoCommand.Parameters.AddWithValue("@IdCedula", idCedula);
+                    cmd.Parameters.AddWithValue("@Cedula", cedula);
 
-                    SqlDataReader reader = obtenerInfoMiBancoCommand.ExecuteReader();
-
-                    if (reader.Read())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        string idNumeroCuenta = reader["IdNumeroCuenta"].ToString();
-                        decimal saldo = Convert.ToDecimal(reader["Saldo"]);
-                        string idCedulafk = reader["IdCedula"].ToString();
-                        string idNTarjetafk = reader["IdNTarjeta"].ToString();
-
-                        return new Tuple<string, decimal, string, string>(idNumeroCuenta, saldo, idCedulafk, idNTarjetafk);
+                        if (reader.Read())
+                        {
+                            infoMiBanco = new MiBanco
+                            {
+                                IdCedula = reader["IdCedula"].ToString(),
+                                NombreCompleto = reader["NombreCompleto"].ToString(),
+                                IdNTarjeta = reader["IdNTarjeta"].ToString(),
+                                Saldo = Convert.ToDecimal(reader["Saldo"])
+                            };
+                        }
                     }
-
-                    // Si no se encuentra ninguna fila, puedes devolver valores predeterminados o lanzar una excepción según tus necesidades.
-                    return new Tuple<string, decimal, string, string>(string.Empty, 0, string.Empty, string.Empty);
                 }
             }
+
+            return infoMiBanco;
         }
+
 
         public DataTable ObtenerCategoriasActivas()
         {

@@ -91,8 +91,9 @@ namespace Proyecto_DreamPlace.Paginas
             }
         }
 
-        protected void BtnAgregarTarjeta_Click(object sender, EventArgs e)
+        protected void BtnAgregarTarjetaAnfitrion_Click(object sender, EventArgs e)
         {
+            ConexionBD BD = new ConexionBD();
             try
             {
                 Usuario usuario = new Usuario
@@ -103,15 +104,15 @@ namespace Proyecto_DreamPlace.Paginas
                     FechaVencimientoTarjeta = DateTime.Parse(txtFechaVencimiento.Text)
                 };
 
+                int Tarjeta = Int32.Parse(txtNumeroDeTrajeta.Text);
+                string correoC = Session["Correo"].ToString();
+
+                string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
 
                 ConexionBD.InsertarMetodoPago(usuario.Correo, usuario.NumeroDeTarjeta, usuario.CVV, usuario.FechaVencimientoTarjeta);
-
+                BD.InsertarDatosMiBanco(Tarjeta, cedula, Tarjeta);
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccessModal", "$(document).ready(function () { $('#successModal').modal('show'); setTimeout(function () { $('#successModal').modal('hide'); }, 3000); });", true);
-
-
-
-
 
             }
             catch (Exception ex)

@@ -242,7 +242,7 @@
 
                                 <asp:TextBox ID="TXTCVV" runat="server" placeholder="CVV"></asp:TextBox><br />
 
-                                <asp:Button ID="BtnAgregarTarjeta" runat="server" Text="Agregar Tarjeta" OnClick="BtnAgregarTarjeta_Click" />
+                                <asp:Button ID="BtnAgregarTarjeta" runat="server" Text="Agregar Tarjeta" OnClick="BtnAgregarTarjetaAnfitrion_Click" />
 
                             </div>
                         </div>

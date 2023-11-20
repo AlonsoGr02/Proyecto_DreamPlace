@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CapaNegocio;
 using CapaNegocio.Models;
+
+
 namespace Proyecto_DreamPlace.Paginas
 {
     public partial class Mi_Banco : System.Web.UI.Page
@@ -26,29 +28,23 @@ namespace Proyecto_DreamPlace.Paginas
 
                         if (!string.IsNullOrEmpty(idCedula))
                         {
+                            MiBanco infoMiBanco = BD.ObtenerInfoMiBancoPorCorreo(idCedula);
 
-                            string[] nombreApellido = ConexionBD.ObtenerNombreYApellidoPorIdCedula(idCedula);
-
-                            if (nombreApellido.Length == 2)
+                            if (infoMiBanco != null)
                             {
-
-                                txtCedula.Text = idCedula;
-                                txtNombre.Text = $"{nombreApellido[0]} {nombreApellido[1]}";
-
-
-                                Tuple<string, decimal, string, string> infoMiBanco = ConexionBD.ObtenerInfoMiBancoPorCedula(idCedula);
-
-
-                                txtNTarjeta.Text = infoMiBanco.Item4;
-                                txtMontoTotal.Text = infoMiBanco.Item2.ToString();
+                                txtCedula.Text = infoMiBanco.IdCedula;
+                                txtNombre.Text = infoMiBanco.NombreCompleto;
+                                txtNTarjeta.Text = infoMiBanco.IdNTarjeta;
+                                txtMontoTotal.Text = infoMiBanco.Saldo.ToString();
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-
+                        // Manejo de excepciones, por ejemplo, mostrar un mensaje de error.
                     }
                 }
+
             }
         }
 

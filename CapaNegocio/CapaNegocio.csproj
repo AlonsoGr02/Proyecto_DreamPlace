@@ -47,6 +47,7 @@
     <Compile Include="Metodos.cs" />
     <Compile Include="Models\Inmueble.cs" />
     <Compile Include="Models\Mensajes.cs" />
+    <Compile Include="Models\MiBanco.cs" />
     <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

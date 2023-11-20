@@ -242,7 +242,7 @@
 
                                 <asp:TextBox ID="TXTCVV" runat="server" placeholder="CVV"></asp:TextBox><br />
 
-                                <asp:Button ID="BtnAgregarTarjeta" runat="server" Text="Agregar Tarjeta" OnClick="BtnAgregarTarjeta_Click" />
+                                <asp:Button ID="BtnAgregarTarjeta" runat="server" Text="Agregar Tarjeta" OnClick="BtnAgregarTarjetaAnfitrion_Click" />
 
                             </div>
                         </div>
@@ -378,7 +378,7 @@
                             <h2>Calificar Anfitrión</h2>
                             <div class="container">
 
-<asp:DropDownList ID="DropDownListInmuebles" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListInmuebles_SelectedIndexChanged" OnClick="AbrirModalEvaluacion(event)"></asp:DropDownList>
+                                <asp:DropDownList ID="DropDownListInmuebles" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListInmuebles_SelectedIndexChanged" OnClick="AbrirModalEvaluacion(event)"></asp:DropDownList>
 
                                 <asp:Repeater ID="repeaterInmuebles" runat="server">
                                     <HeaderTemplate>
@@ -425,31 +425,87 @@
                 </div>
 
 
-         <script>
-             function AbrirModalEvaluacion(event) {
-                 event.stopPropagation(); // Detener la propagación del clic para evitar cerrar el modal
-                 var modal = document.getElementById("modalEvaluacion");
-                 modal.style.display = "block";
-             }
+                <script>
+                    function AbrirModalEvaluacion(event) {
+                        event.stopPropagation(); 
+                        var modal = document.getElementById("modalEvaluacion");
+                        modal.style.display = "block";
+                    }
 
-             // Función para cerrar el modal al hacer clic en el botón
-             document.getElementById("btnEvaluarAnfitrion").onclick = function () {
-                 var modal = document.getElementById("modalEvaluacion");
-                 modal.style.display = "none";
-             }
+                    document.getElementById("btnEvaluarAnfitrion").onclick = function () {
+                        var modal = document.getElementById("modalEvaluacion");
+                        modal.style.display = "none";
+                    }
 
-             // Cerrar el modal si se hace clic fuera de él
-             window.onclick = function (event) {
-                 var modal = document.getElementById("modalEvaluacion");
-                 var clickedElement = event.target;
+                    var checkboxes = document.querySelectorAll('.star-checkbox input[type="checkbox"]');
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.onclick = function (event) {
+                            event.stopPropagation();
+                        };
+                    });
 
-                 var isOutsideModal = !modal.contains(clickedElement);
+                    window.onclick = function (event) {
+                        var modal = document.getElementById("modalEvaluacion");
+                        var clickedElement = event.target;
 
-                 if (isOutsideModal) {
-                     modal.style.display = "none";
-                 }
-             }
-         </script>
+                        var isOutsideModal = !modal.contains(clickedElement);
+
+                        if (isOutsideModal) {
+                            modal.style.display = "none";
+                        }
+                    }
+
+                </script>
+
+                <script>
+                    function RefreshModalWithData(data) {
+                        // 'data' parameter should contain the updated information received from the server
+
+                        // Example: Assuming 'data' is an array of objects with properties like NombreInmueble, NombrePersona, etc.
+
+                        // Clear existing content or elements inside the modal, if needed
+                        // For example, if 'repeaterInmuebles' is your target element where you display data, you may clear it like this:
+                        var repeater = document.getElementById("repeaterInmuebles");
+                        repeater.innerHTML = '';
+
+                        // Repopulate the modal content with the new data
+                        data.forEach(function (item) {
+                            // Create new elements or update existing elements within the repeater or modal content
+                            var newRow = document.createElement('tr');
+
+                            // Create and populate cells for the table row
+                            var cellNombreInmueble = document.createElement('td');
+                            cellNombreInmueble.textContent = item.NombreInmueble;
+                            newRow.appendChild(cellNombreInmueble);
+
+                            var cellNombrePersona = document.createElement('td');
+                            cellNombrePersona.textContent = item.NombrePersona + " " + item.ApellidosPersona;
+                            newRow.appendChild(cellNombrePersona);
+
+                            var cellCalificacion = document.createElement('td');
+                            // Create or update the star checkboxes based on your data
+                            // For example, if 'item' has a property representing the rating, you can set the checkboxes accordingly
+                            // This might involve some conditional logic based on the rating value
+                            cellCalificacion.innerHTML = generateStarCheckboxes(item.Calificacion); // Function to generate star checkboxes
+                            newRow.appendChild(cellCalificacion);
+
+                            // Append the new row to the repeater or the appropriate container in your modal
+                            repeater.appendChild(newRow);
+                        });
+                    }
+
+                    // Example function to generate star checkboxes based on a rating value
+                    function generateStarCheckboxes(rating) {
+                        // Logic to create checkboxes based on the rating value
+                        // For example, create 5 checkboxes and mark the appropriate ones based on the rating
+                        // This function's implementation depends on how you want to represent the rating with checkboxes
+                        // You can use 'rating' to determine which checkboxes should be checked or filled
+                        // Return the HTML content for the checkboxes
+                    }
+
+
+
+                </script>
                 <!-- Modal de calificacion exitosa -->
                 <div id="MostrarModalExito" class="modal" style="display: none; justify-content: center; align-items: center;">
                     <div class="modal-content" style="text-align: center;">

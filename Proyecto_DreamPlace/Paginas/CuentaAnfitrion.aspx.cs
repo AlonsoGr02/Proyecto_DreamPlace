@@ -73,7 +73,7 @@ namespace Proyecto_DreamPlace.Paginas
                         repeaterInmuebles.DataBind();
 
                         // Ejecuta el script para abrir el modal después de cargar los datos
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalEvaluacion();", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalEvaluacion(event);", true);
                     }
                     else
                     {
@@ -91,8 +91,9 @@ namespace Proyecto_DreamPlace.Paginas
             }
         }
 
-        protected void BtnAgregarTarjeta_Click(object sender, EventArgs e)
+        protected void BtnAgregarTarjetaAnfitrion_Click(object sender, EventArgs e)
         {
+            ConexionBD BD = new ConexionBD();
             try
             {
                 Usuario usuario = new Usuario
@@ -103,15 +104,15 @@ namespace Proyecto_DreamPlace.Paginas
                     FechaVencimientoTarjeta = DateTime.Parse(txtFechaVencimiento.Text)
                 };
 
+                int Tarjeta = Int32.Parse(txtNumeroDeTrajeta.Text);
+                string correoC = Session["Correo"].ToString();
+
+                string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
 
                 ConexionBD.InsertarMetodoPago(usuario.Correo, usuario.NumeroDeTarjeta, usuario.CVV, usuario.FechaVencimientoTarjeta);
-
+                BD.InsertarDatosMiBanco(Tarjeta, cedula, Tarjeta);
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccessModal", "$(document).ready(function () { $('#successModal').modal('show'); setTimeout(function () { $('#successModal').modal('hide'); }, 3000); });", true);
-
-
-
-
 
             }
             catch (Exception ex)
@@ -149,7 +150,6 @@ namespace Proyecto_DreamPlace.Paginas
         {
             try
             {
-                string correoC = Session["Correo"].ToString();
                 int totalStars = Convert.ToInt32(Label4.Text);
                 int idInmueble = -1;
 
@@ -169,11 +169,16 @@ namespace Proyecto_DreamPlace.Paginas
 
 
 
+                string correoC = Session["Correo"].ToString();
+
+                string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
+
                 Session["TotalCalificacion"] = totalStars;
                 Session["IdInmueble"] = idInmueble;
 
 
-                //ConexionBD.InsertarCalificacion(totalStars, , idInmueble);
+                ConexionBD.CalificacionHuesped(totalStars, IdCedula);
+
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
             }
             catch (Exception ex)

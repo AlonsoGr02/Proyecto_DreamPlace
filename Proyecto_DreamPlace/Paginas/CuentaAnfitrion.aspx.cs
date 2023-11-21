@@ -37,15 +37,7 @@ namespace Proyecto_DreamPlace.Paginas
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
 
 
-                    DataTable inmuebles = BD.ObtenerInmuebles(IdCedula);
-
-                    if (inmuebles.Rows.Count > 0)
-                    {
-                        DropDownListInmuebles.DataSource = inmuebles;
-                        DropDownListInmuebles.DataTextField = "Nombre";
-                        DropDownListInmuebles.DataValueField = "IdInmueble";
-                        DropDownListInmuebles.DataBind();
-                    }
+                    CargarDatosRepeater();
 
                 }
                 else
@@ -54,41 +46,17 @@ namespace Proyecto_DreamPlace.Paginas
                 }
             }
         }
-        protected void DropDownListInmuebles_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void CargarDatosRepeater()
         {
-            try
-            {
-                string IdInmueble = DropDownListInmuebles.SelectedValue;
+            string correo = Session["Correo"].ToString();
 
-                int IdInmuebleInt;
-                if (int.TryParse(IdInmueble, out IdInmuebleInt))
-                {
-                    // Aquí obtienes los datos del inmueble seleccionado
-                    DataTable datosAnfitrion = BD.ObtenerDatosHuesped(IdInmuebleInt);
+            string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                    if (datosAnfitrion != null && datosAnfitrion.Rows.Count > 0)
-                    {
-                        // Vincula los datos al Repeater
-                        repeaterInmuebles.DataSource = datosAnfitrion;
-                        repeaterInmuebles.DataBind();
+            DataTable datosReserva = BD.ObtenerDatosHuesped(IdCedula);
 
-                        // Ejecuta el script para abrir el modal después de cargar los datos
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalEvaluacion(event);", true);
-                    }
-                    else
-                    {
-                        // Manejar la situación en la que no se encuentran datos
-                    }
-                }
-                else
-                {
-                    // Manejo de error en caso de que no se pueda convertir a entero
-                }
-            }
-            catch
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalErrorCalificacion();", true);
-            }
+            repeaterInmuebles.DataSource = datosReserva;
+            repeaterInmuebles.DataBind();
         }
 
         protected void BtnAgregarTarjetaAnfitrion_Click(object sender, EventArgs e)

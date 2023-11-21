@@ -224,7 +224,7 @@
                                         CerrarModalError();
                                     }, 6000);
                                 }
-                                
+
 
                                 function CerrarModalError() {
                                     var modal = document.getElementById("MostrarModalError");
@@ -461,7 +461,6 @@
                                 generateCalendar(currentMonth, currentYear);
                             });
                         </script>--%>
-
 
 
 

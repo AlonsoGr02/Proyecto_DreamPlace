@@ -100,7 +100,7 @@ namespace Proyecto_DreamPlace
                 }
                 else
                 {
-                    e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#A3AB78");
+                    e.Cell.BackColor = System.Drawing.ColorTranslator.FromHtml("#fff");
                 }
             }
         }

@@ -355,6 +355,7 @@
                     </a>
                 </div>
 
+        
                 <!-- Tarjeta de Evaluancion Experiencias -->
                 <div class="flip-card" onclick="AbrirModalEvaluacion(event)">
 
@@ -369,17 +370,12 @@
                     </div>
                 </div>
 
-
-
                 <!-- Modal Evaluación -->
                 <div id="modalEvaluacion" class="modal">
-                    <div class="modal-content">
+                    <div class="modal-content">                       
                         <div class="modal-content-inner">
-                            <h2>Calificar Anfitrión</h2>
+                            <h2>Calificar Huésped</h2>
                             <div class="container">
-
-                                <asp:DropDownList ID="DropDownListInmuebles" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListInmuebles_SelectedIndexChanged" OnClick="AbrirModalEvaluacion(event)"></asp:DropDownList>
-
                                 <asp:Repeater ID="repeaterInmuebles" runat="server">
                                     <HeaderTemplate>
                                         <table>
@@ -396,7 +392,7 @@
                                         <tr>
                                             <td><%# Eval("NombreInmueble") %></td>
                                             <td>
-                                                <%# Eval("NombrePersona") + " " + Eval("ApellidosPersona") %>
+                                                <%# Eval("NombreHuesped") + " " + Eval("ApellidosHuesped") %>
                                             </td>
                                             <td>
                                                 <label class="star-checkbox" style="display: flex; align-items: center;">
@@ -419,6 +415,7 @@
                                 </asp:Repeater>
                                 <asp:Label ID="Label4" runat="server" Text="Label" Visible="false"></asp:Label>
                                 <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Huésped" OnClick="btnEnviarCalificacion_Click" />
+                                <asp:Button ID="Button1" runat="server" Text="Cerrar" OnClientClick="CerrarModalEvaluacion()" />
                             </div>
                         </div>
                     </div>
@@ -427,7 +424,7 @@
 
                 <script>
                     function AbrirModalEvaluacion(event) {
-                        event.stopPropagation(); 
+                        event.stopPropagation();
                         var modal = document.getElementById("modalEvaluacion");
                         modal.style.display = "block";
                     }
@@ -443,6 +440,11 @@
                             event.stopPropagation();
                         };
                     });
+
+                    function CerrarModalEvaluacion() {
+                        var modal = document.getElementById("modalEvaluacion");
+                        modal.style.display = "none";
+                    }
 
                     window.onclick = function (event) {
                         var modal = document.getElementById("modalEvaluacion");

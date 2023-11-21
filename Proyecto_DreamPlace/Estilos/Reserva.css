@@ -424,7 +424,7 @@ p {
         .days li:hover {
             background-color: #f2f2f2;
         }
-        /* Agrega tus estilos CSS personalizados aquí */
+         Agrega tus estilos CSS personalizados aquí 
         .reservada {
             background-color: red;
             color: white;
@@ -434,13 +434,13 @@ p {
             background-color: #fff;
             color: white;
         }
-        /* Estilos básicos para el calendario */
+         Estilos básicos para el calendario 
         .month {
-            /* Agrega estilos para el encabezado del calendario si es necesario */
+             Agrega estilos para el encabezado del calendario si es necesario 
         }
 
         .days {
-            /* Agrega estilos para los días del calendario si es necesario */
+             Agrega estilos para los días del calendario si es necesario 
         }
 
 .month {
@@ -467,6 +467,7 @@ p {
 
 .customCalendar {
     width: 100%;
+    height:30%;
     border-collapse: collapse;
     border: 2px solid;
     padding: 20px 25px;
@@ -490,3 +491,4 @@ p {
     .customCalendar .otherMonth {
         color: black;
     }
+

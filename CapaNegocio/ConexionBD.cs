@@ -63,28 +63,24 @@ namespace CapaNegocio
             }
         }
 
-        public DataTable ObtenerDatosHuesped(int IdInmueble)
+        public DataTable ObtenerDatosHuesped(string IdCedula)
         {
             DataTable datos = new DataTable();
 
-            string consulta = @"SELECT r.IdReserva, r.IdCedula, r.IdInmueble, r.IdFechaReservada,
-                                       i.Nombre AS NombrePersona, i.Apellidos AS ApellidosPersona,
-                                       i2.Nombre AS NombreInmueble
-                                FROM Reservas r
-                                INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
-                                INNER JOIN Inmuebles i2 ON r.IdInmueble = i2.IdInmueble
-                                WHERE r.IdInmueble = @IdInmueble
-                                AND NOT EXISTS (
-                                    SELECT 1
-                                    FROM CalificacionHuesped ch
-                                    WHERE ch.IdCedula = r.IdCedula
-                                );";
+            string consulta = @"  SELECT r.IdReserva, r.IdCedula AS IdCedulaHuesped, r.IdInmueble, r.CantidadHuespedes, 
+                                           r.IdNTarjeta, r.IdFechaReservada, i.Nombre AS NombreHuesped, i.Apellidos AS ApellidosHuesped,
+                                           inm.Nombre AS NombreInmueble, inm.Descripcion AS DescripcionInmueble,
+                                           inm.CantidadPersonas, inm.CantidadDormitorios, inm.CantidadBanos, inm.CantidadCamas
+                                    FROM Reservas r
+                                    INNER JOIN Inmuebles inm ON r.IdInmueble = inm.IdInmueble
+                                    INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
+                                    WHERE inm.IdCedula = @IdCedula;";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {
                 using (SqlCommand cmd = new SqlCommand(consulta, conexion))
                 {
-                    cmd.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
 
                     conexion.Open();
 
@@ -1640,7 +1636,7 @@ namespace CapaNegocio
 
         public static void InsertarPagos(string IdNTarjeta, decimal TotalAPagar, int IdInmueble, string IdCedula)
         {
-            // Realizar la inserción en el historial de pagos
+            
             string insertQuery = "INSERT INTO HistorialPagos (IdNTarjeta, TotalAPagar, IdInmueble, IdCedula) " +
                                  "VALUES (@IdNTarjeta, @TotalAPagar, @IdInmueble, @IdCedula)";
 
@@ -1852,7 +1848,7 @@ namespace CapaNegocio
                 {
                     comando.CommandType = CommandType.StoredProcedure;
 
-                    // Parámetro para el stored procedure
+                    
                     comando.Parameters.AddWithValue("@idInmueble", idInmueble);
 
                     try
@@ -1865,8 +1861,7 @@ namespace CapaNegocio
                         }
                     }
                     catch (Exception ex)
-                    {
-                        // Manejo de excepciones (personaliza según tus necesidades)
+                    {                        
                         Console.WriteLine("Error al ejecutar el stored procedure: " + ex.Message);
                     }
                 }

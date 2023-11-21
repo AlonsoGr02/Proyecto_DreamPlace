@@ -244,7 +244,7 @@
                                 <asp:TextBox ID="TXTCVV" runat="server" placeholder="CVV"></asp:TextBox><br />
 
                                 <asp:Button ID="BtnAgregarTarjeta" runat="server" Text="Agregar Tarjeta" OnClick="BtnAgregarTarjeta_Click" />
-
+                                <asp:Button ID="Button2" runat="server" Text="Cerrar" OnClientClick="CerrarModalEvaluacion()" />
                             </div>
                         </div>
                     </div>
@@ -262,6 +262,12 @@
                     // Cierra el modal si se hace clic en la "x"
                     document.getElementById("closeModalButton").onclick = function () {
                         var modal = document.getElementById("modalMetodosPago");
+                        modal.style.display = "none";
+                    }
+
+
+                    function CerrarModalEvaluacion() {
+                        var modal = document.getElementById("modalEvaluacion");
                         modal.style.display = "none";
                     }
 
@@ -416,6 +422,7 @@
                                 </asp:Repeater>
                                 <asp:Label ID="Label4" runat="server" Text="Label" Visible="false"></asp:Label>
                                 <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Anfitrión" OnClick="btnEnviarCalificacion_Click" />
+                                <asp:Button ID="Button1" runat="server" Text="Cerrar" OnClientClick="CerrarModalEvaluacion()" />
                             </div>
                         </div>
                     </div>
@@ -440,6 +447,12 @@
                         };
                     });
 
+
+                    function CerrarModalEvaluacion() {
+                        var modal = document.getElementById("modalEvaluacion");
+                        modal.style.display = "none";
+                    }
+
                     window.onclick = function (event) {
                         var modal = document.getElementById("modalEvaluacion");
                         var clickedElement = event.target;
@@ -452,9 +465,6 @@
                     }
 
                 </script>
-
-
-
 
                 <!-- Modal de calificacion exitosa -->
                 <div id="MostrarModalExito" class="modal" style="display: none; justify-content: center; align-items: center;">
@@ -527,10 +537,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </form>
 </body>

@@ -1,0 +1,63 @@
+﻿.comentarios {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /*Cambia la caja principal*/
+    border: 3px solid #A3AB78;
+    border-radius: 5px;
+}
+
+.comment {
+    border: 1px solid #ddd;
+    background-color: #A3AB78; /*Cambia la caja de comentarios principal menos las respuestas*/
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .comment p {
+        margin: 0;
+        font-size: 14px;
+        color: #fff; /*cambia el color de letra de los comentarios principales*/
+    }
+
+.reply {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .reply p {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+    }
+
+.btnResponder, .btnEliminar, .btnResponderRespuesta, .btnEliminarRespuesta {
+    background-color: #A3AB78;
+    color: #21213b;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+    .btnResponder:hover, .btnEliminar:hover, .btnResponderRespuesta:hover, .btnEliminarRespuesta:hover {
+        background-color: #BDE038;
+    }
+
+input[type="text"] {
+    border-radius: 10px; /* Aumenta el valor para hacerlo más redondeado */
+    border: 3px solid #00001a;
+    padding: 10px; /* Aumenta el valor para hacerlo un poco más grande */
+    width: 20%; /* Ocupará el 100% del ancho de su contenedor */
+}
+
+.btnResponder,
+.btnEliminar,
+.btnResponderRespuesta,
+.btnEliminarRespuesta {
+}

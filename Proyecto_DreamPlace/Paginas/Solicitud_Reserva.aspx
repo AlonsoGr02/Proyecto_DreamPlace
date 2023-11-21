@@ -30,6 +30,7 @@
 
                 <div class="container">
                     <!-- Título de la página -->
+                    <a href="../Global.asax">../Global.asax</a>
                     <h1>Solicitud de Reserva</h1>
 
                     <hr />

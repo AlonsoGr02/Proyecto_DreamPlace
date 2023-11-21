@@ -8,12 +8,14 @@ using System.Web.UI.WebControls;
 using CapaNegocio.Models;
 using Newtonsoft.Json;
 using System.Web.Optimization;
+using System.Data;
 
 namespace Proyecto_DreamPlace
 {
     public partial class Reserva : System.Web.UI.Page
     {
         private int idInmueble;
+        ConexionBD BD= new ConexionBD();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -63,6 +65,7 @@ namespace Proyecto_DreamPlace
                     List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas(idInmueble);
 
                     CalendarUpdate(DateTime.Today.Year, DateTime.Today.Month);
+                    CargarComentarios();
 
                 }
             }
@@ -185,6 +188,28 @@ namespace Proyecto_DreamPlace
 
             ConexionBD objConexion = new ConexionBD();
             objConexion.InsertarFavorito(idCedula, idInmueble);
+        }
+
+        private void CargarComentarios()
+        {
+            Session["IdInmueble"] = idInmueble;
+            DataTable comentariosTable = BD.ObtenerComentariosPorInmueble(idInmueble);
+
+            ComentariosRepeater.DataSource = comentariosTable;
+            ComentariosRepeater.DataBind();
+        }
+        protected void btnCrearResena_Click(object sender, EventArgs e)
+        {
+            string correo = Session["Correo"].ToString();
+            string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+
+            if (Session["IdInmueble"] != null && int.TryParse(Session["IdInmueble"].ToString(), out idInmueble))
+            {
+                string comentario = txtComentario.Text;
+                BD.InsertarComentario(IdCedula, idInmueble, comentario);
+                CargarComentarios();
+            }
+
         }
     }
 }

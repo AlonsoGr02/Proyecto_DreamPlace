@@ -1916,6 +1916,57 @@ namespace CapaNegocio
 
             return dtInmuebles;
         }
+
+
+        public void InsertarComentario(string idCedula, int idInmueble, string comentarioTexto)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                string query = "INSERT INTO Comentarios (IdCedula, IdInmueble, ComentarioTexto, Fecha) " +
+                               "VALUES (@IdCedula, @IdInmueble, @ComentarioTexto, GETDATE())";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@IdCedula", SqlDbType.Char, 20));
+                    command.Parameters["@IdCedula"].Value = idCedula;
+
+                    command.Parameters.Add(new SqlParameter("@IdInmueble", SqlDbType.Int));
+                    command.Parameters["@IdInmueble"].Value = idInmueble;
+
+                    command.Parameters.Add(new SqlParameter("@ComentarioTexto", SqlDbType.NVarChar));
+                    command.Parameters["@ComentarioTexto"].Value = comentarioTexto;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public DataTable ObtenerComentariosPorInmueble(int idInmueble)
+        {
+            DataTable resultTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM Comentarios WHERE IdInmueble = @Inmueble";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@Inmueble", SqlDbType.Int));
+                    command.Parameters["@Inmueble"].Value = idInmueble;
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(resultTable);
+                    }
+                }
+            }
+
+            return resultTable;
+        }
+
     }
 }
 

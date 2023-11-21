@@ -27,7 +27,7 @@
 
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
-
+    <link href="../Estilos/Css_Resena.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-xjMY0gIb5Jjt/6ZcPlV16JdA85z3PkjGm9Uo8Mp+YOuLOxM5Ygv4dxX4STl3MgIbRYlpuT0D+qsMxZRdcti81A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -615,35 +615,29 @@
                             }
                         </script>
 
-
-                        <div class="comments">
-                            <div class="comment-form">
-                                <h2>Deja un comentario</h2>
-                                <input class="comment-input" type="text" placeholder="Tu comentario">
-                                <button class="send-button">Enviar</button>
-                            </div>
-
-                            <div class="comment-box">
-                                <div class="comment-author">Usuario 1</div>
-                                <div class="comment-date">6 de noviembre de 2023</div>
-                                <div class="comment-text">
-                                    Este hotel es increíble. Las habitaciones son espaciosas y limpias, y el personal es muy amable. ¡Recomiendo este lugar!
-                                </div>
-                            </div>
-
-
-
-                            <div class="comment-box">
-                                <div class="comment-author">Usuario 2</div>
-                                <div class="comment-date">5 de noviembre de 2023</div>
-                                <div class="comment-text">
-                                    ¡Una experiencia increíble! La piscina es perfecta para relajarse y el restaurante ofrece comida deliciosa.
-                                </div>
-                            </div>
-
+                        <br />
+                        <hr />
+                        <br />
+                        <div class="comentarios">
+                            <h1>Reseñas</h1>
+                            <asp:TextBox ID="txtComentario" runat="server" CssClass="input-comentarios" placeholder="Agrega un comentario"></asp:TextBox>
+                            <asp:Button ID="btnCrearResena" runat="server" Text="Agregar Reseña" CssClass="btnResponder" OnClick="btnCrearResena_Click" EnableViewState="true" />
+                            <asp:Repeater ID="ComentariosRepeater" runat="server">
+                                <ItemTemplate>
+                                    <div class="comment">
+                                        <p>
+                                            <asp:Label ID="lblIdComentario" runat="server" Text='<%# Eval("IdComentario") %>' Visible="false" />
+                                        </p>
+                                        <p><%# Eval("IdCedula") %> - <%# Eval("Fecha") %></p>
+                                        <p><%# Eval("ComentarioTexto") %></p>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
-                    </div>
                 </ContentTemplate>
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="btnCrearResena" />
+                </Triggers>
             </asp:UpdatePanel>
         </form>
 </body>

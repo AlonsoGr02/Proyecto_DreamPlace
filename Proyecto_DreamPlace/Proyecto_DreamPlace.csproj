@@ -142,6 +142,7 @@
     <Content Include="Estilos\Css_Inicio.css" />
     <Content Include="Estilos\Css_PublicarAnuncio.css" />
     <Content Include="Estilos\Css_Registro.css" />
+    <Content Include="Estilos\Css_Resena.css" />
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />

@@ -101,6 +101,7 @@
                         </div>
                         <div id="user-menu" class="user-menu">
                             <ul>
+                                <li><a href="PrincipalHuesped.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
                                 <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
                                 <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
                                 <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>

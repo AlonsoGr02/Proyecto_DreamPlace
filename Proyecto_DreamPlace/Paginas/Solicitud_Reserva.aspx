@@ -5,6 +5,7 @@
 
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reserva</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
     <link href="Estilos/reservas.css" rel="stylesheet" />
     <link href="Estilos/navbar.css" rel="stylesheet" />

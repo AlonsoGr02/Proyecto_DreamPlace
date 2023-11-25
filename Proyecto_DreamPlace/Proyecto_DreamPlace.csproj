@@ -130,6 +130,7 @@
     <Content Include="Estilos\Css_Inicio3.css" />
     <Content Include="Estilos\Css_InicioMiBanco.css" />
     <Content Include="Estilos\Css_Login1.css" />
+    <Content Include="Estilos\Css_Login2.css" />
     <Content Include="Estilos\Css_LoginBanco.css" />
     <Content Include="Estilos\Css_ManteA.css" />
     <Content Include="Estilos\Css_Mensajes.css" />

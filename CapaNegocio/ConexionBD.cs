@@ -879,7 +879,7 @@ namespace CapaNegocio
             }
         }
 
-        public bool ValidarLogin(string correo, string codigo)
+        public bool ValidarCodigoL(string correo, string codigo)
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
@@ -887,6 +887,31 @@ namespace CapaNegocio
                 {
                     comando.Parameters.AddWithValue("@Correo", correo);
                     comando.Parameters.AddWithValue("@Codigo", codigo);
+
+                    try
+                    {
+                        conexion.Open();
+                        int count = Convert.ToInt32(comando.ExecuteScalar());
+                        return count > 0; // Si count es mayor a 0, el código coincide en la base de datos
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción según tus necesidades
+                        Console.WriteLine("Error al verificar código: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ValidarLogin(string correo, string contrasena)
+        {
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE Correo = @Correo AND Contrasena = @Contrasena", conexion))
+                {
+                    comando.Parameters.AddWithValue("@Correo", correo);
+                    comando.Parameters.AddWithValue("@Contrasena", contrasena);
 
                     try
                     {

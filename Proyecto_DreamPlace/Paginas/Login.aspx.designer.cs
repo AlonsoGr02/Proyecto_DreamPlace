@@ -42,6 +42,15 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label Labelseparador;
 
         /// <summary>
+        /// Control paso1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl paso1;
+
+        /// <summary>
         /// Control txtcorreo.
         /// </summary>
         /// <remarks>
@@ -51,6 +60,15 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.TextBox txtcorreo;
 
         /// <summary>
+        /// Control txtContrasena.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContrasena;
+
+        /// <summary>
         /// Control btnSoliCodigo.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace Proyecto_DreamPlace.Paginas
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSoliCodigo;
+
+        /// <summary>
+        /// Control paso2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl paso2;
 
         /// <summary>
         /// Control txtcodigoVerificion.

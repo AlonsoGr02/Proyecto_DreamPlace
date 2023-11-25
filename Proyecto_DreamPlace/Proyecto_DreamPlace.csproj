@@ -144,6 +144,7 @@
     <Content Include="Estilos\Css_PublicarAnuncio.css" />
     <Content Include="Estilos\Css_Registro.css" />
     <Content Include="Estilos\Css_Resena.css" />
+    <Content Include="Estilos\Css_VerificarIdentidad.css" />
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />
@@ -207,6 +208,7 @@
     <Content Include="Paginas\Registrarme.aspx" />
     <Content Include="Paginas\Solicitud_Reserva.aspx" />
     <Content Include="Paginas\Reserva.aspx" />
+    <Content Include="Paginas\VerficarIdentidad.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -476,6 +478,13 @@
     </Compile>
     <Compile Include="Paginas\Solicitud_Reserva.aspx.designer.cs">
       <DependentUpon>Solicitud_Reserva.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\VerficarIdentidad.aspx.cs">
+      <DependentUpon>VerficarIdentidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\VerficarIdentidad.aspx.designer.cs">
+      <DependentUpon>VerficarIdentidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Paginas\Reserva.aspx.cs">

@@ -96,6 +96,15 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.TextBox registerTelefono;
 
         /// <summary>
+        /// Control registerContrasena.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox registerContrasena;
+
+        /// <summary>
         /// Control seleccionarOp.
         /// </summary>
         /// <remarks>
@@ -103,42 +112,6 @@ namespace Proyecto_DreamPlace.Paginas
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlSelect seleccionarOp;
-
-        /// <summary>
-        /// Control lblInfo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInfo;
-
-        /// <summary>
-        /// Control FileUploadFrontal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUploadFrontal;
-
-        /// <summary>
-        /// Control lblInfoTrasera.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInfoTrasera;
-
-        /// <summary>
-        /// Control FileUploadTrasera.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUploadTrasera;
 
         /// <summary>
         /// Control btnGuardar.

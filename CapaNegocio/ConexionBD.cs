@@ -655,7 +655,7 @@ namespace CapaNegocio
             }
         }
 
-        public void InsertarIdentificacion(string idCedula, string nombre, string apellidos, DateTime fechaNac, string telefono, byte[] imagenFrontal, byte[] imagenTrasera)
+        public void InsertarIdentificacion(string idCedula, string nombre, string apellidos, DateTime fechaNac, string telefono) //, byte[] imagenFrontal, byte[] imagenTrasera
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
@@ -673,8 +673,8 @@ namespace CapaNegocio
                         cmd.Parameters.Add("@Apellidos", SqlDbType.VarChar, 50).Value = apellidos;
                         cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = fechaNac;
                         cmd.Parameters.Add("@Telefono", SqlDbType.VarChar, 20).Value = telefono;
-                        cmd.Parameters.Add("@IFrontal", SqlDbType.VarBinary, -1).Value = imagenFrontal; // -1 indica el tamaño máximo
-                        cmd.Parameters.Add("@ITrasera", SqlDbType.VarBinary, -1).Value = imagenTrasera;
+                        //cmd.Parameters.Add("@IFrontal", SqlDbType.VarBinary, -1).Value = imagenFrontal; // -1 indica el tamaño máximo
+                        //cmd.Parameters.Add("@ITrasera", SqlDbType.VarBinary, -1).Value = imagenTrasera;
 
                         cmd.ExecuteNonQuery();
                     }
@@ -801,7 +801,7 @@ namespace CapaNegocio
             }
         }
 
-        public void InsertarUsuario(string correo, string clave, int idRol, string idCedula)
+        public void InsertarUsuario(string correo, string clave, int idRol, string idCedula, string contrasena)
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
@@ -818,6 +818,7 @@ namespace CapaNegocio
                         cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = clave;
                         cmd.Parameters.Add("@IdRol", SqlDbType.Int).Value = idRol;
                         cmd.Parameters.Add("@IdCedula", SqlDbType.Char, 20).Value = idCedula;
+                        cmd.Parameters.Add("@Contrasena", SqlDbType.VarChar, 50).Value = contrasena;
 
                         cmd.ExecuteNonQuery();
                     }

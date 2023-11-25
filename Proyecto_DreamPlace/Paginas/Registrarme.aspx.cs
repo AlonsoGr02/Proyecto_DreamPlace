@@ -25,6 +25,7 @@ namespace Proyecto_DreamPlace.Paginas
                 string.IsNullOrWhiteSpace(registerApellidos.Text) ||
                 string.IsNullOrWhiteSpace(registerFechaNac.Text) ||
                 string.IsNullOrWhiteSpace(registerTelefono.Text) ||
+                string.IsNullOrWhiteSpace(registerContrasena.Text) ||
                 opcionSeleccionada <= 0)  // Validar que la opción seleccionada no sea menor o igual a cero
             {
                 lblRespu.Text = "Todos los campos son obligatorios";
@@ -38,11 +39,26 @@ namespace Proyecto_DreamPlace.Paginas
             string apellidos = registerApellidos.Text;
             string fechaNac = registerFechaNac.Text;
             string telefono = registerTelefono.Text;
+            string contrasena = registerContrasena.Text;
             //string tipoUser = registerTipoUsuario.Text;
             //opcionSeleccionada = Convert.ToInt32(seleccionarOp.Value);
             int rol = opcionSeleccionada;
-            byte[] imagenFrontal = null;
-            byte[] imagenTrasera = null;
+            //byte[] imagenFrontal = null;
+            //byte[] imagenTrasera = null;
+
+            // Validar la longitud mínima de la contraseña
+            if (contrasena.Length < 8)
+            {
+                lblRespu.Text = "La contraseña debe tener al menos 8 caracteres.";
+                return;
+            }
+
+            // Validar al menos una letra mayúscula
+            if (!contrasena.Any(char.IsUpper))
+            {
+                lblRespu.Text = "La contraseña debe contener al menos una letra mayúscula.";
+                return;
+            }
 
             DateTime fechaNacimiento;
             if (!DateTime.TryParse(fechaNac, out fechaNacimiento))
@@ -64,38 +80,40 @@ namespace Proyecto_DreamPlace.Paginas
                 !EsTipoDeDatoValido(nombre, "varchar", 50) ||
                 !EsTipoDeDatoValido(apellidos, "varchar", 50) ||
                 !EsTipoDeDatoValido(fechaNac, "date", -1) ||
+                !EsTipoDeDatoValido(contrasena, "varchar", 50) ||
                 !EsTipoDeDatoValido(telefono, "varchar", 20))
             {
                 lblRespu.Text = "Los tipos de datos no son válidos o los tamaños son incorrectos.";
                 return;
             }
 
-            // Validar que los archivos estén adjuntos siempre
-            if (!FileUploadFrontal.HasFile || !FileUploadTrasera.HasFile)
-            {
-                lblRespu.Text = "Debe adjuntar ambos archivos";
-                return;
-            }
+            //// Validar que los archivos estén adjuntos siempre
+            //if (!FileUploadFrontal.HasFile || !FileUploadTrasera.HasFile)
+            //{
+            //    lblRespu.Text = "Debe adjuntar ambos archivos";
+            //    return;
+            //}
 
-            if (FileUploadFrontal.HasFile)
-            {
-                imagenFrontal = ConvertirImagenABytes(FileUploadFrontal.PostedFile);
-                lblInfo.Text = "Adjunta la foto trasera de la cédula";
-                lblInfoTrasera.Text = "";
-            }
-            if (FileUploadTrasera.HasFile)
-            {
-                imagenTrasera = ConvertirImagenABytes(FileUploadTrasera.PostedFile);
-            }
+            //if (FileUploadFrontal.HasFile)
+            //{
+            //    imagenFrontal = ConvertirImagenABytes(FileUploadFrontal.PostedFile);
+            //    lblInfo.Text = "Adjunta la foto trasera de la cédula";
+            //    lblInfoTrasera.Text = "";
+            //}
+            //if (FileUploadTrasera.HasFile)
+            //{
+            //    imagenTrasera = ConvertirImagenABytes(FileUploadTrasera.PostedFile);
+            //}
 
             ConexionBD objConexion = new ConexionBD();
             Metodos objMetodos = new Metodos();
 
             string clave = objMetodos.GenerarCodigoNumerico();
-            objConexion.InsertarIdentificacion(cedula, nombre, apellidos, fechaNacimiento, telefono, imagenFrontal, imagenTrasera);
-            objConexion.InsertarUsuario(correo, clave, rol, cedula);
+            objConexion.InsertarIdentificacion(cedula, nombre, apellidos, fechaNacimiento, telefono);
+            objConexion.InsertarUsuario(correo, clave, rol, cedula, contrasena);
 
             lblRespu.Text = "El registro se realizó con éxito";
+            LimpiarTextBox();
         }
 
         private byte[] ConvertirImagenABytes(HttpPostedFile file)
@@ -138,5 +156,17 @@ namespace Proyecto_DreamPlace.Paginas
             }
             return edad >= 18;
         }
+
+        private void LimpiarTextBox()
+        {
+            registerCedula.Text = string.Empty;
+            registerUsername.Text = string.Empty;
+            registerNombre.Text = string.Empty;
+            registerApellidos.Text = string.Empty;
+            registerFechaNac.Text = string.Empty;
+            registerTelefono.Text = string.Empty;
+            registerContrasena.Text = string.Empty;
+        }
+
     }
 }

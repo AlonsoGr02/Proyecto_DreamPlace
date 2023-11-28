@@ -28,6 +28,8 @@ namespace Proyecto_DreamPlace.Paginas
         int idServicio2;
         string tituloInmueble;
         string descripcionIn;
+        List<byte[]> imagenesTemporales = new List<byte[]>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,14 +48,14 @@ namespace Proyecto_DreamPlace.Paginas
                 }
 
                 // Mostrar el primer paso y ocultar los demás
-                contenedorPrincipal.Visible = true;
+                contenedorPrincipal.Visible = true; 
                 contenedor2.Visible = false;
                 contenedor3.Visible = false;
                 contenedor4.Visible = false;
                 contenedor5.Visible = false;
                 contenedorPaso2.Visible = false;
                 contenedor6.Visible = false;
-                contenedor7.Visible = false;
+                contenedor7.Visible = false; 
                 contenedor8.Visible = false;
                 contenedor10.Visible = false;
                 contenedorPaso3.Visible = false;
@@ -88,15 +90,17 @@ namespace Proyecto_DreamPlace.Paginas
             else if (contenedor2.Visible)
             {
                 // obetner id categoria
-                if (!string.IsNullOrEmpty(HiddenFieldIdCategoria.Value) && int.TryParse(HiddenFieldIdCategoria.Value, out idCategoria))
+                int idCategoriaGuardada;
+                if (!string.IsNullOrEmpty(HiddenFieldIdCategoria.Value) && int.TryParse(HiddenFieldIdCategoria.Value, out idCategoriaGuardada))
                 {
-
+                    Session["IdCategoria"] = idCategoriaGuardada;
                 }
                 string Correo = (string)Session["Correo"];
                 string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(Correo);
-                int idEstado = 1;
-                int idDescuento = 1;
-                objConexion.InsertarInmuebleCategoria(idCategoria, cedula, idEstado, idDescuento);
+                //-----
+                Session["CedAnfitrion"] = cedula;
+
+                //objConexion.InsertarInmuebleCategoria(idCategoria, cedula, idEstado, idDescuento);
 
                 // Luego, oculta el paso 1.1 y muestra el paso 1.2
                 contenedor2.Visible = false;
@@ -108,10 +112,11 @@ namespace Proyecto_DreamPlace.Paginas
                 {
                     // obtener el valor del tipoInmueble
                     tipoInmueble = HiddenFieldTipoInmueble.Value;
+                    Session["tipoInmueble"] = tipoInmueble;
                 }
 
                 int idInm = objConexion.ObtenerUltimoIdInmueble();
-                objConexion.ActualizarTipoInmueble(idInm, tipoInmueble);
+                //objConexion.ActualizarTipoInmueble(idInm, tipoInmueble);
 
                 // Luego, oculta el paso 1.2 y muestra el paso 1.3
                 contenedor3.Visible = false;
@@ -119,14 +124,16 @@ namespace Proyecto_DreamPlace.Paginas
             }
             else if (contenedor4.Visible)
             {
-                // obtener los campos
-                //provincia = txtProvincia.Text;
                 provincia = ddlProvincia.SelectedValue;
                 canton = txtCanton.Text;
                 direccionExacta = txtDirecExcata.Text;
 
-                objConexion.InsertarUbicacion(provincia, canton, direccionExacta);
-                idUbicacion = objConexion.ObtenerUltimoIdUbicacion();
+                Session["Provincia"] = ddlProvincia.SelectedValue;
+                Session["Canton"] = txtCanton.Text;
+                Session["DireccionExacta"] = txtDirecExcata.Text;
+
+                //objConexion.InsertarUbicacion(provincia, canton, direccionExacta);
+                //idUbicacion = objConexion.ObtenerUltimoIdUbicacion();
 
                 // Luego, oculta el paso 1.3 y muestra el paso 1.4
                 contenedor4.Visible = false;
@@ -141,9 +148,14 @@ namespace Proyecto_DreamPlace.Paginas
                 cantidadCamas = int.Parse(txtCantidadCamas.Text);
                 cantidadBanos = int.Parse(txtBanos.Text);
 
+                Session["CantidadHuespedes"] = int.Parse(txtCantidadHuespedes.Text);
+                Session["CantidadHabitaciones"] = int.Parse(txtCantidadHabitaciones.Text);
+                Session["CantidadCamas"] = int.Parse(txtCantidadCamas.Text);
+                Session["CantidadBanos"] = int.Parse(txtBanos.Text);
+
                 int idInm = objConexion.ObtenerUltimoIdInmueble();
                 idUbicacion = objConexion.ObtenerUltimoIdUbicacion();
-                objConexion.ActualizarDetallesInmueble(idInm, cantidadHuespedes, cantidadHabitaciones, cantidadBanos, cantidadCamas, idUbicacion);
+                //objConexion.ActualizarDetallesInmueble(idInm, cantidadHuespedes, cantidadHabitaciones, cantidadBanos, cantidadCamas, idUbicacion);
 
                 // Luego, oculta el paso 1.4 y muestra el paso 2
                 contenedor5.Visible = false;
@@ -174,16 +186,16 @@ namespace Proyecto_DreamPlace.Paginas
                 // obtener los datos de los servicio 1 y 2
                 if (!string.IsNullOrEmpty(hfIdServicio1.Value) && int.TryParse(hfIdServicio1.Value, out idServicio1))
                 {
-
+                    Session["IdServicio1"] = idServicio1;
                 }
                 if (!string.IsNullOrEmpty(hfIdServicio2.Value) && int.TryParse(hfIdServicio2.Value, out idServicio2))
                 {
-
+                    Session["IdServicio2"] = idServicio2;
                 }
 
                 int idInm = objConexion.ObtenerUltimoIdInmueble();
-                objConexion.InsertarServicioInmueble(idServicio1, idInm);
-                objConexion.InsertarServicioInmueble(idServicio2, idInm);
+                //objConexion.InsertarServicioInmueble(idServicio1, idInm);
+                //objConexion.InsertarServicioInmueble(idServicio2, idInm);
 
                 // Luego, oculta el paso 2.1 y muestra el paso 2.2
                 contenedor6.Visible = false;
@@ -206,9 +218,10 @@ namespace Proyecto_DreamPlace.Paginas
             {
                 // obtner le valor del titulo
                 tituloInmueble = txtTitulo.Text;
+                Session["TituloInmueble"] = txtTitulo.Text;
 
                 int idInm = objConexion.ObtenerUltimoIdInmueble();
-                objConexion.ActualizarNombreInmueble(idInm, tituloInmueble);
+                //objConexion.ActualizarNombreInmueble(idInm, tituloInmueble);
 
                 // Luego, oculta el paso 2.1 y muestra el paso 2.2
                 contenedor10.Visible = false;
@@ -218,9 +231,10 @@ namespace Proyecto_DreamPlace.Paginas
             {
                 // obtener el valor de descripcion
                 descripcionIn = txtDescripcionI.Text;
+                Session["DescripcionIn"] = txtDescripcionI.Text;
 
                 int idInm = objConexion.ObtenerUltimoIdInmueble();
-                objConexion.ActualizarDescripcionInmueble(idInm, descripcionIn);
+                //objConexion.ActualizarDescripcionInmueble(idInm, descripcionIn);
 
                 // Luego, oculta el paso 2 y muestra el paso 2.1
                 contenedorPaso3.Visible = false;
@@ -236,60 +250,108 @@ namespace Proyecto_DreamPlace.Paginas
                 !string.IsNullOrEmpty(hiddenIva.Value) && decimal.TryParse(hiddenIva.Value, out iva) &&
                 !string.IsNullOrEmpty(hiddenPrecioTotal.Value) && decimal.TryParse(hiddenPrecioTotal.Value, out precioTotal))
                 {
+                    Session["PrecioBase"] = precioBase;
+                    Session["Iva"] = iva;
+                    Session["PrecioTotal"] = precioTotal;
+
                     int idInm = objConexion.ObtenerUltimoIdInmueble();
-                    objConexion.InsertarTotal(precioBase, iva, precioTotal, idInm);
+                    //objConexion.InsertarTotal(precioBase, iva, precioTotal, idInm);
                 }
+
                 string CorreoSession = (string)Session["Correo"];
 
                 // Luego, oculta el paso 2.1 y muestra el paso 2.2
                 contenedor12.Visible = false;
 
-                // Carga vista previa
-                int idInVistaP = objConexion.ObtenerUltimoIdInmueble();
-                Panel carousel = (Panel)FindControl("carousel");
+                // variables para hacer la vista previa del inmuble
+                string cedAnfitrion = Session["CedAnfitrion"] as string;
+                int idEstado = 1;
+                int idDescuento = 1;
+                int idCategoriaG = (int)Session["IdCategoria"];
+                string tipoInmuebleGuardado = Session["tipoInmueble"] as string;
+                string provinciaGuardada = Session["Provincia"] as string;
+                string cantonGuardado = Session["Canton"] as string;
+                string direccionGuardada = Session["DireccionExacta"] as string;
+                int canHuespedesGuardada = (int)Session["CantidadHuespedes"];
+                int canHabitacionesGuardada = (int)Session["CantidadHabitaciones"];
+                int canCamasGuardada = (int)Session["CantidadCamas"];
+                int canBanosGuardada = (int)Session["CantidadBanos"];
+                int idServicio1Guardado = Session["IdServicio1"] != null ? (int)Session["IdServicio1"] : 0;
+                int idServicio2Guardado = Session["IdServicio2"] != null ? (int)Session["IdServicio2"] : 0;
+                string tituloInmuebleGuardado = Session["TituloInmueble"] as string;
+                string descripcionInGuardada = Session["DescripcionIn"] as string;
+                decimal? precioBaseGuardado = Session["PrecioBase"] as decimal?;
+                decimal? ivaGuardado = Session["Iva"] as decimal?;
+                decimal? precioTotalGuardado = Session["PrecioTotal"] as decimal?;
 
-                List<byte[]> imagenesInmueble = objConexion.ObtenerImagenesInmueble(idInVistaP);
+                ///-------------------
 
-                foreach (byte[] imagenBytes in imagenesInmueble)
+                // Carga vista previa ----------
+
+                List<byte[]> imagenesTemporales = Session["ImagenesTemporales"] as List<byte[]>;
+
+                if (imagenesTemporales != null)
                 {
-                    Image img = new Image();
-                    img.ImageUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(imagenBytes)}";
-                    carousel.Controls.Add(img);
-                }
-                DataTable datosVistaPrevia = objConexion.ObtenerDatosVistaPrevia(idInVistaP);
+                    Panel carousel = (Panel)FindControl("carousel");
 
-                if (datosVistaPrevia != null && datosVistaPrevia.Rows.Count > 0)
-                {
-                    DataRow row = datosVistaPrevia.Rows[0];
-
-                    lblTituloAlojamiento.Text = "Titulo: " + row["Nombre"].ToString();
-                    lblDescripcion.Text = "Descripción: " + row["Descripcion"].ToString();
-                    lblTipoAlojamiento.Text = "Tipo de Inmueble: " + row["TipoInmueble"].ToString();
-                    lblCategoria.Text = "Categoría: " + row["Categoria"].ToString();
-                    lblEstado.Text = "Estado: " + row["NombreEstado"].ToString();
-
-                    lblCPersonas.Text = "Cantidad Huéspedes: " + row["CantidadPersonas"].ToString();
-                    lblCDormitorios.Text = "Cantidad Habitaciones: " + row["CantidadDormitorios"].ToString();
-                    lblCCamas.Text = "Cantidad Camas: " + row["CantidadCamas"].ToString();
-                    lblCBanos.Text = "Cantidad Baños: " + row["CantidadBanos"].ToString();
-
-                    DataTable dtServicios = objConexion.ObtenerServiciosVistaP(idInVistaP);
-                    if (dtServicios != null && dtServicios.Rows.Count > 0)
+                    foreach (byte[] imagenBytes in imagenesTemporales)
                     {
-                        lblServicio1.Text = dtServicios.Rows.Count > 0 ? dtServicios.Rows[0]["Nombre"].ToString() : string.Empty;
-                        lblServicio2.Text = dtServicios.Rows.Count > 1 ? dtServicios.Rows[1]["Nombre"].ToString() : string.Empty;
+                        Image img = new Image();
+                        img.ImageUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(imagenBytes)}";
+                        carousel.Controls.Add(img);
                     }
                 }
+                
+                lblTituloAlojamiento.Text = "Titulo: " + tituloInmuebleGuardado;
+                lblDescripcion.Text = "Descripción: " + descripcionInGuardada;
+                lblTipoAlojamiento.Text = "Tipo de Inmueble: " + tipoInmuebleGuardado;
+                string nomCategoria = objConexion.ObtenerNombreCategoriaPorId(idCategoriaG);
+                lblCategoria.Text = "Categoría: " + nomCategoria;
+                
+                lblCPersonas.Text = "Cantidad Huéspedes: " + canHuespedesGuardada.ToString();
+                lblCDormitorios.Text = "Cantidad Habitaciones: " + canHabitacionesGuardada.ToString();
+                lblCCamas.Text = "Cantidad Camas: " + canCamasGuardada.ToString();
+                lblCBanos.Text = "Cantidad Baños: " + canBanosGuardada.ToString();
+
+                string nombreSer1 = objConexion.ObtenerNombreServicioPorId(idServicio1Guardado);
+                string nombreSer2 = objConexion.ObtenerNombreServicioPorId(idServicio2Guardado);
+                lblServicio1.Text = nombreSer1;
+                lblServicio2.Text = nombreSer2;
                 contenedor14.Visible = true;
             }
             else if (contenedor14.Visible)
             {
+                // variables para hacer la insercion del inmuble
+                string cedAnfitrion = Session["CedAnfitrion"] as string;
+                int idEstado = Convert.ToInt32(ddlEstado.SelectedValue);
+                int idDescuento = 1;
+                int idCategoriaG = (int)Session["IdCategoria"];
+                string tipoInmuebleGuardado = Session["tipoInmueble"] as string;
+                string provinciaGuardada = Session["Provincia"] as string;
+                string cantonGuardado = Session["Canton"] as string;
+                string direccionGuardada = Session["DireccionExacta"] as string;
+                int canHuespedesGuardada = (int)Session["CantidadHuespedes"];
+                int canHabitacionesGuardada = (int)Session["CantidadHabitaciones"];
+                int canCamasGuardada = (int)Session["CantidadCamas"];
+                int canBanosGuardada = (int)Session["CantidadBanos"];
+                int idServicio1Guardado = Session["IdServicio1"] != null ? (int)Session["IdServicio1"] : 0;
+                int idServicio2Guardado = Session["IdServicio2"] != null ? (int)Session["IdServicio2"] : 0;
+                string tituloInmuebleGuardado = Session["TituloInmueble"] as string;
+                string descripcionInGuardada = Session["DescripcionIn"] as string;
+                decimal precioBaseGuardado = (decimal)Session["PrecioBase"];
+                decimal ivaGuardado = (decimal)Session["Iva"];
+                decimal precioTotalGuardado = (decimal)Session["PrecioTotal"];
+
+                List<byte[]> imagenesTemporales = Session["ImagenesTemporales"] as List<byte[]>;
+                string listaImagenesBase64 = ObtenerListaImagenesBase64(imagenesTemporales);
+
+                objConexion.InsertarInmuebleConmpleto(cedAnfitrion,idEstado,idDescuento,idCategoriaG,tipoInmuebleGuardado,provinciaGuardada,cantonGuardado,direccionGuardada,canHuespedesGuardada,canHabitacionesGuardada,canCamasGuardada,canBanosGuardada,idServicio1Guardado,idServicio2Guardado,tituloInmuebleGuardado,descripcionInGuardada,precioBaseGuardado,ivaGuardado,precioTotalGuardado,listaImagenesBase64);
                 string CorreoSession = (string)Session["Correo"];
                 Response.Redirect("CuentaAnfitrion.aspx?Correo=" + CorreoSession);
             }
         } // Fin del boton next
 
-        // no se esta utilizando de momento
+
         protected void btnPrev_Click(object sender, EventArgs e)
         {
             // Maneja el evento del botón "Anterior"
@@ -418,21 +480,43 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            // Verificar si se seleccionó un archivo
+            List<byte[]> imagenesTemporales = Session["ImagenesTemporales"] as List<byte[]>;
+
+            if (imagenesTemporales == null)
+            {
+                imagenesTemporales = new List<byte[]>();
+            }
+
             if (FileUpload1.HasFile)
             {
-                // Convertir el archivo a un array de bytes
                 byte[] bytes;
                 using (BinaryReader br = new BinaryReader(FileUpload1.PostedFile.InputStream))
                 {
                     bytes = br.ReadBytes(FileUpload1.PostedFile.ContentLength);
                 }
+                imagenesTemporales.Add(bytes);
 
-                int idInmueble = objConexion.ObtenerUltimoIdInmueble();
-                objConexion.InsertarImagenInmueble(bytes, idInmueble);
+                Session["ImagenesTemporales"] = imagenesTemporales;
 
                 Label2.Text = "Imagen subida exitosamente.";
             }
         }
+
+        private string ObtenerListaImagenesBase64(List<byte[]> imagenes)
+        {
+            List<string> imagenesBase64 = new List<string>();
+
+            foreach (byte[] imagenBytes in imagenes)
+            {
+                string base64String = Convert.ToBase64String(imagenBytes);
+                imagenesBase64.Add(base64String);
+            }
+
+            // Une las imágenes base64 separadas por comas
+            string listaImagenes = string.Join(",", imagenesBase64);
+
+            return listaImagenes;
+        }
+
     } // Fin de la clase 
 }

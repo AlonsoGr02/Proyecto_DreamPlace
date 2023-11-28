@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
- <html>
+<html>
 <head>
     <title>Publicar Anuncio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" />
@@ -41,6 +41,19 @@
         .price {
             font-size: 18px;
             color: #333; /* Text color */
+        }
+
+        .miDDL {
+            width: 340px;
+            height: 90px;
+            padding: 10px;
+            border: 2px solid #A3AB78;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #333;
+            background-color: #A3AB78;
+            box-shadow: 5px 5px 5px #888;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -99,6 +112,7 @@
                             // Actualiza la tarjeta seleccionada y el valor del HiddenField con el idCategoria
                             tarjetaSeleccionada = elemento;
                             document.getElementById('<%= HiddenFieldIdCategoria.ClientID %>').value = idCategoria;
+
                         } else {
                             // Si ya estaba seleccionada, cambia al color base y borra el idCategoria
                             elemento.style.border = '2px solid #556B2F';
@@ -182,7 +196,7 @@
                 <h3>¿Dónde se encuentra tu espacio?</h3>
             </div>
             <div>
-                <asp:DropDownList ID="ddlProvincia" runat="server" CssClass="miDropDownList" AppendDataBoundItems="true">
+                <asp:DropDownList ID="ddlProvincia" runat="server" CssClass="miDDL" AppendDataBoundItems="true">
                     <asp:ListItem Text="-- Selecciona una provincia --" Value="" Disabled="true" Selected="true"></asp:ListItem>
                     <asp:ListItem Text="San Jose" Value="San Jose"></asp:ListItem>
                     <asp:ListItem Text="Cartago" Value="Cartago"></asp:ListItem>
@@ -294,7 +308,7 @@
                 <asp:FileUpload ID="FileUpload1" runat="server" CssClass="botonSubir" Multiple="true" />
                 <asp:Button ID="Button1" runat="server" Text="Subir Fotos" CssClass="botonSubir" OnClick="Button1_Click" />
             </div>
-            <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
 
         </div>
 
@@ -421,7 +435,10 @@
                         <asp:Label ID="lblDescripcion" runat="server" Text="Descripción del Alojamiento" CssClass="label-v"></asp:Label>
                         <asp:Label ID="lblTipoAlojamiento" runat="server" Text="Tipo de Alojamiento: Un alojamiento completo" CssClass="label-v"></asp:Label>
                         <asp:Label ID="lblCategoria" runat="server" Text="Categoría: nombreAnfitrion" CssClass="label-v"></asp:Label>
-                        <asp:Label ID="lblEstado" runat="server" Text="Estado: nombreAnfitrion" CssClass="label-v"></asp:Label>
+                        <asp:DropDownList ID="ddlEstado" runat="server" CssClass="ddl-v">
+                            <asp:ListItem Text="Activo" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Inactivo" Value="2"></asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                 </div>
 
@@ -442,7 +459,7 @@
         </div>
 
         <div id="contenedor-botones">
-            <asp:Button ID="btnPrev" CssClass="boton-anterior" runat="server" Text="Anterior" Visible="false" OnClick="btnPrev_Click" />
+            <asp:Button ID="btnPrev" CssClass="boton-anterior" runat="server" Text="Anterior" OnClick="btnPrev_Click" />
             <asp:Button ID="btnNext" CssClass="boton-siguiente" runat="server" Text="Siguiente" OnClick="btnNext_Click" />
         </div>
 

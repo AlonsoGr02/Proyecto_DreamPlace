@@ -17,6 +17,7 @@
     <link href="../Estilos/Modal.css" rel="stylesheet" type="text/css" />
     <link href="../Estilos/Css_Registro.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -137,7 +138,7 @@
             <div class="information">
                 <h1>Cuenta</h1>
                 <div class="flex-container">
-                    <asp:Label ID="Label2" runat="server" Text=" · "></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text=" Anfitrión "></asp:Label>
                     <asp:Label ID="Label1" runat="server" Text=" · "></asp:Label>
                     <asp:Label ID="lblNombre" runat="server" Text="Nombre completo"></asp:Label>
                     <asp:Label ID="lblApellido" runat="server" Text="Apellidos"></asp:Label>
@@ -355,7 +356,7 @@
                     </a>
                 </div>
 
-        
+
                 <!-- Tarjeta de Evaluancion Experiencias -->
                 <div class="flip-card" onclick="AbrirModalEvaluacion(event)">
 
@@ -372,7 +373,7 @@
 
                 <!-- Modal Evaluación -->
                 <div id="modalEvaluacion" class="modal">
-                    <div class="modal-content">                       
+                    <div class="modal-content">
                         <div class="modal-content-inner">
                             <h2>Calificar Huésped</h2>
                             <div class="container">
@@ -588,5 +589,15 @@
 
         </div>
     </form>
+    <footer>
+        <div class="footer-content">
+            <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />
+            <div class="footer-info">
+                <h1 class="footer-text">DreamPlace</h1>
+                <p class="footer-contact">Contacto: dreamplace@gmail.com | Teléfono: +506 55495224</p>
+                <p class="footer-copyright">&copy; 2023 DreamPlace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

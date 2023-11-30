@@ -1,0 +1,31 @@
+﻿/* Agrega esto a tus estilos existentes o enlaza a un nuevo archivo de estilo */
+footer {
+    background-color: #333; /* Color de fondo del pie de página */
+    color: #fff; /* Color del texto en el pie de página */
+    padding: 10px; /* Espaciado interno del pie de página */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Distribuye los elementos en el espacio disponible */
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+}
+
+    .footer-content img {
+        max-width: 100px; /* Ajusta el ancho máximo de la imagen según tus necesidades */
+        margin-right: 10px; /* Espaciado a la derecha de la imagen */
+    }
+
+.footer-info {
+    flex-grow: 1; /* Hace que la información ocupe el espacio disponible restante */
+}
+
+.footer-text {
+    text-align: center; /* Alinea el texto al centro */
+}
+
+.footer-contact {
+    font-size: 14px; /* Tamaño del texto de contacto */
+}

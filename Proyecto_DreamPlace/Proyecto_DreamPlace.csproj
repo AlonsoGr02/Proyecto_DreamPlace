@@ -202,6 +202,7 @@
     <Content Include="Estilos\Css_Registro.css" />
     <Content Include="Estilos\Css_Resena.css" />
     <Content Include="Estilos\Css_VerificarIdentidad.css" />
+    <Content Include="Estilos\footer.css" />
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />
@@ -216,6 +217,7 @@
     <Content Include="img\cuarto.png" />
     <Content Include="img\dolar.png" />
     <Content Include="img\DreamPlace.jpg" />
+    <Content Include="img\dreamplacefooter.jpg" />
     <Content Include="img\DreamPlece Logo Lima.jpg" />
     <Content Include="img\Elegante.png" />
     <Content Include="img\estrella.png" />

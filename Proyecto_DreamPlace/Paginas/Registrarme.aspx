@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
     <link href="../Estilos/Css_Registro.css" rel="stylesheet" />
     <link href="../Estilos/Css_Login2.css" rel="stylesheet" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -55,5 +56,15 @@
             <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>
         </div>
     </form>
+    <footer>
+        <div class="footer-content">
+            <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />
+            <div class="footer-info">
+                <h1 class="footer-text">DreamPlace</h1>
+                <p class="footer-contact">Contacto: dreamplace@gmail.com | Teléfono: +506 55495224</p>
+                <p class="footer-copyright">&copy; 2023 DreamPlace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="StyleSheet" href="../Estilos/Css_Favoritos.css" type="text/css" />
-
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -51,5 +51,15 @@
             });
         </script>
     </form>
+    <footer>
+        <div class="footer-content">
+            <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />
+            <div class="footer-info">
+                <h1 class="footer-text">DreamPlace</h1>
+                <p class="footer-contact">Contacto: dreamplace@gmail.com | Teléfono: +506 55495224</p>
+                <p class="footer-copyright">&copy; 2023 DreamPlace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

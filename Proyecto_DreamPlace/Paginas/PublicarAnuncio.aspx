@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link href="../Estilos/Css_PublicarA.css" rel="stylesheet" />
     <link href="../Estilos/Css_PublicarA2.css" rel="stylesheet" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
+
     <style>
         .price-card {
             width: 100%;
@@ -477,5 +479,6 @@
             });
         </script>
     </form>
+   
 </body>
 </html>

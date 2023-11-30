@@ -11,6 +11,7 @@
     <link href="Estilos/navbar.css" rel="stylesheet" />
     <link href="../Estilos/solicitudreserva.css" rel="stylesheet" />
     <link href="../Estilos/Modal.css" rel="stylesheet" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -162,6 +163,16 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </form>
+    <footer>
+        <div class="footer-content">
+            <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />
+            <div class="footer-info">
+                <h1 class="footer-text">DreamPlace</h1>
+                <p class="footer-contact">Contacto: dreamplace@gmail.com | Teléfono: +506 55495224</p>
+                <p class="footer-copyright">&copy; 2023 DreamPlace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

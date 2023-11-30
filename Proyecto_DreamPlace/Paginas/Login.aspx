@@ -8,6 +8,7 @@
     <title>Iniciar Sesión</title>
     <link href="../Estilos/Css_Login1.css" rel="stylesheet" />
     <link href="../Estilos/Css_Login2.css" rel="stylesheet" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,5 +47,6 @@
         </div>
 
     </form>
+    
 </body>
 </html>

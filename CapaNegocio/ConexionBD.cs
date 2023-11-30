@@ -466,14 +466,14 @@ namespace CapaNegocio
                 }
             }
         }
-    
-
-
-    #endregion
 
 
 
-    public static string ObtenerIdCedulaPorCorreo(string correo)
+        #endregion
+
+
+
+        public static string ObtenerIdCedulaPorCorreo(string correo)
         {
             string obtenerIdCedulaQuery = "SELECT IdCedula FROM Usuarios WHERE Correo = @Correo";
             using (SqlConnection connection = new SqlConnection(cadenaCon))
@@ -655,7 +655,7 @@ namespace CapaNegocio
             }
         }
 
-        public void InsertarIdentificacion(string idCedula, string nombre, string apellidos, DateTime fechaNac, string telefono, byte[] imagenFrontal, byte[] imagenTrasera)
+        public void InsertarIdentificacion(string idCedula, string nombre, string apellidos, DateTime fechaNac, string telefono) //, byte[] imagenFrontal, byte[] imagenTrasera
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
@@ -673,8 +673,8 @@ namespace CapaNegocio
                         cmd.Parameters.Add("@Apellidos", SqlDbType.VarChar, 50).Value = apellidos;
                         cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = fechaNac;
                         cmd.Parameters.Add("@Telefono", SqlDbType.VarChar, 20).Value = telefono;
-                        cmd.Parameters.Add("@IFrontal", SqlDbType.VarBinary, -1).Value = imagenFrontal; // -1 indica el tamaño máximo
-                        cmd.Parameters.Add("@ITrasera", SqlDbType.VarBinary, -1).Value = imagenTrasera;
+                        //cmd.Parameters.Add("@IFrontal", SqlDbType.VarBinary, -1).Value = imagenFrontal; // -1 indica el tamaño máximo
+                        //cmd.Parameters.Add("@ITrasera", SqlDbType.VarBinary, -1).Value = imagenTrasera;
 
                         cmd.ExecuteNonQuery();
                     }
@@ -801,7 +801,7 @@ namespace CapaNegocio
             }
         }
 
-        public void InsertarUsuario(string correo, string clave, int idRol, string idCedula)
+        public void InsertarUsuario(string correo, string clave, int idRol, string idCedula, string contrasena)
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
@@ -818,6 +818,7 @@ namespace CapaNegocio
                         cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = clave;
                         cmd.Parameters.Add("@IdRol", SqlDbType.Int).Value = idRol;
                         cmd.Parameters.Add("@IdCedula", SqlDbType.Char, 20).Value = idCedula;
+                        cmd.Parameters.Add("@Contrasena", SqlDbType.VarChar, 50).Value = contrasena;
 
                         cmd.ExecuteNonQuery();
                     }
@@ -879,7 +880,7 @@ namespace CapaNegocio
             }
         }
 
-        public bool ValidarLogin(string correo, string codigo)
+        public bool ValidarCodigoL(string correo, string codigo)
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
@@ -887,6 +888,31 @@ namespace CapaNegocio
                 {
                     comando.Parameters.AddWithValue("@Correo", correo);
                     comando.Parameters.AddWithValue("@Codigo", codigo);
+
+                    try
+                    {
+                        conexion.Open();
+                        int count = Convert.ToInt32(comando.ExecuteScalar());
+                        return count > 0; // Si count es mayor a 0, el código coincide en la base de datos
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción según tus necesidades
+                        Console.WriteLine("Error al verificar código: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool ValidarLogin(string correo, string contrasena)
+        {
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand("SELECT COUNT(*) FROM Usuarios WHERE Correo = @Correo AND Contrasena = @Contrasena", conexion))
+                {
+                    comando.Parameters.AddWithValue("@Correo", correo);
+                    comando.Parameters.AddWithValue("@Contrasena", contrasena);
 
                     try
                     {
@@ -1636,7 +1662,7 @@ namespace CapaNegocio
 
         public static void InsertarPagos(string IdNTarjeta, decimal TotalAPagar, int IdInmueble, string IdCedula)
         {
-            
+
             string insertQuery = "INSERT INTO HistorialPagos (IdNTarjeta, TotalAPagar, IdInmueble, IdCedula) " +
                                  "VALUES (@IdNTarjeta, @TotalAPagar, @IdInmueble, @IdCedula)";
 
@@ -1775,10 +1801,10 @@ namespace CapaNegocio
                 {
                     insertCommand.Parameters.AddWithValue("@Calificacion", Calificacion);
                     insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
-                    insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);                    
+                    insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);
 
                     insertCommand.ExecuteNonQuery();
-                }               
+                }
             }
         }
 
@@ -1794,7 +1820,7 @@ namespace CapaNegocio
                 using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
                 {
                     insertCommand.Parameters.AddWithValue("@Calificacion", Calificacion);
-                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);                    
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
 
                     insertCommand.ExecuteNonQuery();
                 }
@@ -1848,7 +1874,7 @@ namespace CapaNegocio
                 {
                     comando.CommandType = CommandType.StoredProcedure;
 
-                    
+
                     comando.Parameters.AddWithValue("@idInmueble", idInmueble);
 
                     try
@@ -1861,7 +1887,7 @@ namespace CapaNegocio
                         }
                     }
                     catch (Exception ex)
-                    {                        
+                    {
                         Console.WriteLine("Error al ejecutar el stored procedure: " + ex.Message);
                     }
                 }
@@ -1965,6 +1991,127 @@ namespace CapaNegocio
             }
 
             return resultTable;
+        }
+
+        //***************
+        public void InsertarInmuebleConmpleto(
+        string cedAnfitrion,
+        int idEstado,
+        int idDescuento,
+        int idCategoria,
+        string tipoInmueble,
+        string provincia,
+        string canton,
+        string direccion,
+        int canHuespedes,
+        int canHabitaciones,
+        int canCamas,
+        int canBanos,
+        int idServicio1,
+        int idServicio2,
+        string tituloInmueble,
+        string descripcionIn,
+        decimal precioBase,
+        decimal iva,
+        decimal precioTotal,
+        string listaImagenes)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand command = new SqlCommand("InsertarInmuebleCompleto", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    command.Parameters.AddWithValue("@CedAnfitrion", cedAnfitrion);
+                    command.Parameters.AddWithValue("@IdEstado", idEstado);
+                    command.Parameters.AddWithValue("@IdDescuento", idDescuento);
+                    command.Parameters.AddWithValue("@IdCategoria", idCategoria);
+                    command.Parameters.AddWithValue("@TipoInmueble", tipoInmueble);
+                    command.Parameters.AddWithValue("@Provincia", provincia);
+                    command.Parameters.AddWithValue("@Canton", canton);
+                    command.Parameters.AddWithValue("@Direccion", direccion);
+                    command.Parameters.AddWithValue("@CanHuespedes", canHuespedes);
+                    command.Parameters.AddWithValue("@CanHabitaciones", canHabitaciones);
+                    command.Parameters.AddWithValue("@CanCamas", canCamas);
+                    command.Parameters.AddWithValue("@CanBanos", canBanos);
+                    command.Parameters.AddWithValue("@IdServicio1", idServicio1);
+                    command.Parameters.AddWithValue("@IdServicio2", idServicio2);
+                    command.Parameters.AddWithValue("@TituloInmueble", tituloInmueble);
+                    command.Parameters.AddWithValue("@DescripcionIn", descripcionIn);
+                    command.Parameters.AddWithValue("@PrecioBase", precioBase);
+                    command.Parameters.AddWithValue("@Iva", iva);
+                    command.Parameters.AddWithValue("@PrecioTotal", precioTotal);
+                    command.Parameters.AddWithValue("@ListaImagenes", listaImagenes);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción según tus necesidades
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        public string ObtenerNombreServicioPorId(int idServicio)
+        {
+            string nombreServicio = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                string query = "SELECT Nombre FROM Servicios WHERE IdServiciosAlojamientos = @IdServicio";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdServicio", idServicio);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Obtiene el nombre del servicio
+                            nombreServicio = reader["Nombre"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return nombreServicio;
+        }
+
+        public string ObtenerNombreCategoriaPorId(int idCategoria)
+        {
+            string nombreCategoria = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT Categoria FROM Categorias WHERE IdCategoria = @IdCategoria";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCategoria", idCategoria);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Obtiene el nombre de la categoría
+                            nombreCategoria = reader["Categoria"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return nombreCategoria;
         }
 
     }

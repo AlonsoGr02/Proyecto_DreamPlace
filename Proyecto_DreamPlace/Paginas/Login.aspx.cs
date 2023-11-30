@@ -14,13 +14,14 @@ namespace Proyecto_DreamPlace.Paginas
        
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            paso2.Visible = false;
         }
         protected void btnSoliCodigo_Click(object sender, EventArgs e)
         {
             string correo = txtcorreo.Text;
+            string contrasena = txtContrasena.Text;
 
-            if (ValidarCorreo(correo))
+            if (ValidarLogin(correo, contrasena))
             {
                 ConexionBD objConexion = new ConexionBD();
                 Metodos objMetodos = new Metodos();
@@ -29,24 +30,31 @@ namespace Proyecto_DreamPlace.Paginas
                 objConexion.ActualizarClaveUsuario(clave, correo);
                 objMetodos.EnviarCorreo(correo, clave);
                 lblRespu.Text = "El código de verificación fue enviado al correo " + correo;
+
+                Session["CorreoLogin"] = correo;
+
+                // ocultar contenedor
+                paso1.Visible = false;
+                paso2.Visible = true;
             }
             else
             {
-                lblRespu.Text = "El correo proporcionado no está registrado en la base de datos.";
+                lblRespu.Text = "El correo proporcionado y/o contraseña incorrectos.";
             }
         }
-        private bool ValidarCorreo(string correo)
-        {
-            ConexionBD objConexion = new ConexionBD();
-            return objConexion.ExisteCorreo(correo);
-        }
+        //private bool ValidarCorreo(string correo)
+        //{
+        //    ConexionBD objConexion = new ConexionBD();
+        //    return objConexion.ExisteCorreo(correo);
+        //}
+       
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             ConexionBD Mante = new ConexionBD();
-            string correo = txtcorreo.Text;
+            string correo = Session["CorreoLogin"] as string;
             string codigo = txtcodigoVerificion.Text;
 
-            if (ValidarLogin(correo, codigo))
+            if (ValidarCodigoL(correo, codigo))
             {
                 // Realiza la lógica de obtención del IdRol (asumo que tienes una función para obtener el IdRol del usuario)
                 int idRol = Mante.ObtenerIdRol(correo); // Ajusta esta línea según tu implementación
@@ -54,7 +62,7 @@ namespace Proyecto_DreamPlace.Paginas
                 // Almacena el IdRol en la sesión para poder acceder a él en la página de destino
                 Session["IdRol"] = idRol;
 
-                string CorreoSession = txtcorreo.Text;
+                string CorreoSession = correo;// txtcorreo.Text;
                 Session["Correo"] = CorreoSession;
                 lblRespu.Text = "Inicio de sesión exitoso";
 
@@ -79,11 +87,17 @@ namespace Proyecto_DreamPlace.Paginas
             }
         }
 
-        private bool ValidarLogin(string correo, string codigo)
+        private bool ValidarLogin(string correo, string contrasena)
         {
             ConexionBD objConexion = new ConexionBD();
 
-            return objConexion.ValidarLogin(correo, codigo);
+            return objConexion.ValidarLogin(correo, contrasena);
+        }
+
+        private bool ValidarCodigoL(string correo, string codigo)
+        {
+            ConexionBD objConexion = new ConexionBD();
+            return objConexion.ValidarCodigoL(correo, codigo);
         }
     }
 }

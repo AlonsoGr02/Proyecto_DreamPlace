@@ -6,7 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Iniciar Sesión</title>
-    <link href="../Estilos/Css_Login1.css" rel ="stylesheet" />
+    <link href="../Estilos/Css_Login1.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Login2.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -29,13 +30,18 @@
                 <h1>Iniciar Sesión</h1>
             </div>
             <br />
-            <asp:TextBox ID="txtcorreo" runat="server" placeholder="Correo Electrónico"></asp:TextBox><br />
-            <asp:Button ID="btnSoliCodigo" runat="server" Text="Solicitar Codigo" CssClass="botonSubir" OnClick="btnSoliCodigo_Click" /><br />
-            <br />
 
-            <asp:TextBox ID="txtcodigoVerificion" runat="server" placeholder="Codigo de verificación" AutoCompleteType="Disabled"></asp:TextBox><br />
+            <div id="paso1" runat="server">
+                <asp:TextBox ID="txtcorreo" runat="server" placeholder="Correo Electrónico"></asp:TextBox><br />
+                <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="txtContra"></asp:TextBox><br />
+                <asp:Button ID="btnSoliCodigo" runat="server" Text="Validar" CssClass="botonSubir" OnClick="btnSoliCodigo_Click" /><br />
+                <br />
+            </div>
 
-            <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="botonSubir" OnClick="btnLogin_Click" /><br />
+            <div id="paso2" runat="server">
+                <asp:TextBox ID="txtcodigoVerificion" runat="server" placeholder="Codigo de verificación" AutoCompleteType="Disabled"></asp:TextBox><br />
+                <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="botonSubir" OnClick="btnLogin_Click" /><br />
+            </div>
             <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>
         </div>
 

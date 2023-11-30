@@ -8,6 +8,7 @@
     <title>Registro</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
     <link href="../Estilos/Css_Registro.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Login2.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -37,17 +38,18 @@
             <asp:TextBox ID="registerApellidos" runat="server" placeholder="Apellidos" ></asp:TextBox><br />
             <asp:TextBox ID="registerFechaNac" runat="server" type="date" CssClass="date-input" ></asp:TextBox><br />
             <asp:TextBox ID="registerTelefono" runat="server" placeholder="Teléfono" ></asp:TextBox><br />
+            <asp:TextBox ID="registerContrasena" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="txtContra" ></asp:TextBox><br />
             <select id="seleccionarOp" runat="server">
                             <option value="1">Húesped</option>
                             <option value="2">Anfitrión</option>
                         </select>
             <br />
             <hr />
-            <asp:Label ID="lblInfo" runat="server" Text="Adjunta la foto frontal de la cédula"></asp:Label><br />
+            <%--<asp:Label ID="lblInfo" runat="server" Text="Adjunta la foto frontal de la cédula"></asp:Label><br />
             <asp:FileUpload ID="FileUploadFrontal" runat="server" CssClass="botonSubir" /><br />
 
             <asp:Label ID="lblInfoTrasera" runat="server" Text="Adjunta la foto trasera de la cédula"></asp:Label><br />
-            <asp:FileUpload ID="FileUploadTrasera" runat="server" CssClass="botonSubir" /><br />
+            <asp:FileUpload ID="FileUploadTrasera" runat="server" CssClass="botonSubir" /><br />--%>
 
             <asp:Button ID="btnGuardar" runat="server" Text="Registrarme" OnClick="btnGuardar_Click" CssClass="botonSubir" /><br />
             <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>

@@ -82,6 +82,7 @@
     padding: 20px;
     text-align: center;
 }
+
 input[type="text"],
 input[type="file"] {
     width: 50%;
@@ -154,5 +155,3 @@ input[type="submit"] {
     .botonSubir:hover {
         background-color: #45a049;
     }
-
-

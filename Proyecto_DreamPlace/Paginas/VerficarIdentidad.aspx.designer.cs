@@ -11,7 +11,7 @@ namespace Proyecto_DreamPlace.Paginas
 {
 
 
-    public partial class Login
+    public partial class VerficarIdentidad
     {
 
         /// <summary>
@@ -42,67 +42,49 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label Labelseparador;
 
         /// <summary>
-        /// Control paso1.
+        /// Control lblInfo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl paso1;
+        protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
-        /// Control txtcorreo.
+        /// Control FileUploadFrontal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtcorreo;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadFrontal;
 
         /// <summary>
-        /// Control txtContrasena.
+        /// Control lblInfoTrasera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContrasena;
+        protected global::System.Web.UI.WebControls.Label lblInfoTrasera;
 
         /// <summary>
-        /// Control btnSoliCodigo.
+        /// Control FileUploadTrasera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSoliCodigo;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadTrasera;
 
         /// <summary>
-        /// Control paso2.
+        /// Control btnValidar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl paso2;
-
-        /// <summary>
-        /// Control txtcodigoVerificion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtcodigoVerificion;
-
-        /// <summary>
-        /// Control btnLogin.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.Button btnValidar;
 
         /// <summary>
         /// Control lblRespu.

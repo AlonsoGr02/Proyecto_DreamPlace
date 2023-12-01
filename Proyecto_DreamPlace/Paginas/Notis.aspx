@@ -8,6 +8,7 @@
     <title>Notificaciones</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link rel="StyleSheet" href="../Estilos/Css_Notificaciones.css" type="text/css" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,5 +47,6 @@
             </div>
         </div>
     </form>
+    
 </body>
 </html>

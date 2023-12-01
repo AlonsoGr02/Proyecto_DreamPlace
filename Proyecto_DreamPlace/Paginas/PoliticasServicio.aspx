@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
     <link href="../Estilos/Css_PoliticasS.css" rel="stylesheet" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -188,5 +189,15 @@
 
         </div>
     </form>
+    <footer>
+        <div class="footer-content">
+            <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />
+            <div class="footer-info">
+                <h1 class="footer-text">DreamPlace</h1>
+                <p class="footer-contact">Contacto: dreamplace@gmail.com | Teléfono: +506 55495224</p>
+                <p class="footer-copyright">&copy; 2023 DreamPlace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

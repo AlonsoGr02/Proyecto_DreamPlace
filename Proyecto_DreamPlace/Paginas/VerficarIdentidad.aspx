@@ -1,15 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Favoritos.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.Favoritos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="VerficarIdentidad.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.VerficarIdentidad" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Favoritos</title>
+    <title>Verificación Identidad</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
-    <link rel="StyleSheet" href="../Estilos/Css_Favoritos.css" type="text/css" />
+    <link href="../Estilos/Css_VerificarIdentidad.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 <body>
@@ -27,30 +25,29 @@
                 <div class="flex-container">
                     <a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a>
                     <asp:Label ID="Label1" runat="server">  >  </asp:Label>
-                    <asp:Label ID="Labelseparador" runat="server" Text="Favoritos "></asp:Label>
+                    <asp:Label ID="Labelseparador" runat="server" Text="Verificación "></asp:Label>
                 </div>
-                <h1>Favoritos</h1>
-            </div>
-            <div id="container" runat="server" class="contenedor-tarjetas">
-                <!-- Aquí se agregarán dinámicamente las tarjetas de inmuebles -->
+                <h1>Verificación de Identidad</h1>
+                <h3>Por la seguridad de la plataforma y de sus usuarios.</h3>
             </div>
             <br />
-           
+            <div>
+                <asp:Label ID="lblInfo" runat="server" Text="Adjunta la foto frontal de la cédula"></asp:Label><br />
+                <asp:FileUpload ID="FileUploadFrontal" runat="server" CssClass="botonSubir" /><br />
+
+                <hr />
+
+                <asp:Label ID="lblInfoTrasera" runat="server" Text="Adjunta una foto visible de tu cara"></asp:Label><br />
+                <asp:FileUpload ID="FileUploadTrasera" runat="server" CssClass="botonSubir" /><br />
+
+                <br />
+                <asp:Button ID="btnValidar" runat="server" Text="Verificar" CssClass="botonSubir" OnClick="btnValidar_Click" /><br />
+                <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>
+            </div>
+
         </div>
-        <!-- scripts para el carrusel de imagenes funcione -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.carousel').slick({
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&#9664;</button>', /* Flecha izquierda */
-                    nextArrow: '<button class="slick-next" aria-label="Next" type="button">&#9654;</button>' /* Flecha derecha */
-                });
-            });
-        </script>
     </form>
+
     <footer>
         <div class="footer-content">
             <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />

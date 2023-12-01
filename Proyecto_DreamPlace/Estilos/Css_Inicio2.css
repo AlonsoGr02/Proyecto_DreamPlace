@@ -234,3 +234,15 @@ header {
     margin-right: 20px; 
     padding-bottom: 20px; 
 }
+.user-information {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Ajusta el margen según sea necesario */
+}
+
+    .user-information label {
+        color: #fff; /* Color del texto del label */
+        margin-right: 10px; /* Ajusta el margen entre labels según sea necesario */
+        font-weight: bold; /* Otras propiedades de fuente según sea necesario */
+    }
+    

@@ -8,6 +8,7 @@
     <title>Mi Banco - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link href="../Estilos/Css_LoginBanco.css" rel="stylesheet" />
+    <link href="../Estilos/Css_LoginMiBanco2.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -120,13 +121,25 @@
                 <h1>Iniciar Sesión</h1>
             </div>
             <br />
-            <asp:TextBox ID="txtcorreo" runat="server" placeholder="Correo Electrónico"></asp:TextBox><br />
+            <%--<asp:TextBox ID="txtcorreo" runat="server" placeholder="Correo Electrónico"></asp:TextBox><br />
             <asp:Button ID="btnSoliCodigo" runat="server" Text="Solicitar Codigo" CssClass="botonSubir" OnClick="btnSoliCodigo_Click" /><br />
             <br />
 
             <asp:TextBox ID="txtcodigoVerificion" runat="server" placeholder="Codigo de verificación" AutoCompleteType="Disabled"></asp:TextBox><br />
 
             <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="botonSubir" OnClick="btnLogin_Click" /><br />
+            <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>--%>
+             <div id="paso1" runat="server">
+                <asp:TextBox ID="txtcorreo" runat="server" placeholder="Correo Electrónico"></asp:TextBox><br />
+                 <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="txtPasswordBanco"></asp:TextBox><br />
+                <asp:Button ID="btnSoliCodigo" runat="server" Text="Validar" CssClass="botonSubir" OnClick="btnSoliCodigo_Click" /><br />
+                <br />
+            </div>
+
+            <div id="paso2" runat="server">
+                <asp:TextBox ID="txtcodigoVerificion" runat="server" placeholder="Codigo de verificación" AutoCompleteType="Disabled"></asp:TextBox><br />
+                <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="botonSubir" OnClick="btnLogin_Click" /><br />
+            </div>
             <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>
         </div>
 

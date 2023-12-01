@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Perfil Anfitrión</title>
     <link rel="StyleSheet" href="../Estilos/Css_PerfilHuesped.css" type="text/css" />
+    <link href="../Estilos/footer.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -70,5 +71,15 @@
                 <i class="fa-solid fa-floppy-disk" style=" color:#A3AB78; font-size:30px;" ></i>
         </div>
     </form>
+    <footer>
+        <div class="footer-content">
+            <img src="../img/dreamplacefooter.jpg" alt="Logo de Pie de Página" />
+            <div class="footer-info">
+                <h1 class="footer-text">DreamPlace</h1>
+                <p class="footer-contact">Contacto: dreamplace@gmail.com | Teléfono: +506 55495224</p>
+                <p class="footer-copyright">&copy; 2023 DreamPlace. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

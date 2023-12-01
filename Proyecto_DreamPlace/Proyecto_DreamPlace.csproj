@@ -122,6 +122,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Estilos\Css_Carrusel.css" />
     <Content Include="Estilos\Css_Cuenta.css" />
     <Content Include="Estilos\Css_Denuncias.css" />
     <Content Include="Estilos\Css_Favoritos.css" />

@@ -52,6 +52,10 @@
             .btn-favorito:hover {
                 background-color: #c0392b; /* Cambia el color de fondo al pasar el ratón por encima */
             }
+
+
+
+
     </style>
 </head>
 
@@ -235,12 +239,11 @@
 
 
 
-                            <asp:Panel ID="imageGallery" runat="server" CssClass="image-gallery">
-                                <div class="image-gallery">
+                            <asp:Panel ID="imageGallery" runat="server" CssClass="image-galleryy">
+                                <div class="container">
                                     <!-- Las imágenes se agregarán dinámicamente aquí -->
                                 </div>
                             </asp:Panel>
-
 
                         </div>
 

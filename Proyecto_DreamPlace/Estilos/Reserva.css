@@ -17,17 +17,17 @@
 
 
 
-.image-gallery {
+/*.image-gallery {
     display: flex;
     flex-wrap: wrap;
 }
 
 .image-box {
     max-width: 100%;
-    height: auto; /* Permite que la altura se ajuste automáticamente */
-    display: block;
+    height: auto;*/ /* Permite que la altura se ajuste automáticamente */
+    /*display: block;*/
     /*width: calc(33.33% - 20px);*/
-    margin: 10px;
+    /*margin: 10px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -44,18 +44,18 @@
         height: 100%;
         display: flex;
         align-items: center;
-    }
+    }*/
 
-.hotel-image {
+/*.hotel-image {
     width: 100%;
 }
-
-    .hotel-image img {
+*/
+/*    .hotel-image img {
         width: 100%;
         height: auto;
         border-radius: 10px;
     }
-
+*/
 .hotel-details {
     padding: 20px;
 }
@@ -209,23 +209,6 @@
 .logo {
     width: 70px; /* Ajusta el ancho de la imagen según tus necesidades */
 }
-
-.navbar-links {
-    display: flex;
-    align-items: center;
-}
-
-    .navbar-links a {
-        color: #fff; /* Color del texto de los enlaces */
-        text-decoration: none; /* Quitar subrayado de los enlaces */
-        margin-left: 20px; /* Espacio entre los enlaces */
-        font-size: 18px; /* Tamaño de fuente de los enlaces */
-    }
-
-        .navbar-links a:hover {
-            text-decoration: underline; /* Subrayado al pasar el mouse sobre los enlaces */
-        }
-
 
 
 .form-section {

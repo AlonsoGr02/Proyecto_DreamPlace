@@ -9,6 +9,7 @@ using CapaNegocio.Models;
 using Newtonsoft.Json;
 using System.Web.Optimization;
 using System.Data;
+using System.Web.UI.HtmlControls;
 
 namespace Proyecto_DreamPlace
 {
@@ -26,22 +27,7 @@ namespace Proyecto_DreamPlace
                     string correo = Request.QueryString["Correo"];
                     Session["IdInmueble"] = idInmueble;
 
-                    List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
-
-
-                    imageGallery.Controls.Clear();
-
-
-                    for (int i = 0; i < listaImagenes.Count; i++)
-                    {
-                        var image = new System.Web.UI.WebControls.Image();
-                        image.ID = "Image" + (i + 1);
-                        image.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(listaImagenes[i]);
-                        image.CssClass = "image-box";
-
-
-                        imageGallery.Controls.Add(image);
-                    }
+                    MostrarGaleriaDeImagenes();
 
                     string[] datosInmueble = ConexionBD.ObtenerDatosInmueblePorIdInmueble(idInmueble);
 
@@ -68,6 +54,31 @@ namespace Proyecto_DreamPlace
                     CargarComentarios();
 
                 }
+            }
+        }
+
+        protected void MostrarGaleriaDeImagenes()
+        {
+            List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
+
+            imageGallery.Controls.Clear();
+
+            int index = 1;
+            foreach (byte[] imagenBytes in listaImagenes)
+            {
+                var thumbnailDiv = new HtmlGenericControl("div");
+                thumbnailDiv.Attributes["class"] = "column";
+                imageGallery.Controls.Add(thumbnailDiv);
+
+                var thumbnailImage = new System.Web.UI.WebControls.Image();
+                thumbnailImage.ID = "ThumbnailImage" + index;
+                thumbnailImage.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(imagenBytes);
+                thumbnailImage.CssClass = "image-box"; // Aquí se aplica la clase image-box
+                thumbnailImage.Style.Add("width", "100%");
+                thumbnailImage.Attributes["onclick"] = $"currentSlide({index})";
+                thumbnailDiv.Controls.Add(thumbnailImage);
+
+                index++;
             }
         }
 
@@ -157,7 +168,7 @@ namespace Proyecto_DreamPlace
                 }
                 else
                 {
-                    lblMensajeError.Text = "Por favor, introduce fechas válidas.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalError();", true);
                 }
             }
         }

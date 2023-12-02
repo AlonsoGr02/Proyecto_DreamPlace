@@ -9,6 +9,7 @@ using CapaNegocio.Models;
 using Newtonsoft.Json;
 using System.Web.Optimization;
 using System.Data;
+using System.Web.UI.HtmlControls;
 
 namespace Proyecto_DreamPlace
 {
@@ -26,22 +27,7 @@ namespace Proyecto_DreamPlace
                     string correo = Request.QueryString["Correo"];
                     Session["IdInmueble"] = idInmueble;
 
-                    List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
-
-
-                    imageGallery.Controls.Clear();
-
-
-                    for (int i = 0; i < listaImagenes.Count; i++)
-                    {
-                        var image = new System.Web.UI.WebControls.Image();
-                        image.ID = "Image" + (i + 1);
-                        image.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(listaImagenes[i]);
-                        image.CssClass = "image-box";
-
-
-                        imageGallery.Controls.Add(image);
-                    }
+                    MostrarGaleriaDeImagenes();
 
                     string[] datosInmueble = ConexionBD.ObtenerDatosInmueblePorIdInmueble(idInmueble);
 
@@ -70,6 +56,35 @@ namespace Proyecto_DreamPlace
                 }
             }
         }
+        protected void MostrarGaleriaDeImagenes()
+        {
+            List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
+
+            int count = 0; // Para llevar la cuenta del número de imágenes
+
+            foreach (byte[] imagenBytes in listaImagenes)
+            {
+                var div = new HtmlGenericControl("div");
+                div.Attributes["class"] = "hex"; // Asigna la clase hex a los divs
+
+                var img = new Image();
+                img.CssClass = "img"; // Agrega la clase img para el efecto hover
+                img.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(imagenBytes);
+
+                div.Controls.Add(img);
+                imageGallery.Controls.Add(div);
+
+                count++;
+                if (count >= 10) // Limita el número de imágenes según el diseño CSS proporcionado
+                {
+                    break;
+                }
+            }
+        }
+
+
+
+
 
         protected void PrevButton_Click(object sender, EventArgs e)
         {
@@ -157,7 +172,7 @@ namespace Proyecto_DreamPlace
                 }
                 else
                 {
-                    lblMensajeError.Text = "Por favor, introduce fechas válidas.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalError();", true);
                 }
             }
         }

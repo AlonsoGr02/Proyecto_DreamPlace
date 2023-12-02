@@ -21,6 +21,10 @@ namespace Proyecto_DreamPlace.Paginas
                 if (Session["Correo"] != null)
                 {
                     string correo = Session["Correo"].ToString();
+                    DataTable Notificaciones = objConexion.ObtenerNotificacionesPorCorreo(correo);
+
+                    gvNotificaciones.DataSource = Notificaciones;
+                    gvNotificaciones.DataBind();
                     CargarCategorias();
                     CargarTarjetasInmuebles();
                 }

@@ -1027,6 +1027,69 @@ namespace CapaNegocio
             return usuario;
         }
 
+        #region Descuentos
+        public void CargarDescuentos(DropDownList ddlDescuentos)
+        {
+            string query = "SELECT Porcentaje FROM Descuentos";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlDescuentos.Items.Clear();
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string descuento = reader["Porcentaje"].ToString();
+                            ddlDescuentos.Items.Add(descuento);
+                        }
+                    }
+                }
+            }
+        }
+
+        public Inmueble ObtenerDetallesAlojamientosConDescuento(string ddlAlojamientos)
+        {
+            Inmueble detalles = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("SP_DatosInmuebleDescuento", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Nombre", ddlAlojamientos);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            detalles = new Inmueble
+                            {
+                                Nombre = reader["Nombre"].ToString(),
+                                Descripcion = reader["Descripcion"].ToString(),
+                                Total = GetSafeDecimalD(reader, "Total")
+                            };
+                        }
+                    }
+                }
+            }
+
+            return detalles;
+        }
+        private decimal GetSafeDecimalD(SqlDataReader reader, string columnName)
+        {
+            return reader[columnName] != DBNull.Value ? Convert.ToDecimal(reader[columnName]) : 0m;
+        }
+        #endregion
+
+
         #region Mantenimiento Alojamientos
         public Inmueble ObtenerDetallesAlojamientos(string ddlAlojamientos)
         {
@@ -2114,7 +2177,66 @@ namespace CapaNegocio
             return nombreCategoria;
         }
 
-    }
+        public DataTable ObtenerMovimientosPorCuenta(string idNumeroCuenta)
+        {
+            DataTable movimientosDataTable = new DataTable();
+
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerMovimientosPorCuenta", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdNumeroCuenta", idNumeroCuenta);
+
+                    try
+                    {
+                        conexion.Open();
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(movimientosDataTable);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción según tus necesidades
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                }
+            }
+
+            return movimientosDataTable;
+        }
+
+        public void RealizarDeposito(string idNumeroCuenta, decimal montoDeposito, string descripcion)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(cadenaCon))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("RealizarDeposito", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros del Stored Procedure
+                        cmd.Parameters.Add(new SqlParameter("@IdNumeroCuenta", idNumeroCuenta));
+                        cmd.Parameters.Add(new SqlParameter("@MontoDeposito", montoDeposito));
+                        cmd.Parameters.Add(new SqlParameter("@Descripcion", descripcion));
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                Console.WriteLine("Depósito realizado con éxito.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al realizar el depósito: " + ex.Message);
+                // Puedes manejar el error según tus necesidades
+            }
+        }
+    } // Fin de la clase conexion
 }
 
 

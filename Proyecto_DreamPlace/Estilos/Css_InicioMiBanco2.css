@@ -1,0 +1,77 @@
+﻿/* Estilo para el GridView */
+#gvMovimientos {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    #gvMovimientos th, #gvMovimientos td {
+        padding: 12px;
+        text-align: center;
+    }
+
+    /* Estilo para las celdas del encabezado */
+    #gvMovimientos th {
+        background-color: #003554;
+        color: #fff;
+    }
+
+    /* Estilo alternativo para las filas */
+    #gvMovimientos tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Estilo para las celdas de datos */
+    #gvMovimientos td {
+        border: 1px solid #003554;
+    }
+
+/*-------- Pruebas Info Dolar ------------*/
+#contenedor-info-dolar {
+    width: 20%;
+    border: 2px solid #fff; /* Borde blanco */
+    border-radius: 10px 0 0 0; /* Redondeado en la esquina superior izquierda */
+    padding: 10px;
+    position: relative; /* Para posicionar el label y los textboxes relativos al contenedor */
+}
+
+    #contenedor-info-dolar #lblInfoDolar {
+        text-align: justify; /* Centrar el label */
+        margin-bottom: 10px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+.textbox-container {
+    width: 80%;
+    margin: 0 auto; /* Centrar el contenedor de los textboxes */
+}
+
+#contenedor-info-dolar input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* Estilo para .information */
+.information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004D74;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+    /* Estilo adicional para el h1 dentro de .information */
+    .information h1 {
+        margin: 0;
+        flex-grow: 1; /* Ocupa todo el espacio disponible */
+        text-align: center; /* Centra el texto */
+        margin-right: 23%;
+    }
+

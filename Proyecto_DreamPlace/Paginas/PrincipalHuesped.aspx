@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>DreamPlace - Inicio</title>
+    <title>DreamPlace - Húesped</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
@@ -16,6 +16,7 @@
     <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
     <link href="../Estilos/Tarjeta.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Modal.css" rel="stylesheet" />
 
 
 </head>
@@ -37,9 +38,7 @@
 
                     </div>
                 </div>
-                <div class="user-information">
-                    <asp:Label ID="Label2" runat="server" Text=" Huésped "></asp:Label>
-                </div>
+                
                 <div class="icon-container" id="menu-trigger">
                     <div class="menu-icon">
                         <i class="fa-solid fa-bars"></i>
@@ -54,7 +53,7 @@
                     <ul>
                         <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
                         <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
-                        <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
+                        <li><a href="#" onclick="openModalMovimientos()">Notificaciones</a></li>
                         <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
                         <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                     </ul>
@@ -77,6 +76,52 @@
                         </div>
                         <asp:HiddenField ID="HiddenFieldIdCategoria" runat="server" ClientIDMode="Static" />
                     </div>
+
+                     <div id="myModalMov" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModalMovimintos()">&times;</span>
+                            <h2>Notificaciones</h2>
+                            <hr />
+                            <div style="margin: 0 auto;">
+                                <asp:GridView ID="gvNotificaciones" runat="server" Style="margin: 0 auto;" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                    <AlternatingRowStyle BackColor="White" />
+                                    <EditRowStyle BackColor="#7C6F57" />
+                                    <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#BDE038" Font-Bold="True" ForeColor="Black" />
+                                    <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="#E3EAEB" />
+                                    <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                    <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                    <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                    <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                    <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                </asp:GridView>
+                                <br />
+                                <br />
+
+                            </div>
+                        </div>
+                    <script>
+                        // Función para abrir el modal
+                        function openModalMovimientos() {
+                            document.getElementById('myModalMov').style.display = 'block';
+                            return false; // Evita que la página se recargue
+                        }
+
+                        // Función para cerrar el modal
+                        function closeModalMovimintos() {
+                            document.getElementById('myModalMov').style.display = 'none';
+                        }
+
+                        // Cierra el modal si se hace clic fuera de él
+                        window.onclick = function (event) {
+                            if (event.target === document.getElementById('myModalMov')) {
+                                closeModalMovimintos();
+                            }
+                        };
+                    </script>
+
+
                     <script type="text/javascript">
                         var tarjetaSeleccionada = null;
                         var colorOriginal = null;

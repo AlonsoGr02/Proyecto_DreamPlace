@@ -1,50 +1,5 @@
-﻿/*.carousel {
-    width: 100%;
-    max-width: 600px;*/ /* Ajusta el ancho máximo según tus preferencias */
-    /*margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-}
-
-.carousel-inner {
-    width: 100%;
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.carousel-item {
-    min-width: 100%;
-}
-
-    .carousel-item img {
-        width: 100%;
-        height: auto;
-    }
-
-.carousel-control-prev,
-.carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
-    color: #fff;
-    text-decoration: none;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-}
-
-.carousel-control-prev {
-    left: 10px;
-}
-
-.carousel-control-next {
-    right: 10px;
-}*/
-
-
-
-img {
+﻿
+/*img {
     width: 100%;
     height: auto;
     display: block;
@@ -120,17 +75,60 @@ img {
     .hex:nth-child(10) {
         grid-row-start: 3;
         grid-column: 6 / span 2;
-    }
+    }*/
 /* CSS para las imágenes */
-.img {
+/*.img {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
     transition: transform 0.3s ease-in-out;
-}
+}*/
 
     /* Aumenta el tamaño al pasar el mouse */
-    .img:hover {
-        transform: scale(1.2); /* Cambia el tamaño al 120% */
+    /*.img:hover {
+        transform: scale(1.2);*/ /* Cambia el tamaño al 120% */
+    /*}*/
+
+
+
+
+
+    /*--------------------------------------------*/
+
+/* Estilos CSS para centrar y ajustar el tamaño de las imágenes */
+.fotorama {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;   
+    height: 80vh;
+    max-height: 500px;
+    border-radius: 5px;
+}
+
+
+.item {
+    width: auto; /* El 90% del contenedor padre */    
+    height: auto; /* El 90% del contenedor padre */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    background-image: url('ruta_de_tu_imagen.jpg');
+    background-size: cover;
+    background-position: center;
+}
+    .item img {
+        width: 10000%; /* El ancho de la imagen es el 100% del contenedor */
+        height: auto; /* La altura se ajustará automáticamente manteniendo la proporción */
+        display: block; /* Asegura que la imagen se comporte como bloque */
+        border-radius: 5px; /* Si deseas bordes redondeados */
     }
+
+.background-image {
+    width: 1000px;
+    height: 900px;
+    object-fit: cover; /* Para que la imagen se ajuste al contenedor manteniendo la relación de aspecto */
+}

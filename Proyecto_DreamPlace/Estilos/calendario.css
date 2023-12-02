@@ -6,14 +6,16 @@ body {
 }
 
 .calendar {
-    width: 1000%; /* Usa porcentaje para el ancho */
-    max-width: 1500px; /* Establece un máximo para el ancho */
+    width: 1200px; /* Usa porcentaje para el ancho */
     height: 100px; /* Ajusta la altura según lo deseado */
     margin: 20px auto;
+    margin-left: 1px; /* Alinea el calendario completamente a la izquierda */
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
+    margin-right: 20px; /* Espacio entre el calendario y el otro contenido */
 }
+
 
 .month-bar {
     display: flex;
@@ -64,3 +66,41 @@ body {
     .days-grid a:hover {
         background-color: #f2f2f2; /* Cambio de color al pasar el ratón sobre las fechas */
     }
+
+
+.container_calendario {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0;
+}
+
+.calendario {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.reserva-container {
+    flex: 1;
+    display: flex;
+    width: 800px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align:center;
+}
+
+.card_calendario {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 1800px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}

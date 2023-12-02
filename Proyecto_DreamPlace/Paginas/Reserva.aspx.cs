@@ -23,7 +23,7 @@ namespace Proyecto_DreamPlace
             if (!IsPostBack)
             {
                 if (int.TryParse(Request.QueryString["IdInmueble"], out idInmueble))
-                {
+                {                    
                     string correo = Request.QueryString["Correo"];
                     Session["IdInmueble"] = idInmueble;
 
@@ -56,30 +56,23 @@ namespace Proyecto_DreamPlace
                 }
             }
         }
+        // Clase de modelo para representar una imagen
+        public class ImagenModel
+        {
+            public byte[] ImagenData { get; set; }
+            // Otras propiedades relacionadas con la imagen (nombre, descripción, etc.)
+        }
+
+        // En tu método MostrarGaleriaDeImagenes
         protected void MostrarGaleriaDeImagenes()
         {
-            List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
+            List<ImagenModel> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble)
+                                                .Select(data => new ImagenModel { ImagenData = data })
+                                                .Take(5)
+                                                .ToList();
 
-            int count = 0; // Para llevar la cuenta del número de imágenes
-
-            foreach (byte[] imagenBytes in listaImagenes)
-            {
-                var div = new HtmlGenericControl("div");
-                div.Attributes["class"] = "hex"; // Asigna la clase hex a los divs
-
-                var img = new Image();
-                img.CssClass = "img"; // Agrega la clase img para el efecto hover
-                img.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(imagenBytes);
-
-                div.Controls.Add(img);
-                imageGallery.Controls.Add(div);
-
-                count++;
-                if (count >= 10) // Limita el número de imágenes según el diseño CSS proporcionado
-                {
-                    break;
-                }
-            }
+            imageRepeater.DataSource = listaImagenes;
+            imageRepeater.DataBind();
         }
 
 

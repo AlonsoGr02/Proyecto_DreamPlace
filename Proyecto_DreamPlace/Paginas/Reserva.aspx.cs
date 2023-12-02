@@ -56,31 +56,35 @@ namespace Proyecto_DreamPlace
                 }
             }
         }
-
         protected void MostrarGaleriaDeImagenes()
         {
             List<byte[]> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble);
 
-            imageGallery.Controls.Clear();
+            int count = 0; // Para llevar la cuenta del número de imágenes
 
-            int index = 1;
             foreach (byte[] imagenBytes in listaImagenes)
             {
-                var thumbnailDiv = new HtmlGenericControl("div");
-                thumbnailDiv.Attributes["class"] = "column";
-                imageGallery.Controls.Add(thumbnailDiv);
+                var div = new HtmlGenericControl("div");
+                div.Attributes["class"] = "hex"; // Asigna la clase hex a los divs
 
-                var thumbnailImage = new System.Web.UI.WebControls.Image();
-                thumbnailImage.ID = "ThumbnailImage" + index;
-                thumbnailImage.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(imagenBytes);
-                thumbnailImage.CssClass = "image-box"; // Aquí se aplica la clase image-box
-                thumbnailImage.Style.Add("width", "100%");
-                thumbnailImage.Attributes["onclick"] = $"currentSlide({index})";
-                thumbnailDiv.Controls.Add(thumbnailImage);
+                var img = new Image();
+                img.CssClass = "img"; // Agrega la clase img para el efecto hover
+                img.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(imagenBytes);
 
-                index++;
+                div.Controls.Add(img);
+                imageGallery.Controls.Add(div);
+
+                count++;
+                if (count >= 10) // Limita el número de imágenes según el diseño CSS proporcionado
+                {
+                    break;
+                }
             }
         }
+
+
+
+
 
         protected void PrevButton_Click(object sender, EventArgs e)
         {

@@ -120,7 +120,7 @@ namespace Proyecto_DreamPlace
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel imageGallery;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl imageGallery;
 
         /// <summary>
         /// Control Label6.

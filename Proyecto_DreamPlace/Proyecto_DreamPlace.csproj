@@ -179,6 +179,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Estilos\calendario.css" />
     <Content Include="Estilos\Css_Carrusel.css" />
     <Content Include="Estilos\Css_Cuenta.css" />
     <Content Include="Estilos\Css_Denuncias.css" />
@@ -206,6 +207,7 @@
     <Content Include="Estilos\Css_Resena.css" />
     <Content Include="Estilos\Css_VerificarIdentidad.css" />
     <Content Include="Estilos\footer.css" />
+    <Content Include="Estilos\imagenes.css" />
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />

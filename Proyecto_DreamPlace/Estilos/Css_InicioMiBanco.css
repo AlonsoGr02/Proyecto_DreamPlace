@@ -174,13 +174,13 @@ header {
     text-align: center;
 }
 
-.information {
+/*.information {
     background-color: #004D74;
     color: #fff;
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 5px;
-}
+}*/
 
 input[type="text"] {
     width: 50%;
@@ -309,3 +309,4 @@ h2 {
     #btnCerrar:hover {
         background-color: #006494;
     }
+

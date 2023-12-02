@@ -2114,7 +2114,66 @@ namespace CapaNegocio
             return nombreCategoria;
         }
 
-    }
+        public DataTable ObtenerMovimientosPorCuenta(string idNumeroCuenta)
+        {
+            DataTable movimientosDataTable = new DataTable();
+
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerMovimientosPorCuenta", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdNumeroCuenta", idNumeroCuenta);
+
+                    try
+                    {
+                        conexion.Open();
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(movimientosDataTable);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción según tus necesidades
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                }
+            }
+
+            return movimientosDataTable;
+        }
+
+        public void RealizarDeposito(string idNumeroCuenta, decimal montoDeposito, string descripcion)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(cadenaCon))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("RealizarDeposito", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros del Stored Procedure
+                        cmd.Parameters.Add(new SqlParameter("@IdNumeroCuenta", idNumeroCuenta));
+                        cmd.Parameters.Add(new SqlParameter("@MontoDeposito", montoDeposito));
+                        cmd.Parameters.Add(new SqlParameter("@Descripcion", descripcion));
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                Console.WriteLine("Depósito realizado con éxito.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al realizar el depósito: " + ex.Message);
+                // Puedes manejar el error según tus necesidades
+            }
+        }
+    } // Fin de la clase conexion
 }
 
 

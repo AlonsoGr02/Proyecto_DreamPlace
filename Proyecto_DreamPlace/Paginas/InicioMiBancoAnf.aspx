@@ -131,15 +131,15 @@
         </header>
         <br />
         <div class="container">
-             <div class="information">
+            <div class="information">
                 <div id="contenedor-info-dolar">
-                <asp:Label ID="lblInfoDolar" runat="server" Text="Tipo de Cambio Dolar"></asp:Label>
-                <hr />
-                <div class="textbox-container">
-                    <asp:TextBox ID="txtCompra" runat="server" ReadOnly></asp:TextBox>
-                    <asp:TextBox ID="txtVenta" runat="server" ReadOnly></asp:TextBox>
+                    <asp:Label ID="lblInfoDolar" runat="server" Text="Tipo de Cambio Dolar"></asp:Label>
+                    <hr />
+                    <div class="textbox-container">
+                        <asp:TextBox ID="txtCompra" runat="server" ReadOnly></asp:TextBox>
+                        <asp:TextBox ID="txtVenta" runat="server" ReadOnly></asp:TextBox>
+                    </div>
                 </div>
-            </div>
                 <h1>Mi Banco</h1>
             </div>
             <br />
@@ -171,7 +171,8 @@
                     <asp:TextBox ID="txtDeposito" runat="server" placeholder="Monto a Depositar"></asp:TextBox><br />
                     <br />
 
-                    <asp:Button ID="btnDepositar" runat="server" Text="Depositar" CssClass="btn-guardar" />
+                    <asp:Button ID="btnDepositar" runat="server" Text="Depositar" CssClass="btn-guardar" OnClick="btnDepositar_Click" />
+                    <asp:Label ID="lblRespu" runat="server" Text=""></asp:Label>
                 </div>
             </div>
             <script>
@@ -194,14 +195,14 @@
                 };
             </script>
 
-            <asp:Button ID="btnMovimientos" runat="server" Text="Movimientos" OnClientClick="return openModalMovimientos();" />
+            <asp:Button ID="btnMovimientos" runat="server" Text="Movimientos" OnClick="btnMovimientos_Click" />
 
             <div id="myModalMov" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModalMovimintos()">&times;</span>
                     <h2>Movimientos</h2>
                     <hr />
-
+                    <asp:GridView ID="gvMovimientos" runat="server"></asp:GridView>
                     <br />
                     <br />
 

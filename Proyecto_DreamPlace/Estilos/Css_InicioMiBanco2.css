@@ -1,28 +1,33 @@
-﻿/*-------- Preubas Info Dolar ------------*/
-/*#contenedor-info-dolar {
-    width: 20%;
-    border: 2px solid #fff;*/ /* Borde blanco */
-    /*border-radius: 10px 0 0 0;*/ /* Redondeado en la esquina superior izquierda */
-    /*padding: 10px;
-    position: relative;*/ /* Para posicionar el label y los textboxes relativos al contenedor */
-/*}
+﻿/* Estilo para el GridView */
+#gvMovimientos {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    #contenedor-info-dolar #lblInfoDolar {
-        text-align: justify;*/ /* Centrar el label */
-        /*margin-bottom: 10px;
-        font-family: 'Montserrat', sans-serif;
+    #gvMovimientos th, #gvMovimientos td {
+        padding: 12px;
+        text-align: center;
     }
 
-.textbox-container {
-    width: 80%;
-    margin: 0 auto;*/ /* Centrar el contenedor de los textboxes */
-/*}
+    /* Estilo para las celdas del encabezado */
+    #gvMovimientos th {
+        background-color: #003554;
+        color: #fff;
+    }
 
-#contenedor-info-dolar input[type="text"] {
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}*/
+    /* Estilo alternativo para las filas */
+    #gvMovimientos tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Estilo para las celdas de datos */
+    #gvMovimientos td {
+        border: 1px solid #003554;
+    }
 
 /*-------- Pruebas Info Dolar ------------*/
 #contenedor-info-dolar {

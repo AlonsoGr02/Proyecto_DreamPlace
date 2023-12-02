@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -14,6 +15,7 @@ namespace Proyecto_DreamPlace.Paginas
     public partial class InicioMiBanco : System.Web.UI.Page
     {
         ConexionBD BD = new ConexionBD();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -22,17 +24,20 @@ namespace Proyecto_DreamPlace.Paginas
                 string correo = Request.QueryString["correo"];
                 ObtenerTipoDeCambio();
 
-                if (!string.IsNullOrEmpty(correo))
+                //if (!string.IsNullOrEmpty(correo))
+                if (Session["Correo"] != null)
                 {
                     try
                     {
-                        MiBanco infoMiBanco = BD.ObtenerInfoMiBancoPorCorreo(correo);
+                        string cedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+                        MiBanco infoMiBanco = BD.ObtenerInfoMiBancoPorCorreo(cedula);
 
                         if (infoMiBanco != null)
                         {
                             txtCedula.Text = infoMiBanco.IdCedula;
                             txtNombre.Text = infoMiBanco.NombreCompleto;
                             txtNTarjeta.Text = infoMiBanco.IdNTarjeta;
+                            Session["NumeroTarjeta"] = txtNTarjeta.Text;
                             txtSaldoDisponible.Text = infoMiBanco.Saldo.ToString();
                         }
                     }
@@ -40,6 +45,10 @@ namespace Proyecto_DreamPlace.Paginas
                     {
                         lblInfoDolar.Text = "Error: " + ex.Message;
                     }
+                }
+                else
+                {
+                    Response.Redirect("LoginMiBanco.aspx");
                 }
             }
         }
@@ -85,6 +94,32 @@ namespace Proyecto_DreamPlace.Paginas
                     lblInfoDolar.Text = "Error: " + ex.Message;
                 }
             }
+        }
+
+        protected void btnMovimientos_Click(object sender, EventArgs e)
+        {
+            string idNumeroCuenta = (string)Session["NumeroTarjeta"];
+
+            ConexionBD objConexion = new ConexionBD();
+            DataTable movimientosDataTable = objConexion.ObtenerMovimientosPorCuenta(idNumeroCuenta);
+
+            gvMovimientos.DataSource = movimientosDataTable;
+            gvMovimientos.DataBind();
+
+            // Abrir el modal después de cargar los datos en el GridView
+            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openModalMovimientos();", true);
+        }
+
+        protected void btnDepositar_Click(object sender, EventArgs e)
+        {
+            string idNumeroCuenta = (string)Session["NumeroTarjeta"];
+            decimal monto = decimal.Parse(txtDeposito.Text);
+            string descripcion = "Depósito";
+
+            ConexionBD objConexion = new ConexionBD();
+            objConexion.RealizarDeposito(idNumeroCuenta,monto,descripcion);
+            lblRespu.Text = "Depósito realizado con éxito";
+
         }
     }
 }

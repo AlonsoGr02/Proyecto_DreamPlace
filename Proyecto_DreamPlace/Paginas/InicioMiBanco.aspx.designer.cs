@@ -150,6 +150,15 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Button btnDepositar;
 
         /// <summary>
+        /// Control lblRespu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRespu;
+
+        /// <summary>
         /// Control btnMovimientos.
         /// </summary>
         /// <remarks>
@@ -157,6 +166,15 @@ namespace Proyecto_DreamPlace.Paginas
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMovimientos;
+
+        /// <summary>
+        /// Control gvMovimientos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvMovimientos;
 
         /// <summary>
         /// Control btnCerrar.

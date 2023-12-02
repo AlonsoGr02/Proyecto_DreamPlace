@@ -31,7 +31,7 @@
                 <h1>Mi Banco</h1>
             </div>
             <hr />
-  
+
             <asp:Label ID="lblCedula" runat="server" Text="Cédula:"></asp:Label><br />
             <asp:TextBox ID="txtCedula" runat="server" ReadOnly></asp:TextBox>
             <br />

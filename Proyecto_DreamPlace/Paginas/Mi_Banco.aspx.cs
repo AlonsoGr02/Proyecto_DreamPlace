@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CapaNegocio;
 using CapaNegocio.Models;
+using System.Net.Http;
+
 
 
 namespace Proyecto_DreamPlace.Paginas
@@ -17,7 +20,6 @@ namespace Proyecto_DreamPlace.Paginas
         {
             if (!IsPostBack)
             {
-
                 string correo = Request.QueryString["correo"];
 
                 if (!string.IsNullOrEmpty(correo))
@@ -41,7 +43,6 @@ namespace Proyecto_DreamPlace.Paginas
                     }
                     catch (Exception ex)
                     {
-                        // Manejo de excepciones, por ejemplo, mostrar un mensaje de error.
                     }
                 }
 
@@ -52,5 +53,7 @@ namespace Proyecto_DreamPlace.Paginas
         {
             Response.Redirect("LoginMiBanco.aspx");
         }
+       
+        
     }
 }

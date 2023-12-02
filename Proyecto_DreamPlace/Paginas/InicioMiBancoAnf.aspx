@@ -11,7 +11,9 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
     <link href="../Estilos/Css_InicioMiBanco.css" rel="stylesheet" />
+    <link href="../Estilos/Css_InicioMiBanco2.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -129,9 +131,16 @@
         </header>
         <br />
         <div class="container">
-            <div class="information">
-                <h1>Mi Banco</h1>
+             <div class="information">
+                <div id="contenedor-info-dolar">
+                <asp:Label ID="lblInfoDolar" runat="server" Text="Tipo de Cambio Dolar"></asp:Label>
                 <hr />
+                <div class="textbox-container">
+                    <asp:TextBox ID="txtCompra" runat="server" ReadOnly></asp:TextBox>
+                    <asp:TextBox ID="txtVenta" runat="server" ReadOnly></asp:TextBox>
+                </div>
+            </div>
+                <h1>Mi Banco</h1>
             </div>
             <br />
             <asp:Label ID="lblCedula" runat="server" Text="Cédula:"></asp:Label><br />
@@ -142,7 +151,7 @@
             <asp:TextBox ID="txtNombre" runat="server" ReadOnly></asp:TextBox>
             <br />
 
-             
+
             <asp:Label ID="Label3" runat="server" Text="Número de Tarjeta:"></asp:Label><br />
             <asp:TextBox ID="txtNTarjeta" runat="server" ReadOnly></asp:TextBox>
             <br />
@@ -150,42 +159,43 @@
             <asp:TextBox ID="txtSaldoDisponible" runat="server" placeholder="Saldo Dsiponible" ReadOnly></asp:TextBox>
             <br />
             <br />
-            <asp:Button ID="btnAbrirModalDep" runat="server" Text="Depositar Fondos"  OnClientClick="return openModalDeposito();"/>
-            
+            <asp:Button ID="btnAbrirModalDep" runat="server" Text="Depositar Fondos" OnClientClick="return openModalDeposito();" />
+
             <div id="myModalDeposito" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModalDeposito()">&times;</span>
                     <h2>Deposito de Dinero</h2>
                     <hr />
-                    <asp:Label ID="Label2" runat="server" Text="Monto a Depositar:"></asp:Label><br /><br />
+                    <asp:Label ID="Label2" runat="server" Text="Monto a Depositar:"></asp:Label><br />
+                    <br />
                     <asp:TextBox ID="txtDeposito" runat="server" placeholder="Monto a Depositar"></asp:TextBox><br />
                     <br />
 
                     <asp:Button ID="btnDepositar" runat="server" Text="Depositar" CssClass="btn-guardar" />
                 </div>
             </div>
-             <script>
-                 // Función para abrir el modal
-                 function openModalDeposito() {
-                     document.getElementById('myModalDeposito').style.display = 'block';
-                     return false; // Evita que la página se recargue
-                 }
+            <script>
+                // Función para abrir el modal
+                function openModalDeposito() {
+                    document.getElementById('myModalDeposito').style.display = 'block';
+                    return false; // Evita que la página se recargue
+                }
 
-                 // Función para cerrar el modal
-                 function closeModalDeposito() {
-                     document.getElementById('myModalDeposito').style.display = 'none';
-                 }
+                // Función para cerrar el modal
+                function closeModalDeposito() {
+                    document.getElementById('myModalDeposito').style.display = 'none';
+                }
 
-                 // Cierra el modal si se hace clic fuera de él
-                 window.onclick = function (event) {
-                     if (event.target === document.getElementById('myModalDeposito')) {
-                         closeModalDeposito();
-                     }
-                 };
-             </script>
+                // Cierra el modal si se hace clic fuera de él
+                window.onclick = function (event) {
+                    if (event.target === document.getElementById('myModalDeposito')) {
+                        closeModalDeposito();
+                    }
+                };
+            </script>
 
-            <asp:Button ID="btnMovimientos" runat="server" Text="Movimientos" OnClientClick="return openModalMovimientos();"/>
-            
+            <asp:Button ID="btnMovimientos" runat="server" Text="Movimientos" OnClientClick="return openModalMovimientos();" />
+
             <div id="myModalMov" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModalMovimintos()">&times;</span>
@@ -198,25 +208,25 @@
                     <asp:Button ID="btnCerrar" runat="server" Text="Cerrar" CssClass="btn-guardar" />
                 </div>
             </div>
-             <script>
-                 // Función para abrir el modal
-                 function openModalMovimientos() {
-                     document.getElementById('myModalMov').style.display = 'block';
-                     return false; // Evita que la página se recargue
-                 }
+            <script>
+                // Función para abrir el modal
+                function openModalMovimientos() {
+                    document.getElementById('myModalMov').style.display = 'block';
+                    return false; // Evita que la página se recargue
+                }
 
-                 // Función para cerrar el modal
-                 function closeModalMovimintos() {
-                     document.getElementById('myModalMov').style.display = 'none';
-                 }
+                // Función para cerrar el modal
+                function closeModalMovimintos() {
+                    document.getElementById('myModalMov').style.display = 'none';
+                }
 
-                 // Cierra el modal si se hace clic fuera de él
-                 window.onclick = function (event) {
-                     if (event.target === document.getElementById('myModalMov')) {
-                         closeModalMovimintos();
-                     }
-                 };
-             </script>
+                // Cierra el modal si se hace clic fuera de él
+                window.onclick = function (event) {
+                    if (event.target === document.getElementById('myModalMov')) {
+                        closeModalMovimintos();
+                    }
+                };
+            </script>
         </div>
 
     </form>

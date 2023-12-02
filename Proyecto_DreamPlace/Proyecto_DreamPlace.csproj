@@ -194,6 +194,7 @@
     <Content Include="Estilos\Css_ManteA.css" />
     <Content Include="Estilos\Css_Mensajes.css" />
     <Content Include="Estilos\Css_MiBanco.css" />
+    <Content Include="Estilos\Css_Modal.css" />
     <Content Include="Estilos\Css_Notificaciones.css" />
     <Content Include="Estilos\Css_PerfilHuesped.css" />
     <Content Include="Estilos\Css_PoliticasS.css" />

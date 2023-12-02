@@ -23,6 +23,10 @@ namespace Proyecto_DreamPlace.Paginas
                 {
                     string correo = Session["Correo"].ToString();
                     Usuario usuario = BD.ObtenerDatosUsuario(correo);
+                    DataTable Notificaciones = BD.ObtenerNotificacionesPorCorreo(correo);
+
+                    gvNotificaciones.DataSource = Notificaciones;
+                    gvNotificaciones.DataBind();
 
                     if (usuario != null)
                     {

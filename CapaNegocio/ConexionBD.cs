@@ -1027,6 +1027,69 @@ namespace CapaNegocio
             return usuario;
         }
 
+        #region Descuentos
+        public void CargarDescuentos(DropDownList ddlDescuentos)
+        {
+            string query = "SELECT Porcentaje FROM Descuentos";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        ddlDescuentos.Items.Clear();
+
+                        // Verificar si hay filas devueltas
+                        while (reader.Read())
+                        {
+                            string descuento = reader["Porcentaje"].ToString();
+                            ddlDescuentos.Items.Add(descuento);
+                        }
+                    }
+                }
+            }
+        }
+
+        public Inmueble ObtenerDetallesAlojamientosConDescuento(string ddlAlojamientos)
+        {
+            Inmueble detalles = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("SP_DatosInmuebleDescuento", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Nombre", ddlAlojamientos);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            detalles = new Inmueble
+                            {
+                                Nombre = reader["Nombre"].ToString(),
+                                Descripcion = reader["Descripcion"].ToString(),
+                                Total = GetSafeDecimalD(reader, "Total")
+                            };
+                        }
+                    }
+                }
+            }
+
+            return detalles;
+        }
+        private decimal GetSafeDecimalD(SqlDataReader reader, string columnName)
+        {
+            return reader[columnName] != DBNull.Value ? Convert.ToDecimal(reader[columnName]) : 0m;
+        }
+        #endregion
+
+
         #region Mantenimiento Alojamientos
         public Inmueble ObtenerDetallesAlojamientos(string ddlAlojamientos)
         {

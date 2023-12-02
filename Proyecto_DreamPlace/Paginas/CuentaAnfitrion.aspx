@@ -17,7 +17,11 @@
     <link href="../Estilos/Modal.css" rel="stylesheet" type="text/css" />
     <link href="../Estilos/Css_Registro.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Modal.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+
+
+
 </head>
 
 <body>
@@ -48,91 +52,136 @@
             </div>
             <div id="user-menu" class="user-menu">
                 <ul>
+                    <li><a href="#" onclick="openModalMovimientos()">Notificaciones</a></li>
                     <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                 </ul>
+
             </div>
 
-            <script>
-                // Agrega un evento de clic al icono de usuario
-                document.getElementById('menu-trigger').addEventListener('click', function () {
-                    // Obtén el menú desplegable
-                    var userMenu = document.getElementById('user-menu');
+            <div id="myModalMov" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModalMovimintos()">&times;</span>
+                    <h2>Notificaciones</h2>
+                    <hr />
+                    <div style="margin: 0 auto;">
+                        <asp:GridView ID="gvNotificaciones" runat="server" Style="margin: 0 auto;" CellPadding="4" ForeColor="#333333" GridLines="None">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EditRowStyle BackColor="#7C6F57" />
+                            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#BDE038" Font-Bold="True" ForeColor="Black" />
+                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#E3EAEB" />
+                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                        </asp:GridView>
+                        <br />
+                        <br />
 
-                    // Toggle (alternar) la clase 'active' para mostrar u ocultar el menú
-                    userMenu.classList.toggle('active');
-                });
-
-                // Obtén referencias al modal y al botón de cerrar del modal
-                var loginModal = document.getElementById('login-modal');
-                var confirmaModal = document.getElementById('confirma-modal');
-                var registerModal = document.getElementById('register-modal');
-                var confirmaModalR = document.getElementById('confirma-modalR');
-
-                var closeLoginModal = document.getElementById('close-login-modal');
-                var closeConfirmaModal = document.getElementById('confirma-login-modal');
-                var closeRegisterModal = document.getElementById('close-register-modal');
-                var closeConfirmaModalR = document.getElementById('confima-login-modalR');
-
-                // Agrega un evento de clic al enlace "Registrase" en el menú
-                document.querySelector('a[href="#login"]').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    //loginModal.style.display = 'none'; // Muestra el modal al hacer clic
-                    registerModal.style.display = 'flex'; // Muestra el modal de registro
-                });
-
-                // Agrega un evento de clic al enlace "Iniciar Sesión" en el menú
-                document.querySelector('a[href="#loginR"]').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    loginModal.style.display = 'flex'; // Muestra el modal al hacer clic
-                });
-
-                // Agrega un evento de clic al botón de cerrar del modal login
-                closeLoginModal.addEventListener('click', function () {
-                    loginModal.style.display = 'none';
-                });
-
-                // Agrega un evento de clic al botón de cerrar del modal Registrarse
-                closeRegisterModal.addEventListener('click', function () {
-                    registerModal.style.display = 'none';
-                });
-
-                // Agrega un evento de clic al botón de Registrarse en el modal de registro
-                document.getElementById('register-form').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    enviarDatos(event);
-                    registerModal.style.display = 'none';
-                    confirmaModalR.style.display = 'flex';  // Muestra el modal de confirmación
-                });
-
-                // Cierra el modal Login si se hace clic fuera de él
-                window.addEventListener('click', function (event) {
-                    if (event.target === loginModal || event.target === confirmaModal || event.target === registerModal || event.target === confirmaModalR) {
-                        loginModal.style.display = 'none';
-                        confirmaModal.style.display = 'none';
-                        registerModal.style.display = 'none';
-                        confirmaModalR.style.display = 'none';
+                    </div>
+                </div>
+                <script>
+                    // Función para abrir el modal
+                    function openModalMovimientos() {
+                        document.getElementById('myModalMov').style.display = 'block';
+                        return false; // Evita que la página se recargue
                     }
-                });
 
-                var continueButton = loginModal.querySelector('button[type="submit"]');
+                    // Función para cerrar el modal
+                    function closeModalMovimintos() {
+                        document.getElementById('myModalMov').style.display = 'none';
+                    }
 
-                // Agrega un evento de clic al botón de continuar en el Login modal
-                continueButton.addEventListener('click', function (e) {
-                    e.preventDefault(); // Previene el comportamiento predeterminado del botón
-                    loginModal.style.display = 'none'; // Oculta el primer modal
+                    // Cierra el modal si se hace clic fuera de él
+                    window.onclick = function (event) {
+                        if (event.target === document.getElementById('myModalMov')) {
+                            closeModalMovimintos();
+                        }
+                    };
+                </script>
 
-                    // Muestra el modal de validación
+                <script>
+                    // Agrega un evento de clic al icono de usuario
+                    document.getElementById('menu-trigger').addEventListener('click', function () {
+                        // Obtén el menú desplegable
+                        var userMenu = document.getElementById('user-menu');
+
+                        // Toggle (alternar) la clase 'active' para mostrar u ocultar el menú
+                        userMenu.classList.toggle('active');
+                    });
+
+                    // Obtén referencias al modal y al botón de cerrar del modal
+                    var loginModal = document.getElementById('login-modal');
                     var confirmaModal = document.getElementById('confirma-modal');
-                    confirmaModal.style.display = 'flex';
-                });
+                    var registerModal = document.getElementById('register-modal');
+                    var confirmaModalR = document.getElementById('confirma-modalR');
 
-                // Agrega un evento de clic al botón de cerrar del modal Confirmar
-                closeConfirmaModal.addEventListener('click', function () {
-                    confirmaModal.style.display = 'none';
-                });
+                    var closeLoginModal = document.getElementById('close-login-modal');
+                    var closeConfirmaModal = document.getElementById('confirma-login-modal');
+                    var closeRegisterModal = document.getElementById('close-register-modal');
+                    var closeConfirmaModalR = document.getElementById('confima-login-modalR');
 
-            </script>
+                    // Agrega un evento de clic al enlace "Registrase" en el menú
+                    document.querySelector('a[href="#login"]').addEventListener('click', function (e) {
+                        e.preventDefault();
+                        //loginModal.style.display = 'none'; // Muestra el modal al hacer clic
+                        registerModal.style.display = 'flex'; // Muestra el modal de registro
+                    });
 
+                    // Agrega un evento de clic al enlace "Iniciar Sesión" en el menú
+                    document.querySelector('a[href="#loginR"]').addEventListener('click', function (e) {
+                        e.preventDefault();
+                        loginModal.style.display = 'flex'; // Muestra el modal al hacer clic
+                    });
+
+                    // Agrega un evento de clic al botón de cerrar del modal login
+                    closeLoginModal.addEventListener('click', function () {
+                        loginModal.style.display = 'none';
+                    });
+
+                    // Agrega un evento de clic al botón de cerrar del modal Registrarse
+                    closeRegisterModal.addEventListener('click', function () {
+                        registerModal.style.display = 'none';
+                    });
+
+                    // Agrega un evento de clic al botón de Registrarse en el modal de registro
+                    document.getElementById('register-form').addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        enviarDatos(event);
+                        registerModal.style.display = 'none';
+                        confirmaModalR.style.display = 'flex';  // Muestra el modal de confirmación
+                    });
+
+                    // Cierra el modal Login si se hace clic fuera de él
+                    window.addEventListener('click', function (event) {
+                        if (event.target === loginModal || event.target === confirmaModal || event.target === registerModal || event.target === confirmaModalR) {
+                            loginModal.style.display = 'none';
+                            confirmaModal.style.display = 'none';
+                            registerModal.style.display = 'none';
+                            confirmaModalR.style.display = 'none';
+                        }
+                    });
+
+                    var continueButton = loginModal.querySelector('button[type="submit"]');
+
+                    // Agrega un evento de clic al botón de continuar en el Login modal
+                    continueButton.addEventListener('click', function (e) {
+                        e.preventDefault(); // Previene el comportamiento predeterminado del botón
+                        loginModal.style.display = 'none'; // Oculta el primer modal
+
+                        // Muestra el modal de validación
+                        var confirmaModal = document.getElementById('confirma-modal');
+                        confirmaModal.style.display = 'flex';
+                    });
+
+                    // Agrega un evento de clic al botón de cerrar del modal Confirmar
+                    closeConfirmaModal.addEventListener('click', function () {
+                        confirmaModal.style.display = 'none';
+                    });
+
+                </script>
         </header>
         <div class="container">
             <div class="information">
@@ -326,16 +375,16 @@
                     }
                 </script>
 
-                <!-- Tarjeta de Notificaciones -->
+                <!-- Tarjeta de Descuentos -->
                 <div class="flip-card">
-                    <a href="NotificacionesAnf.aspx?Correo=<%= Session["Correo"] %>" />
+                    <a href="Descuentos.aspx?Correo=<%= Session["Correo"] %>" />
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <i class="fa fa-bell" style="font-size: 150px; line-height: 200px;"></i>
+                            <i class="fa-solid fa-percent" style="font-size: 150px; line-height: 200px;"></i>
                         </div>
                         <div class="flip-card-back">
-                            <h2>Centro de Notificaciones</h2>
-                            <p>Mira las novedades y alojamientos nuevos en DreamPlace</p>
+                            <h2>Descuentos</h2>
+                            <p>Agrega sescuentos a tus inmuebles</p>
                         </div>
                     </div>
                 </div>

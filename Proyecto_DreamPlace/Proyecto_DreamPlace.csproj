@@ -183,6 +183,7 @@
     <Content Include="Estilos\Css_Carrusel.css" />
     <Content Include="Estilos\Css_Cuenta.css" />
     <Content Include="Estilos\Css_Denuncias.css" />
+    <Content Include="Estilos\Css_Descuentos.css" />
     <Content Include="Estilos\Css_Favoritos.css" />
     <Content Include="Estilos\Css_InfoReservas.css" />
     <Content Include="Estilos\Css_Inicio2.css" />
@@ -261,7 +262,7 @@
     <Content Include="Paginas\MensajesAnf.aspx" />
     <Content Include="Paginas\Mi_Banco.aspx" />
     <Content Include="Paginas\Mi_BancoAnf.aspx" />
-    <Content Include="Paginas\NotificacionesAnf.aspx" />
+    <Content Include="Paginas\Descuentos.aspx" />
     <Content Include="Paginas\Notis.aspx" />
     <Content Include="Paginas\Perfil_Anfitrion.aspx" />
     <Content Include="Paginas\Perfil_Huesped.aspx" />
@@ -473,12 +474,12 @@
     <Compile Include="Paginas\Mi_BancoAnf.aspx.designer.cs">
       <DependentUpon>Mi_BancoAnf.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Paginas\NotificacionesAnf.aspx.cs">
-      <DependentUpon>NotificacionesAnf.aspx</DependentUpon>
+    <Compile Include="Paginas\Descuentos.aspx.cs">
+      <DependentUpon>Descuentos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Paginas\NotificacionesAnf.aspx.designer.cs">
-      <DependentUpon>NotificacionesAnf.aspx</DependentUpon>
+    <Compile Include="Paginas\Descuentos.aspx.designer.cs">
+      <DependentUpon>Descuentos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Notis.aspx.cs">
       <DependentUpon>Notis.aspx</DependentUpon>

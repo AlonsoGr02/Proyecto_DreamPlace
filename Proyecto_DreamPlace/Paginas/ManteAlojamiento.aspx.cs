@@ -75,6 +75,7 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
+
         }
     }
 }

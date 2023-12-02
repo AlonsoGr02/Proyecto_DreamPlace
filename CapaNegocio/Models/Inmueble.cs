@@ -18,5 +18,6 @@ namespace CapaNegocio.Models
         public int IdCategoria { get; set; }
         public int IdEstado { get; set; }
         public string DescripcionEstado { get; set; }
+        public decimal Total { get; set; }
     }
 }

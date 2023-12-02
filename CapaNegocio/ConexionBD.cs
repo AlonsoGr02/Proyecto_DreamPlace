@@ -2236,6 +2236,61 @@ namespace CapaNegocio
                 // Puedes manejar el error según tus necesidades
             }
         }
+
+        public void EliminarFavorito(string idCedula, int idInmueble)
+        {
+            string consultaSql = "DELETE FROM Favoritos WHERE IdCedula = @IdCedula AND IdInmueble = @IdInmueble;";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdCedula", idCedula);
+                    comando.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
+                    try
+                    {
+                        conexion.Open();
+                        comando.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al eliminar el favorito: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        public DataTable ObtenerInfoInmueblesBaratos()
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(cadenaConexion))
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("[FiltrarInmueblesBaratos]", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            adapter.Fill(dataTable);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción según tus necesidades
+                Console.WriteLine($"Error al obtener información de inmuebles: {ex.Message}");
+            }
+
+            return dataTable;
+        }
+
     } // Fin de la clase conexion
 }
 

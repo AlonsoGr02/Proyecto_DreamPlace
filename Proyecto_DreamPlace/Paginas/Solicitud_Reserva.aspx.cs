@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -76,7 +77,8 @@ namespace Proyecto_DreamPlace.Paginas
                 if (decimal.TryParse(lblCostoxNoche.Text, out costoPorNoche))
                 {
                     decimal costoTotal = diferenciaDias * costoPorNoche;
-                    lblTotal.Text = costoTotal.ToString("C");
+                    lblTotal.Text = costoTotal.ToString("C", new CultureInfo("es-CR"));
+                    
                 }
             }
         }
@@ -110,7 +112,8 @@ namespace Proyecto_DreamPlace.Paginas
 
                 string lbTotal = lblTotal.Text;
 
-                lbTotal = lbTotal.Replace("$", "").Replace(",", "");
+                lbTotal = Regex.Replace(lbTotal, @"[^\d.,]", "");
+
 
                 decimal costoTotal;
                 if (decimal.TryParse(lbTotal, NumberStyles.Currency, CultureInfo.CurrentCulture, out costoTotal))

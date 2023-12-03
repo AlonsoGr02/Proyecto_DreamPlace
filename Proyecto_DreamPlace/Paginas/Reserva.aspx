@@ -85,12 +85,11 @@
                             </div>
 
                             <div id="topnav" class="topnav-container" runat="server">
-                                <div class="topnav">
-                                    <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" CssClass="searchButton" />
-                                    <asp:Button ID="Button1" runat="server" Text="Filtrar" CssClass="searchButton" />
-                                    <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
 
-                                </div>
+                                <asp:Label ID="Label6" runat="server" Text=" " Style="color: black;"></asp:Label>
+                                <asp:Label ID="lblApellido" runat="server" Text=" " Style="color: black;"></asp:Label>
+                                <asp:Label ID="lblRol" runat="server" Text="" Style="color: black;"></asp:Label>
+
                             </div>
                             <div class="user-information">
                                 <asp:Label ID="Label8" runat="server" Text=" Huésped "></asp:Label>

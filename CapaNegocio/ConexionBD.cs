@@ -472,6 +472,33 @@ namespace CapaNegocio
         #endregion
 
 
+        public int ObtenerIdInmueblePorNombre(string Nombre)
+        {
+            int Inmueble = 0;
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT IdInmueble FROM Inmuebles WHERE Nombre = @Nombre";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nombre", Nombre);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Obtiene el valor de la columna IdInmueble
+                            Inmueble = Convert.ToInt32(reader["IdInmueble"]);
+                        }
+                    }
+                }
+            }
+
+            return Inmueble;
+        }
 
         public static string ObtenerIdCedulaPorCorreo(string correo)
         {
@@ -1345,6 +1372,238 @@ namespace CapaNegocio
 
             return result;
         }
+        public string ObtenerIdCedulaPorNombre(string Apellidos)
+        {
+            string IdCedula = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT IdCedula FROM Identificaciones WHERE (Apellidos) = @Apellidos";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Agregar el parámetro de nombre completo
+                    command.Parameters.AddWithValue("@Apellidos", Apellidos);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Obtener el IdCedula
+                            IdCedula = reader["IdCedula"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return IdCedula;
+        }
+
+        public string ObtenerIdCedulaPorN(string Nombre)
+        {
+            string IdCedula = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT IdCedula FROM Identificaciones WHERE (Nombre) = @Nombre";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Agregar el parámetro de nombre completo
+                    command.Parameters.AddWithValue("@Nombre", Nombre);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Obtener el IdCedula
+                            IdCedula = reader["IdCedula"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return IdCedula;
+        }
+
+        public List<Mensajes> ObtenerMensajesEntreUsuarios(string IdCedula, string IdCedulaR)
+        {
+            List<Mensajes> mensajes = new List<Mensajes>();
+
+            string query = @"
+                            SELECT Fecha, Mensaje, IdCedula AS Remitente, IdCedulaR AS Destinatario
+                            FROM Mensajes
+                            WHERE (IdCedula = @IdCedula AND IdCedulaR = @IdCedulaR)
+                            OR (IdCedula = @IdCedulaR AND IdCedulaR = @IdCedula)
+                            ORDER BY Fecha ASC";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    cmd.Parameters.AddWithValue("@IdCedulaR", IdCedulaR);
+
+                    try
+                    {
+                        connection.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Mensajes mensaje = new Mensajes
+                            {
+                                Fecha = Convert.ToDateTime(reader["Fecha"]),
+                                Mensaje = reader["Mensaje"].ToString(),
+                                IdCedula = reader["Remitente"].ToString(),
+                                IdCedulaR = reader["Destinatario"].ToString()
+                            };
+
+                            mensajes.Add(mensaje);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        
+
+                    }
+                }
+            }
+
+            return mensajes;
+        }
+
+        public void Huespedes(DropDownList ddlhuesped, string IdCedula)
+        {
+            
+            string query = " select Nombre, Apellidos From Identificaciones where IdCedula=@IdCedula";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        
+                        ddlhuesped.Items.Add(new ListItem("Selecciona un huesped", string.Empty));
+                        
+                        while (reader.Read())
+                        {
+                            string nombreAlojamiento = reader["Nombre"].ToString();
+                            ddlhuesped.Items.Add(nombreAlojamiento);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public DataTable ObtenerNombre_IdCedula(string IdCedula)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @" select Nombre, Apellidos From Identificaciones where IdCedula=@IdCedula";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
+
+        public object ObtenerIdFechaReservada(int IdInmueble)
+        {
+            object IdCedula = null;
+
+            string selectQuery = "select IdCedula From Reservas where IdInmueble=@IdInmueble";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand selectCommand = new SqlCommand(selectQuery, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+
+                    try
+                    {
+                        connection.Open();
+                        IdCedula = selectCommand.ExecuteScalar();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine("Error de SQL: " + ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                }
+            }
+
+            return IdCedula;
+        }
+
+
+        public DataTable ObtenerAnfitriones(string IdCedula)
+        {
+            DataTable result = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = @"
+                                        SELECT r.IdReserva, r.IdCedula, r.IdInmueble,
+                                            i.IdCedula AS IdCedula,
+                                            u.Nombre AS Nombre,
+                                            u.Apellidos AS Apellidos,
+                                            u.IdCedula AS IdCedula
+                                        FROM Reservas r
+                                        INNER JOIN Inmuebles i ON r.IdInmueble = i.IdInmueble
+                                        INNER JOIN Identificaciones u ON i.IdCedula = u.IdCedula
+                                        WHERE r.IdCedula = @IdCedula";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(result);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener notificaciones: " + ex.Message);
+                }
+            }
+
+            return result;
+        }
+
+
+
+     
         public void CargarHuespedEnDropDownList(DropDownList ddlHuesped)
         {
             using (SqlConnection con = new SqlConnection(cadenaConexion))
@@ -1481,6 +1740,29 @@ namespace CapaNegocio
                 }
             }
         }
+
+        public void Insert_Mensajes(string Mensaje, DateTime Fecha, string IdCedula, string @IdCedulaR)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO Mensajes ( Mensaje, Fecha, IdCedula,IdCedulaR)"+
+                        "VALUES( @Mensaje, @Fecha, @IdCedula, @IdCedulaR) ; ", connection))
+                {
+                    // Agrega los parámetros con sus respectivos valores                    
+                    cmd.Parameters.AddWithValue("@Mensaje", Mensaje);
+                    cmd.Parameters.AddWithValue("@Fecha", Fecha);
+                    cmd.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    cmd.Parameters.AddWithValue("@IdCedulaR", IdCedulaR);
+
+                    connection.Open();
+
+                    // Ejecuta la consulta
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
 
         public static string[] ObtenerPrecioInmueble(int idInmueble)

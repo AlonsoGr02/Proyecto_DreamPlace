@@ -9,7 +9,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link rel="stylesheet" href="../Estilos/Css_Mensajes.css" type="text/css" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Mensajes.css" rel="stylesheet" />
 
+    <style>
+     /* Estilos generales */
+.mensaje-item {
+    margin-bottom: 10px;
+}
+
+/* Estilos para mensajes a la derecha */
+.mensaje-derecha {
+    text-align: right;
+}
+
+.mensaje-izquierda {
+    text-align: left;
+}
+
+.mensaje-derecha .mensaje {
+    background-color: #dcf8c6; /* Color de fondo para mensajes a la derecha */
+    padding: 8px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+.mensaje-derecha .fecha {
+    font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
+    color: #888; /* Color de la fecha */
+    text-align: right;
+}
+
+/* Estilos para mensajes a la izquierda */
+.mensaje-izquierda .mensaje {
+    background-color: #d3cdcd; /* Color de fondo para mensajes a la izquierda */
+    padding: 8px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+.mensaje-izquierda .fecha {
+    font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
+    color: #888; /* Color de la fecha */
+    text-align: left;
+}
+
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -34,7 +80,7 @@
             <div class="chat-container">
                 <div class="user-list">
                     <h2>Anfitriones</h2>
-                    <asp:DropDownList ID="ddlAnfitriones" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlAnfitriones" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAnfitriones_SelectedIndexChanged"></asp:DropDownList>
                 </div>
                 <div class="chat-window">
                     <div class="chat-header">
@@ -44,8 +90,16 @@
                         <asp:Repeater ID="rptMensajes" runat="server">
                             <ItemTemplate>
                                 <div class="mensaje-item">
-                                    <strong><%# Eval("Fecha", "{0:yyyy-MM-dd HH:mm}  >>>  ") %></strong>
-                                    <%# Eval("Mensaje") %>
+                                    <asp:Panel ID="panelMensaje" runat="server" CssClass='<%# ObtenerClaseMensaje(Eval("IdCedula").ToString()) %>'>
+                                        <%-- Mensaje --%>
+                                        <div class="mensaje">
+                                            <%# Eval("Mensaje") %>
+                                        </div>
+                                        <%-- Fecha --%>
+                                        <div class="fecha">
+                                            <small><%# Eval("Fecha", "{0:yyyy-MM-dd HH:mm}") %></small>
+                                        </div>
+                                    </asp:Panel>
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>

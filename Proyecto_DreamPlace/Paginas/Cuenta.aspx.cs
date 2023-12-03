@@ -18,8 +18,7 @@ namespace Proyecto_DreamPlace.Paginas
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                topnav.Visible = false;
+            {                
                 if (Session["Correo"] != null)
                 {
                     string correo = Session["Correo"].ToString();
@@ -27,9 +26,10 @@ namespace Proyecto_DreamPlace.Paginas
 
                     if (usuario != null)
                     {
+                        lblRol.Text = usuario.Rol;
                         lblNombre.Text = usuario.Nombre;
                         lblApellido.Text = usuario.Apellidos;
-                        lblCorreo.Text = usuario.Correo;
+                        
                     }
 
 

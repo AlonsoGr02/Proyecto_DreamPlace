@@ -167,3 +167,20 @@
         .chat-input button:hover {
             background-color: #218ac8;
         }
+
+.mensaje-derecha {
+    text-align: right;
+    background-color: #e2f0cb; /* Color de fondo para mensajes a la derecha */
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.mensaje-izquierda {
+    text-align: left;
+    background-color: #d2d2d2; /* Color de fondo para mensajes a la izquierda */
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+

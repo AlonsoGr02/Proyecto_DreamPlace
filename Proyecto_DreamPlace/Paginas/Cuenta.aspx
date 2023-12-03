@@ -26,15 +26,26 @@
                 <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo" />
             </div>
 
+            <div id="Div1" class="topnav-container" runat="server">
+                <%--                        <div class="topnav">
+                            <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" CssClass="searchButton" />
+                            <asp:Button ID="Button1" runat="server" Text="Filtrar" CssClass="searchButton" />
+                            <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
 
-            <div id="topnav" class="topnav-container" runat="server">
-                <div class="topnav">
-                    <a class="active" href="#home">Destacados</a>
-                    <a href="#about">Lugares Famosos</a>
-                    <input type="text" placeholder="Buscar ..." />
-                </div>
+                        </div>--%>
+                <asp:Label ID="lblRol" runat="server" Text=""  Style="color: black;"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text=" · "  Style="color: black;"></asp:Label>
+                <asp:Label ID="lblNombre" runat="server" Text="Nombre completo"  Style="color: black;"></asp:Label>
+                <asp:Label ID="lblApellido" runat="server" Text="Apellidos" Style="color: black;"></asp:Label>                
+                <asp:Label ID="lblCorreo" runat="server" Text="Correo" Visible="false"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text=" · "></asp:Label>
             </div>
 
+            
+
+                    <div class="user-information">
+                        <asp:Label ID="Label8" runat="server" Text=" Huésped "></asp:Label>
+                    </div>
             <div class="icon-container" id="menu-trigger">
                 <div class="menu-icon">
                     <i class="fa-solid fa-bars"></i>
@@ -47,11 +58,14 @@
             </div>
             <div id="user-menu" class="user-menu">
                 <ul>
-                    <li><a href="PrincipalHuesped.aspx?Correo=<%= Session["Correo"] %>">Principal</a></li>
+                    <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
+                    <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
+                    <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
                     <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
                     <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                 </ul>
             </div>
+
 
             <script>
                 // Agrega un evento de clic al icono de usuario
@@ -140,13 +154,7 @@
                 <h1>Cuenta</h1>
                 <div class="flex-container">
 
-                    <asp:Label ID="Label2" runat="server" Text=" Huésped "></asp:Label>
-                    <asp:Label ID="Label1" runat="server" Text=" · "></asp:Label>
-                    <asp:Label ID="lblNombre" runat="server" Text="Nombre completo"></asp:Label>
-                    <asp:Label ID="lblApellido" runat="server" Text="Apellidos"></asp:Label>
-                    <asp:Label ID="Labelseparador" runat="server" Text=", "></asp:Label>
-                    <asp:Label ID="lblCorreo" runat="server" Text="Correo"></asp:Label>
-                    <asp:Label ID="Label3" runat="server" Text=" · "></asp:Label>
+
                     <a href="Perfil_Huesped.aspx?Correo=<%= Session["Correo"] %>">Ir al Perfil</a>
                 </div>
             </div>

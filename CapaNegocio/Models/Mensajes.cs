@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace CapaNegocio.Models
 {
     public class Mensajes
-    {
-        public int IdMensaje { get; set; }
+    {        
         public string Mensaje { get; set; }
         public DateTime Fecha { get; set; }
         public string IdCedula { get; set; }

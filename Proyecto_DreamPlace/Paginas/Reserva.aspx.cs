@@ -29,6 +29,21 @@ namespace Proyecto_DreamPlace
                     string correo = Request.QueryString["Correo"];
                     Session["IdInmueble"] = idInmueble;
 
+                    if (Session["Correo"] != null)
+                    {
+                        string correoU = Session["Correo"].ToString();
+
+                        
+                        Usuario usuario = BD.ObtenerDatosUsuario(correoU);
+
+
+                        if (usuario != null)
+                        {
+                            lblNombre.Text = usuario.Nombre + usuario.Apellidos;
+                            lblRol.Text = usuario.Rol;
+                        }
+                    }
+
                     MostrarGaleriaDeImagenes();
 
                     string[] datosInmueble = ConexionBD.ObtenerDatosInmueblePorIdInmueble(idInmueble);
@@ -60,7 +75,23 @@ namespace Proyecto_DreamPlace
 
 
                     string[] datosInmueblePrecio = ConexionBD.ObtenerPrecioInmueble(idInmueble);
-                    lblPrecio.Text = datosInmueblePrecio[0];
+                    if (datosInmueblePrecio != null && datosInmueblePrecio.Length > 0)
+                    {
+                        if (decimal.TryParse(datosInmueblePrecio[0], out decimal precioDecimal))
+                        {
+                            lblPrecio.Text = precioDecimal.ToString(); 
+                        }
+                        else
+                        {
+                            lblPrecio.Text = "Precio no válido";
+                        }
+                    }
+                    else
+                    {
+                        // Manejar el escenario donde no se obtiene ningún dato del precio
+                        lblPrecio.Text = "Precio no disponible";
+                    }
+
 
 
                     List<object> listaServicios = ConexionBD.ObtenerServicios(idInmueble).Cast<object>().ToList();

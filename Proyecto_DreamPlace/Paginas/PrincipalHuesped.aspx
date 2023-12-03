@@ -38,7 +38,7 @@
 
                     </div>
                 </div>
-                
+
                 <div class="icon-container" id="menu-trigger">
                     <div class="menu-icon">
                         <i class="fa-solid fa-bars"></i>
@@ -55,6 +55,7 @@
                         <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
                         <li><a href="#" onclick="openModalMovimientos()">Notificaciones</a></li>
                         <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
+                        <li><a href="#" onclick=" return openModaEstadistica()">Estadisticas</a></li>
                         <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -77,7 +78,7 @@
                         <asp:HiddenField ID="HiddenFieldIdCategoria" runat="server" ClientIDMode="Static" />
                     </div>
 
-                     <div id="myModalMov" class="modal">
+                    <div id="myModalMov" class="modal">
                         <div class="modal-content">
                             <span class="close" onclick="closeModalMovimintos()">&times;</span>
                             <h2>Notificaciones</h2>
@@ -101,48 +102,81 @@
 
                             </div>
                         </div>
-                    <script>
-                        // Función para abrir el modal
-                        function openModalMovimientos() {
-                            document.getElementById('myModalMov').style.display = 'block';
-                            return false; // Evita que la página se recargue
-                        }
-
-                        // Función para cerrar el modal
-                        function closeModalMovimintos() {
-                            document.getElementById('myModalMov').style.display = 'none';
-                        }
-
-                        // Cierra el modal si se hace clic fuera de él
-                        window.onclick = function (event) {
-                            if (event.target === document.getElementById('myModalMov')) {
-                                closeModalMovimintos();
-                            }
-                        };
-                    </script>
+                        
 
 
-                    <script type="text/javascript">
-                        var tarjetaSeleccionada = null;
-                        var colorOriginal = null;
+                        <div id="myModalE" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeModalE()">&times;</span>
+                                <h2>Estadísticas de DreamPlace</h2>
+                                <hr />
+                                <asp:Label ID="lblHuepedes" runat="server" Text="Label"></asp:Label><br /><br />
+                                <hr />
+                                <asp:Label ID="lblAnfitriones" runat="server" Text="Label"></asp:Label><br /><br />
+                                <hr />
+                                <asp:Label ID="lblInmuebles" runat="server" Text="Label"></asp:Label><br /><br />
+                                <hr />
+                                <asp:Label ID="lblCategorias" runat="server" Text="Label"></asp:Label><br /><br />
+                                <hr />
+                                <asp:Label ID="lblRoles" runat="server" Text="Label"></asp:Label><br />
 
-                        function SeleccionarCategoria(elemento, idCategoria) {
-                            if (tarjetaSeleccionada !== null) {
-                                tarjetaSeleccionada.style.border = colorOriginal;
-                            }
 
-                            if (tarjetaSeleccionada !== elemento) {
-                                colorOriginal = elemento.style.border;
-                                elemento.style.border = '2px solid blue';
-                                tarjetaSeleccionada = elemento;
-                                document.getElementById('<%= HiddenFieldIdCategoria.ClientID %>').value = idCategoria;
+                            </div>
+
+                        </div>
+
+
+                       <script>
+                           function openModalMovimientos() {
+                               document.getElementById('myModalMov').style.display = 'block';
+                               return false; // Evita que la página se recargue
+                           }
+
+                           function closeModalMovimintos() {
+                               document.getElementById('myModalMov').style.display = 'none';
+                           }
+
+                           function openModaEstadistica() {
+                               document.getElementById('myModalE').style.display = 'block';
+                               return false; // Evita que la página se recargue
+                           }
+
+                           function closeModalE() {
+                               document.getElementById('myModalE').style.display = 'none';
+                           }
+
+                           window.onclick = function (event) {
+                               if (event.target === document.getElementById('myModalMov')) {
+                                   closeModalMovimintos();
+                               } else if (event.target === document.getElementById('myModalE')) {
+                                   closeModalE();
+                               }
+                           };
+                       </script>
+
+
+
+                        <script type="text/javascript">
+                            var tarjetaSeleccionada = null;
+                            var colorOriginal = null;
+
+                            function SeleccionarCategoria(elemento, idCategoria) {
+                                if (tarjetaSeleccionada !== null) {
+                                    tarjetaSeleccionada.style.border = colorOriginal;
+                                }
+
+                                if (tarjetaSeleccionada !== elemento) {
+                                    colorOriginal = elemento.style.border;
+                                    elemento.style.border = '2px solid blue';
+                                    tarjetaSeleccionada = elemento;
+                                    document.getElementById('<%= HiddenFieldIdCategoria.ClientID %>').value = idCategoria;
                             } else {
                                 elemento.style.border = colorOriginal;
                                 tarjetaSeleccionada = null;
                                 document.getElementById('<%= HiddenFieldIdCategoria.ClientID %>').value = '';
+                                }
                             }
-                        }
-                    </script>
+                        </script>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

@@ -59,7 +59,40 @@ namespace Proyecto_DreamPlace.Paginas
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
 
+
         }
-       
+        protected void ddlDescuento_SelectedIndexChanged(object sender, EventArgs e)
+{
+    string descuentoSeleccionado = ddlDescuento.SelectedValue;
+
+    // Obtener el precio total actual
+    decimal precioTotalActual = ObtenerPrecioTotalActual();
+
+    // Calcular el nuevo precio con el descuento
+    decimal descuento = Convert.ToDecimal(descuentoSeleccionado) / 100;
+    decimal nuevoPrecioTotal = precioTotalActual - (precioTotalActual * descuento);
+
+    // Actualizar el valor en el TextBox
+    txtTotal.Text = nuevoPrecioTotal.ToString("C", new CultureInfo("es-CR"));
+
+    // Registrar el script para actualizar la interfaz de usuario
+    string script = "actualizarInterfazUsuario();";
+    ScriptManager.RegisterStartupScript(this, GetType(), "ActualizarInterfazScript", script, true);
+}
+
+// Método para obtener el precio total actual del inmueble
+private decimal ObtenerPrecioTotalActual()
+{
+    // Implementa lógica para obtener el precio total actual del inmueble
+    // Puedes acceder a los controles de la página desde aquí para obtener los valores actuales.
+    decimal precioTotal;
+    if (decimal.TryParse(txtTotal.Text, out precioTotal))
+    {
+        return precioTotal;
+    }
+    return 0.0M;
+}
+
+
     }
 }

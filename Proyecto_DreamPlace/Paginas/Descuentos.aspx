@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Descuentos.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.Descuentos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Descuentos.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.Descuentos"  %>
 
 <!DOCTYPE html>
 
@@ -46,13 +46,13 @@
             <div class="container-desc">
                 <h2>Aplica un Descuento a tu Inmueble</h2>
                 <asp:Label ID="Label8" runat="server" Text="Descuento:"></asp:Label><br />
-                <asp:DropDownList ID="ddlDescuento" runat="server" onchange="actualizarDescuento()">
+                <asp:DropDownList ID="ddlDescuento" runat="server" OnSelectedIndexChanged="ddlDescuento_SelectedIndexChanged">
                     <asp:ListItem Text="0.00%" Value="0"></asp:ListItem>
                     <asp:ListItem Text="10.00%" Value="10"></asp:ListItem>
                     <asp:ListItem Text="15.00%" Value="15"></asp:ListItem>
                     <asp:ListItem Text="20.00%" Value="20"></asp:ListItem>
                     <asp:ListItem Text="30.00%" Value="30"></asp:ListItem>
-                </asp:DropDownList><br />
+                </asp:DropDownList><br /><br />
 
 
                 <asp:Label ID="Label4" runat="server" Text="Total del Inmueble por Noche:"></asp:Label><br />
@@ -71,18 +71,21 @@
 
             <asp:HiddenField ID="hdnDescuento" runat="server" />
 
+
             <script type="text/javascript">
                 function actualizarDescuento() {
                     var ddlDescuento = document.getElementById('<%= ddlDescuento.ClientID %>');
+                    var txtTotal = document.getElementById('<%= txtTotal.ClientID %>');
 
                     var descuentoSeleccionado = ddlDescuento.value;
+                    var precioTotalActual = txtTotal.value;
 
-                    // Puedes utilizar 'descuentoSeleccionado' directamente según tus necesidades
-                    console.log("Descuento seleccionado: " + descuentoSeleccionado);
+                    // Llama al servidor para obtener el nuevo precio total
+                    PageMethods.ObtenerNuevoTotal(descuentoSeleccionado, precioTotalActual, function (result) {
+                        txtTotal.value = result;
+                    });
                 }
-            </script> 
-
-
+            </script>
 
         </div>
     </form>

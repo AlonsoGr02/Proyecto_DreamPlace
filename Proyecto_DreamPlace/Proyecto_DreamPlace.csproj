@@ -305,7 +305,6 @@
     <Content Include="Paginas\Perfil_Huesped.aspx" />
     <Content Include="Paginas\PoliticasServicio.aspx" />
     <Content Include="Paginas\PrincipalHuesped.aspx" />
-    <Content Include="Paginas\Prueba.aspx" />
     <Content Include="Paginas\PublicarAnuncio.aspx" />
     <Content Include="Paginas\Registrarme.aspx" />
     <Content Include="Paginas\Solicitud_Reserva.aspx" />
@@ -552,13 +551,6 @@
     </Compile>
     <Compile Include="Paginas\PrincipalHuesped.aspx.designer.cs">
       <DependentUpon>PrincipalHuesped.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Paginas\Prueba.aspx.cs">
-      <DependentUpon>Prueba.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Paginas\Prueba.aspx.designer.cs">
-      <DependentUpon>Prueba.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\PublicarAnuncio.aspx.cs">
       <DependentUpon>PublicarAnuncio.aspx</DependentUpon>

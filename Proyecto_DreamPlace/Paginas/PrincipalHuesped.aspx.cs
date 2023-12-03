@@ -27,6 +27,7 @@ namespace Proyecto_DreamPlace.Paginas
                     gvNotificaciones.DataBind();
                     CargarCategorias();
                     CargarTarjetasInmuebles();
+                    MostrarContadores();
                 }
                 else
                 {
@@ -524,5 +525,16 @@ namespace Proyecto_DreamPlace.Paginas
                 contenedorTarjetas.Controls.Add(tarjeta);
             }
         }
+        private void MostrarContadores()
+        {
+            ConexionBD contadores = new ConexionBD();
+
+            lblHuepedes.Text = $"Total de Huéspedes: {contadores.ContarHuespedes()}";
+            lblAnfitriones.Text = $"Total de Anfitriones: {contadores.ContarAnfitriones()}";
+            lblInmuebles.Text = $"Total de Inmuebles: {contadores.ContarInmuebles()}";
+            lblCategorias.Text = $"Total de Categorías: {contadores.ContarCategorias()}";
+            lblRoles.Text = $"Total de Roles: {contadores.ContarRoles()}";
+        }
+
     }
 }

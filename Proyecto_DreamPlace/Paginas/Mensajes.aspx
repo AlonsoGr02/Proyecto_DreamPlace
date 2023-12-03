@@ -12,49 +12,63 @@
     <link href="../Estilos/Css_Mensajes.css" rel="stylesheet" />
 
     <style>
-     /* Estilos generales */
-.mensaje-item {
-    margin-bottom: 10px;
-}
+        /* Estilos generales */
+        .mensaje-item {
+            margin-bottom: 10px;
+        }
 
-/* Estilos para mensajes a la derecha */
-.mensaje-derecha {
-    text-align: right;
-}
+        /* Estilos para mensajes a la derecha */
+        .mensaje-derecha {
+            text-align: right;
+        }
 
-.mensaje-izquierda {
-    text-align: left;
-}
+        .mensaje-izquierda {
+            text-align: left;
+        }
 
-.mensaje-derecha .mensaje {
-    background-color: #dcf8c6; /* Color de fondo para mensajes a la derecha */
-    padding: 8px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-bottom: 3px;
-}
+        .mensaje-derecha .mensaje {
+            background-color: #dcf8c6; /* Color de fondo para mensajes a la derecha */
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
 
-.mensaje-derecha .fecha {
-    font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
-    color: #888; /* Color de la fecha */
-    text-align: right;
-}
+        .mensaje-derecha .fecha {
+            font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
+            color: #888; /* Color de la fecha */
+            text-align: right;
+        }
 
-/* Estilos para mensajes a la izquierda */
-.mensaje-izquierda .mensaje {
-    background-color: #d3cdcd; /* Color de fondo para mensajes a la izquierda */
-    padding: 8px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-bottom: 3px;
-}
+        /* Estilos para mensajes a la izquierda */
+        .mensaje-izquierda .mensaje {
+            background-color: #d3cdcd; /* Color de fondo para mensajes a la izquierda */
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
 
-.mensaje-izquierda .fecha {
-    font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
-    color: #888; /* Color de la fecha */
-    text-align: left;
-}
+        .mensaje-izquierda .fecha {
+            font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
+            color: #888; /* Color de la fecha */
+            text-align: left;
+        }
 
+          .list-group-item {
+            display: block; /* Muestra cada elemento en una línea */
+            width: 350px;
+            padding: 10px 15px; /* Espaciado interno */
+            margin-bottom: -1px; /* Elimina el espacio entre elementos */
+            background-color: #fff; /* Color de fondo de los elementos */
+            border: 1px solid rgba(0, 0, 0, 0.125); /* Borde de los elementos */
+            border-radius: 0; /* Bordes sin redondear */
+        }
+
+            .list-group-item:hover {
+                background-color: #f5f5f5; /* Cambia el color de fondo al pasar el mouse */
+                cursor: pointer; /* Cambia el cursor al pasar sobre los elementos */
+            }
     </style>
 </head>
 <body>
@@ -78,10 +92,14 @@
             </div>
             <br />
             <div class="chat-container">
+
                 <div class="user-list">
                     <h2>Anfitriones</h2>
-                    <asp:DropDownList ID="ddlAnfitriones" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAnfitriones_SelectedIndexChanged"></asp:DropDownList>
+                    <div class="list-group" style="max-height: 300px; overflow-y: auto;">
+                        <asp:ListBox ID="lstAnfitriones" runat="server" CssClass="list-group-item" AutoPostBack="true" OnSelectedIndexChanged="lstAnfitriones_SelectedIndexChanged"></asp:ListBox>
+                    </div>
                 </div>
+
                 <div class="chat-window">
                     <div class="chat-header">
                         <h2>Chat</h2>

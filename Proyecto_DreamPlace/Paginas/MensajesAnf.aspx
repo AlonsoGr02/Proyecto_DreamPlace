@@ -9,50 +9,71 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link rel="stylesheet" href="../Estilos/Css_Mensajes.css" type="text/css" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
-        <style>
-     /* Estilos generales */
-.mensaje-item {
-    margin-bottom: 10px;
-}
+    <style>
+        /* Estilos generales */
+        .mensaje-item {
+            margin-bottom: 10px;
+        }
 
-/* Estilos para mensajes a la derecha */
-.mensaje-derecha {
-    text-align: right;
-}
+        /* Estilos para mensajes a la derecha */
+        .mensaje-derecha {
+            text-align: right;
+        }
 
-.mensaje-izquierda {
-    text-align: left;
-}
+        .mensaje-izquierda {
+            text-align: left;
+        }
 
-.mensaje-derecha .mensaje {
-    background-color: #dcf8c6; /* Color de fondo para mensajes a la derecha */
-    padding: 8px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-bottom: 3px;
-}
+        .mensaje-derecha .mensaje {
+            background-color: #dcf8c6; /* Color de fondo para mensajes a la derecha */
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
 
-.mensaje-derecha .fecha {
-    font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
-    color: #888; /* Color de la fecha */
-    text-align: right;
-}
+        .mensaje-derecha .fecha {
+            font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
+            color: #888; /* Color de la fecha */
+            text-align: right;
+        }
 
-/* Estilos para mensajes a la izquierda */
-.mensaje-izquierda .mensaje {
-    background-color: #d3cdcd; /* Color de fondo para mensajes a la izquierda */
-    padding: 8px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-bottom: 3px;
-}
+        /* Estilos para mensajes a la izquierda */
+        .mensaje-izquierda .mensaje {
+            background-color: #d3cdcd; /* Color de fondo para mensajes a la izquierda */
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
 
-.mensaje-izquierda .fecha {
-    font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
-    color: #888; /* Color de la fecha */
-    text-align: left;
-}
+        .mensaje-izquierda .fecha {
+            font-size: 0.75em; /* Tamaño de fuente más pequeño para la fecha */
+            color: #888; /* Color de la fecha */
+            text-align: left;
+        }
 
+        /*.list-group {
+            height: 800px;*/ /* Altura máxima */
+            /*overflow-y: auto;*/ /* Añade desplazamiento vertical si es necesario */
+            /*border: 1px solid #ced4da;*/ /* Borde de la lista */
+            /*border-radius: 5px;*/ /* Bordes redondeados */
+        /*}*/
+
+        .list-group-item {
+            display: block; /* Muestra cada elemento en una línea */
+            width: 350px;
+            padding: 10px 15px; /* Espaciado interno */
+            margin-bottom: -1px; /* Elimina el espacio entre elementos */
+            background-color: #fff; /* Color de fondo de los elementos */
+            border: 1px solid rgba(0, 0, 0, 0.125); /* Borde de los elementos */
+            border-radius: 0; /* Bordes sin redondear */
+        }
+
+            .list-group-item:hover {
+                background-color: #f5f5f5; /* Cambia el color de fondo al pasar el mouse */
+                cursor: pointer; /* Cambia el cursor al pasar sobre los elementos */
+            }
     </style>
 </head>
 <body>
@@ -77,23 +98,19 @@
             <br />
             <div class="chat-container">
                 <div class="user-list">
-                    <h2>Mis inmuebles</h2>
+                    <h2>Huéspedes</h2>
                     <br />
-                    <asp:DropDownList ID="ddlAlojamientos" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAlojamientos_SelectedIndexChanged"></asp:DropDownList>
-
-
+                    <div>
+                        <asp:ListBox ID="lstHuespedes" runat="server" CssClass="list-group-item" AutoPostBack="true" OnSelectedIndexChanged="lstHuespedes_SelectedIndexChanged"></asp:ListBox>
+                    </div>
                     <br />
-                    <h2>Huespedes</h2>
-                    <br />
-                    <asp:DropDownList ID="ddlhuesped" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlhuesped_SelectedIndexChanged"></asp:DropDownList>
-
                 </div>
                 <div class="chat-window">
                     <div class="chat-header">
                         <h2>Chat</h2>
                     </div>
                     <div class="chat-messages">
-                         <asp:Repeater ID="rptMensajes" runat="server">
+                        <asp:Repeater ID="rptMensajes" runat="server">
                             <ItemTemplate>
                                 <div class="mensaje-item">
                                     <asp:Panel ID="panelMensaje" runat="server" CssClass='<%# ObtenerClaseMensaje(Eval("IdCedula").ToString()) %>'>

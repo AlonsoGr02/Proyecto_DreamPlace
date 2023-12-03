@@ -32,10 +32,10 @@ namespace Proyecto_DreamPlace.Paginas
                     
                     if (anfitriones != null && anfitriones.Rows.Count > 0)
                     {
-                        ddlAnfitriones.DataSource = anfitriones;
-                        ddlAnfitriones.DataTextField = "Nombre";
-                        ddlAnfitriones.DataValueField = "Apellidos";                        
-                        ddlAnfitriones.DataBind();
+                        lstAnfitriones.DataSource = anfitriones;
+                        lstAnfitriones.DataTextField = "Nombre";
+                        lstAnfitriones.DataValueField = "Apellidos";
+                        lstAnfitriones.DataBind();
                     }
 
                     rptMensajes.ItemDataBound += rptMensajes_ItemDataBound;
@@ -48,15 +48,15 @@ namespace Proyecto_DreamPlace.Paginas
             }
         }
 
-        protected void ddlAnfitriones_SelectedIndexChanged(object sender, EventArgs e)
+        protected void lstAnfitriones_SelectedIndexChanged(object sender, EventArgs e)
         {
             string correo = Session["Correo"].ToString();
-            string correoAnfitrionSeleccionado = ddlAnfitriones.SelectedValue; 
+            string correoAnfitrionSeleccionado = lstAnfitriones.SelectedValue; 
 
             ConexionBD BD = new ConexionBD();
 
             string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-            string nombreCompletoSeleccionado = ddlAnfitriones.SelectedValue;
+            string nombreCompletoSeleccionado = lstAnfitriones.SelectedValue;
             string IdCedulaAnfitrion = BD.ObtenerIdCedulaPorNombre(nombreCompletoSeleccionado);
 
             // Aquí deberías llamar a un método que obtenga los mensajes entre el usuario y el anfitrión seleccionado
@@ -70,12 +70,12 @@ namespace Proyecto_DreamPlace.Paginas
         private void CargarMensajesEnRepeater()
         {
             string correo = Session["Correo"].ToString();
-            string correoAnfitrionSeleccionado = ddlAnfitriones.SelectedValue;
+            string correoAnfitrionSeleccionado = lstAnfitriones.SelectedValue;
 
             ConexionBD BD = new ConexionBD();
 
             string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-            string nombreCompletoSeleccionado = ddlAnfitriones.SelectedValue;
+            string nombreCompletoSeleccionado = lstAnfitriones.SelectedValue;
             string IdCedulaAnfitrion = BD.ObtenerIdCedulaPorNombre(nombreCompletoSeleccionado);
 
             
@@ -121,7 +121,7 @@ namespace Proyecto_DreamPlace.Paginas
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
             ConexionBD BD = new ConexionBD();
-            string nombreCompletoSeleccionado = ddlAnfitriones.SelectedValue;
+            string nombreCompletoSeleccionado = lstAnfitriones.SelectedValue;
             string mensaje = txtMensaje.Text;
             string correo = Session["Correo"].ToString();
             string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);

@@ -15,7 +15,7 @@ namespace Proyecto_DreamPlace.Paginas
 {
     public partial class MensajesAnf : System.Web.UI.Page
     {
-       protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             ConexionBD BD = new ConexionBD();
             if (!IsPostBack)
@@ -23,27 +23,29 @@ namespace Proyecto_DreamPlace.Paginas
                 if (Session["Correo"] != null)
                 {
                     string correo = Session["Correo"].ToString();
-                    string IdCuedulaUsuario= ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-                    Session["IdCedula"]= IdCuedulaUsuario;
+                    string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                    BD.CargarNombresInmuebles(ddlAlojamientos, correo);
+                    Session["IdCedula"] = IdCuedulaUsuario;
 
-                    
-                    string correoAnfitrionSeleccionado = ddlhuesped.SelectedValue;
+                    int IdInmueble = BD.ObtenerInmueble(IdCuedulaUsuario);
+                    string IdHuesped = BD.ObtenerIdCedulaHuesped(IdInmueble);
+                    List<string> nombres = BD.ObtenerNombreHuesped(IdHuesped);
 
-                    
 
-                    string IdCuedulaUsuar = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-                    string nombreCompletoSeleccionado = ddlhuesped.SelectedValue;
+
+
+
+                    // Ahora asigna esa lista de nombres al DropDownList
+                    lstHuespedes.DataSource = nombres;
+                    lstHuespedes.DataBind();
+
+                    string nombreCompletoSeleccionado = lstHuespedes.SelectedValue;
                     string IdCedulaAnfitrion = BD.ObtenerIdCedulaPorN(nombreCompletoSeleccionado);
 
-                    // Aquí deberías llamar a un método que obtenga los mensajes entre el usuario y el anfitrión seleccionado
-                    List<CapaNegocio.Models.Mensajes> mensajes = BD.ObtenerMensajesEntreUsuarios(IdCuedulaUsuar, IdCedulaAnfitrion);
+                    List<CapaNegocio.Models.Mensajes> mensajes = BD.ObtenerMensajesEntreUsuarios(IdCuedulaUsuario, IdCedulaAnfitrion);
 
-                    // Lógica para mostrar los mensajes en el control deseado (Repeater, ListView, etc.)
                     rptMensajes.DataSource = mensajes;
                     rptMensajes.DataBind();
-                    ddlhuesped.ClearSelection();
 
                     rptMensajes.ItemDataBound += rptMensajes_ItemDataBound;
                     CargarMensajesEnRepeater();
@@ -54,30 +56,16 @@ namespace Proyecto_DreamPlace.Paginas
                 }
             }
         }
-        protected void ddlAlojamientos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ConexionBD BD = new ConexionBD();
 
-            string nombre = ddlAlojamientos.SelectedValue;
-            int IdInmueble = BD.ObtenerIdInmueblePorNombre(nombre);
-
-            object IdCedulaObj = BD.ObtenerIdFechaReservada(IdInmueble);
-            string IdCedula = IdCedulaObj != null ? IdCedulaObj.ToString() : string.Empty;
-
-            BD.Huespedes(ddlhuesped, IdCedula);
-
-            
-        }        
-
-        protected void ddlhuesped_SelectedIndexChanged(object sender, EventArgs e)
+        protected void lstHuespedes_SelectedIndexChanged(object sender, EventArgs e)
         {
             string correo = Session["Correo"].ToString();
-            string correoAnfitrionSeleccionado = ddlhuesped.SelectedValue; 
+            string correoAnfitrionSeleccionado = lstHuespedes.SelectedValue;
 
             ConexionBD BD = new ConexionBD();
 
             string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-            string nombreCompletoSeleccionado = ddlhuesped.SelectedValue;
+            string nombreCompletoSeleccionado = lstHuespedes.SelectedValue;
             string IdCedulaAnfitrion = BD.ObtenerIdCedulaPorN(nombreCompletoSeleccionado);
 
             // Aquí deberías llamar a un método que obtenga los mensajes entre el usuario y el anfitrión seleccionado
@@ -86,27 +74,28 @@ namespace Proyecto_DreamPlace.Paginas
             // Lógica para mostrar los mensajes en el control deseado (Repeater, ListView, etc.)
             rptMensajes.DataSource = mensajes;
             rptMensajes.DataBind();
-            
-
         }
 
         private void CargarMensajesEnRepeater()
         {
             string correo = Session["Correo"].ToString();
-            string correoAnfitrionSeleccionado = ddlhuesped.SelectedValue;
+            
 
             ConexionBD BD = new ConexionBD();
 
             string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-            string nombreCompletoSeleccionado = ddlhuesped.SelectedValue;
-            string IdCedulaAnfitrion = BD.ObtenerIdCedulaPorNombre(nombreCompletoSeleccionado);
+            string nombreCompletoSeleccionado = lstHuespedes.SelectedValue;
 
-            
+            string IdCedulaAnfitrion = BD.ObtenerIdCedulaPorN(nombreCompletoSeleccionado);
+
+
             List<CapaNegocio.Models.Mensajes> mensajes = BD.ObtenerMensajesEntreUsuarios(IdCuedulaUsuario, IdCedulaAnfitrion);
-            
+
+
             rptMensajes.DataSource = mensajes;
             rptMensajes.DataBind();
         }
+
         protected void rptMensajes_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             string correo = Session["Correo"].ToString();
@@ -138,10 +127,11 @@ namespace Proyecto_DreamPlace.Paginas
             return idCedula == idCedulaSesion ? "mensaje-derecha" : "mensaje-izquierda";
         }
 
+
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
             ConexionBD BD = new ConexionBD();
-            string nombreCompletoSeleccionado = ddlhuesped.SelectedValue;
+            string nombreCompletoSeleccionado = lstHuespedes.SelectedValue;
             string mensaje = txtMensaje.Text;
             string correo = Session["Correo"].ToString();
             string IdCuedulaUsuario = ConexionBD.ObtenerIdCedulaPorCorreo(correo);

@@ -370,7 +370,7 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void btnLFamosos_Click(object sender, EventArgs e)
         {
-
+            CargarTarjetasInmueblesBaratos();
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -393,6 +393,115 @@ namespace Proyecto_DreamPlace.Paginas
                 txtBusqueda.Value ="";
             }
 
+        }
+
+        protected void CargarTarjetasInmueblesBaratos()
+        {
+            DataTable dtInmuebles = objConexion.ObtenerInfoInmueblesBaratos();
+
+            foreach (DataRow row in dtInmuebles.Rows)
+            {
+                // Crear una nueva tarjeta
+                Panel tarjeta = new Panel();
+                tarjeta.CssClass = "tarjeta";
+
+                // Crear un div para el carrusel de imágenes
+                Panel carousel = new Panel();
+                carousel.CssClass = "carousel";
+
+                int idInmueble = Convert.ToInt32(row["IdInmueble"]);
+                List<byte[]> imagenesInmueble = objConexion.ObtenerImagenesInmueble(idInmueble);
+
+                // Agregar cada imagen al carrusel
+                foreach (byte[] imagenBytes in imagenesInmueble)
+                {
+                    Image img = new Image();
+                    img.ImageUrl = $"data:image/jpeg;base64,{Convert.ToBase64String(imagenBytes)}";
+                    carousel.Controls.Add(img);
+                }
+
+                // Agregar el carrusel a la tarjeta
+                tarjeta.Controls.Add(carousel);
+
+                // Crear el div de información como un enlace (hipervínculo)
+                HyperLink informacionEnlace = new HyperLink();
+                informacionEnlace.CssClass = "informacion";
+                informacionEnlace.Style.Add("font-family", "'Montserrat', sans-serif");
+                informacionEnlace.NavigateUrl = $"Login.aspx?"; // Especifica la URL de destino
+                informacionEnlace.Style.Add("text-decoration", "none"); // Eliminar subrayado
+                informacionEnlace.Style.Add("color", "#333");
+
+                // Agregar la información (puedes personalizar esto según tus necesidades)
+                informacionEnlace.Controls.Add(new LiteralControl("<br />"));
+
+                Label lblIdInmueble = new Label();
+                lblIdInmueble.Visible = false;
+                lblIdInmueble.Text = row["IdInmueble"].ToString();
+                informacionEnlace.Controls.Add(lblIdInmueble);
+
+                Label lblNombreInmueble = new Label();
+                lblNombreInmueble.Text = row["NombreInmueble"].ToString();
+                lblNombreInmueble.Style.Add("font-weight", "bold");
+                lblNombreInmueble.Style.Add("margin-bottom", "8px");
+
+                informacionEnlace.Controls.Add(lblNombreInmueble);
+                informacionEnlace.Controls.Add(new LiteralControl("<br />"));
+
+                Label lblTipoInmueble = new Label();
+                lblTipoInmueble.Text = $"Tipo de Inmueble: {row["TipoInmueble"]}";
+                Image iconoE = new Image();
+                iconoE.ImageUrl = "~/img/estrella.png";
+                iconoE.Style.Add("width", "16px");
+                iconoE.Style.Add("height", "16px");
+                iconoE.Style.Add("margin-left", "10px");
+                informacionEnlace.Controls.Add(iconoE);
+                informacionEnlace.Controls.Add(lblTipoInmueble);
+                informacionEnlace.Controls.Add(new LiteralControl("<br />"));
+
+                // Concatenar cantón y provincia con una coma
+                string ubicacion = $"{row["Canton"]}, {row["Provincia"]}";
+
+                Label lblUbicacion = new Label();
+                lblUbicacion.Text = $"Ubicación: {ubicacion}";
+
+                Image icono = new Image();
+                icono.ImageUrl = "~/img/gps.png";
+                icono.Style.Add("width", "16px");
+                icono.Style.Add("height", "16px");
+                icono.Style.Add("margin-left", "10px");
+                informacionEnlace.Controls.Add(icono);
+
+                informacionEnlace.Controls.Add(lblUbicacion);
+                informacionEnlace.Controls.Add(new LiteralControl("<br />"));
+
+                Label lblPrecioTotal = new Label();
+                lblPrecioTotal.Text = $"Precio por Noche: ₡ {row["Total"]}";
+                Image iconoP = new Image();
+                iconoP.ImageUrl = "~/img/dolar.png";
+                iconoP.Style.Add("width", "16px");
+                iconoP.Style.Add("height", "16px");
+                iconoP.Style.Add("margin-left", "10px");
+                informacionEnlace.Controls.Add(iconoP);
+                informacionEnlace.Controls.Add(lblPrecioTotal);
+
+                // Agregar espacio entre las etiquetas
+                informacionEnlace.Controls.Add(new LiteralControl("<br />"));
+
+                // Agregar margen izquierdo a todas las etiquetas dentro del HyperLink
+                foreach (Control control in informacionEnlace.Controls)
+                {
+                    if (control is Label)
+                    {
+                        ((Label)control).Style.Add("margin-left", "10px"); // Puedes ajustar el valor según tus necesidades
+                    }
+                }
+
+                // Agregar el div de información al área clickeable de la tarjeta
+                tarjeta.Controls.Add(informacionEnlace);
+
+                // Agregar la tarjeta al contenedor de tarjetas en tu página ASP.NET
+                contenedorTarjetas.Controls.Add(tarjeta);
+            }
         }
     }
 }

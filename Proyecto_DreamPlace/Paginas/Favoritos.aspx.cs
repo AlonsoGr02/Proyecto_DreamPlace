@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -104,6 +105,13 @@ namespace Proyecto_DreamPlace.Paginas
                 precioContainer.Controls.Add(precioControl);
 
                 infoContainer.Controls.Add(precioContainer);
+                ///************
+                Button removeButton = new Button();
+                removeButton.Text = "Eliminar de Favoritos";
+                removeButton.CssClass = "remove-button";
+                removeButton.OnClientClick = $"RemoveFromFavorites({idInmueble}); return false;";
+                infoContainer.Controls.Add(removeButton);
+                //***************
 
                 tarjetaContainer.Controls.Add(carruselContainer);
                 tarjetaContainer.Controls.Add(infoContainer);
@@ -111,5 +119,22 @@ namespace Proyecto_DreamPlace.Paginas
                 container.Controls.Add(tarjetaContainer);
             }
         }
+
+        [System.Web.Services.WebMethod]
+        public static void RemoveFromFavorites(int idInmueble, HttpSessionState session)
+        {
+            if (session["Correo"] != null)
+            {
+                string correo = session["Correo"].ToString();
+                string idCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+
+                ConexionBD objConexion = new ConexionBD();
+                objConexion.EliminarFavorito(idCedula, idInmueble);
+
+                // Volver a generar la estructura HTML después de la eliminación si es necesario
+                //GenerarEstructuraHTML(idCedula);
+            }
+        }
+
     }
 }

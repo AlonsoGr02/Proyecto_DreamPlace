@@ -32,7 +32,7 @@
 
                 <div id="topnav" class="topnav-container" runat="server">
                     <div class="topnav">
-                        <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" OnClick="btnLFamosos_Click" CssClass="searchButton" />
+                        <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Económicos" OnClick="btnLFamosos_Click" CssClass="searchButton" />
                         <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton" />
                         <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
 

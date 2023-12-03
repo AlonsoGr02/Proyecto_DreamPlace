@@ -43,6 +43,24 @@ namespace CapaNegocio
 
         }
 
+        public void EnviarCorreoPersonalizado(string correoDesti, string asunto, string cuerpo)
+        {
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("prograpruebas@spestechnical.com");
+            message.To.Add(new MailAddress(correoDesti));
+            message.Subject = asunto;
+            message.Body = cuerpo;
+
+
+            SmtpClient client = new SmtpClient("smtp.titan.email");
+            client.Port = 587;
+            client.Credentials = new NetworkCredential("prograpruebas@spestechnical.com", "CursoCUC2023");
+            client.EnableSsl = true;
+            client.Send(message);
+
+        }
+
 
     } // Fin de la clase Metodos
 }

@@ -49,6 +49,26 @@
                     nextArrow: '<button class="slick-next" aria-label="Next" type="button">&#9654;</button>' /* Flecha derecha */
                 });
             });
+
+            function RemoveFromFavorites(idInmueble) {
+                // Usa AJAX u otro método para enviar la solicitud al servidor
+                $.ajax({
+                    type: "POST",
+                    url: "Favoritos.aspx/RemoveFromFavorites",
+                    data: JSON.stringify({ idInmueble: idInmueble }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        // Manejar el éxito, tal vez eliminar la tarjeta de la interfaz de usuario
+                        // Por ejemplo, puedes usar jQuery para buscar y eliminar la tarjeta
+                        $(".tarjeta[data-id='" + idInmueble + "']").remove();
+                    },
+                    error: function (error) {
+                        // Manejar el error
+                        console.error("Error al eliminar de Favoritos: " + error.responseText);
+                    }
+                });
+            }
         </script>
     </form>
     <footer>

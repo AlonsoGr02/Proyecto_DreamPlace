@@ -114,6 +114,51 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.GridView gvNotificaciones;
 
         /// <summary>
+        /// Control lblHuepedes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHuepedes;
+
+        /// <summary>
+        /// Control lblAnfitriones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAnfitriones;
+
+        /// <summary>
+        /// Control lblInmuebles.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInmuebles;
+
+        /// <summary>
+        /// Control lblCategorias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategorias;
+
+        /// <summary>
+        /// Control lblRoles.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRoles;
+
+        /// <summary>
         /// Control contenedorTarjetasFiltradas.
         /// </summary>
         /// <remarks>

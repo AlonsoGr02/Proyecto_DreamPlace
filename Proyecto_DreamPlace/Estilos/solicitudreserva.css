@@ -1,5 +1,5 @@
 ﻿body {
-    background-color: #A3AB78;
+    background-color: #fff;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif; /* Establecer una fuente genérica para mayor consistencia */
@@ -44,7 +44,7 @@
 }
 
 .flex-container {
-    background-color: #A3AB78;
+    background-color: #fff;
     padding: 10px;
     border-radius: 10px;
     display: inline-block;

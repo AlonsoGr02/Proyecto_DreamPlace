@@ -1,4 +1,5 @@
 ﻿using CapaNegocio;
+using CapaNegocio.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,6 +19,21 @@ namespace Proyecto_DreamPlace.Paginas
             {
                 string correo = Request.QueryString["Correo"];
                 string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+
+                if (Session["Correo"] != null)
+                {
+                    string correoU = Session["Correo"].ToString();
+
+                    ConexionBD conexion = new ConexionBD();
+                    Usuario usuario = conexion.ObtenerDatosUsuario(correoU);
+
+
+                    if (usuario != null)
+                    {                       
+                        lblNombre.Text = usuario.Nombre + usuario.Apellidos;                        
+                        lblRol.Text = usuario.Rol;
+                    }
+                }
 
                 txtCedula.Text = IdCedula;
 
@@ -62,6 +78,24 @@ namespace Proyecto_DreamPlace.Paginas
                     decimal costoTotal = diferenciaDias * costoPorNoche;
                     lblTotal.Text = costoTotal.ToString("C");
                 }
+            }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            
+            string idInmueble = Request.QueryString["IdInmueble"];
+            string correo = Request.QueryString["Correo"];
+
+            if (!string.IsNullOrEmpty(idInmueble))
+            {
+                Session["IdInmueble"] = Convert.ToInt32(idInmueble);
+                Response.Redirect($"Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
+            }
+            else
+            {
+                
+
             }
         }
 

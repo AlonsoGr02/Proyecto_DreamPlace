@@ -2056,7 +2056,35 @@ namespace CapaNegocio
             return resultTable;
         }
 
-        //***************
+
+
+        public DataTable ObtenerUbicacion(int IdUbicacion)
+        {
+            DataTable resultTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                string query = "SELECT Provincia, Canton, PosicionGPS FROM Ubicaciones WHERE IdUbicacion = @IdUbicacion";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@IdUbicacion", SqlDbType.Int));
+                    command.Parameters["@IdUbicacion"].Value = IdUbicacion;
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(resultTable);
+                    }
+                }
+            }
+
+            return resultTable; 
+        }
+
+
+        
         public void InsertarInmuebleConmpleto(
         string cedAnfitrion,
         int idEstado,

@@ -205,420 +205,331 @@
                                 <asp:Button ID="btnFavorritos" runat="server" Text="Agregar Favoritos" CssClass="btn-favorito" OnClick="btnFavorritos_Click" />
                                 <div class="hotel-title">
 
-                                    <asp:Label class="hotel-title" ID="lblNombre" runat="server" Text=""></asp:Label>
+                                    <br />
+                                    <br />
+                                    <br />
 
-                                    <!-- Botón para abrir el modal -->
-                                    <asp:Button class="send-button" ID="btnAbrirmodalReserva" runat="server" Text="Reservar" OnClick="AbrirModal" />
-                                </div>
+                                    <asp:Label class="hotel" ID="lblNombre" runat="server" Text=""></asp:Label>
+                                    <div>
+                                        <asp:Label class="hotel-description" ID="LabelUbicacion" runat="server" Text="Ubicacion:"></asp:Label>
+                                        <asp:Label ID="lblubucacion" runat="server" Visible="false"></asp:Label>
 
-                                <%--Modal error reserva--%>
-                                <div id="MostrarModalError" class="modal" style="display: none; justify-content: center; align-items: center;">
-                                    <div class="modal-content" style="text-align: center;">
-                                        <h2 style="font-size: 2em;">Error</h2>
-                                        <div style="font-size: 1.2em; margin-bottom: 10px;">La fecha seleccionada no está disponible</div>
-                                        <div>
-                                            <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
-                                        </div>
                                     </div>
-                                </div>
 
 
-                                <script>
-                                    function AbrirModalError() {
-                                        var modal = document.getElementById("MostrarModalError");
-                                        modal.style.display = "flex";
-                                        setTimeout(function () {
-                                            CerrarModalError();
-                                        }, 6000);
-                                    }
 
-
-                                    function CerrarModalError() {
-                                        var modal = document.getElementById("MostrarModalError");
-                                        modal.style.display = "none";
-                                    }
-                                </script>
-
-                                <br />
-
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-                                <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
-
-                                <div class="fotorama">
-                                    <asp:Repeater ID="imageRepeater" runat="server">
-                                        <ItemTemplate>
-                                            <div class='<%# "item item-" + (Container.ItemIndex + 1) %>'>
-                                                <img class="background-image" src='<%# "data:image/png;base64," + Convert.ToBase64String(((ImagenModel)Container.DataItem).ImagenData) %>' />
+                                    <%--Modal error reserva--%>
+                                    <div id="MostrarModalError" class="modal" style="display: none; justify-content: center; align-items: center;">
+                                        <div class="modal-content" style="text-align: center;">
+                                            <h2 style="font-size: 2em;">Error</h2>
+                                            <div style="font-size: 1.2em; margin-bottom: 10px;">La fecha seleccionada no está disponible</div>
+                                            <div>
+                                                <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
                                             </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </div>
+                                        </div>
+                                    </div>
 
 
-                                <%--                            <div id="imageCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-                                <!-- Indicadores -->
-                                <ol class="carousel-indicators" runat="server" id="carouselIndicators">
-                                    <!-- Aquí se generarán los indicadores de las imágenes -->
-                                </ol>
-
-                                <!-- Imágenes -->
-                                <div class="carousel-inner" role="listbox" runat="server" id="imageGallery">
-                                    <!-- Aquí se mostrarán las imágenes -->
-                                </div>
-
-                                <!-- Controles -->
-                                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Anterior</span>
-                                </a>
-                                <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Siguiente</span>
-                                </a>
-                            </div>
+                                    <script>
+                                        function AbrirModalError() {
+                                            var modal = document.getElementById("MostrarModalError");
+                                            modal.style.display = "flex";
+                                            setTimeout(function () {
+                                                CerrarModalError();
+                                            }, 6000);
+                                        }
 
 
-                            <!-- jQuery -->
-                            <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+                                        function CerrarModalError() {
+                                            var modal = document.getElementById("MostrarModalError");
+                                            modal.style.display = "none";
+                                        }
+                                    </script>
 
-                            <!-- Bootstrap JS (Remember to include Bootstrap JS) -->
-                            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                                    <div class="container_img">
+                                        <div class="carousel">
+                                            <!-- Repeater para las imágenes -->
+                                            <asp:Repeater ID="imageRepeater" runat="server">
+                                                <ItemTemplate>
+                                                    <div class="carousel__face">
+                                                        <img src='<%# "data:image/png;base64," + Convert.ToBase64String(((ImagenModel)Container.DataItem).ImagenData) %>' />
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
 
-                            <script>
-                                $(document).ready(function () {
-                                    // Inicializa el carrusel
-                                    $('#imageCarousel').carousel();
-
-                                    // Establece el intervalo para avanzar las imágenes cada 2 segundos
-                                    setInterval(function () {
-                                        $('#imageCarousel').carousel('next');
-                                    }, 2000); // Intervalo en milisegundos (2 segundos = 2000 ms)
-                                });
-                            </script>--%>
+                                    <div class="mini-cardDescription">
 
 
-                                <div class="mini-cardDescription">
+
+
+                                        <div>
+                                            <asp:Label ID="lbldescripcion" runat="server" Text="El Panoramic Hotel es un moderno y elegante hotel de 4 estrellas, asomado al mar, ideal para unas vacaciones románticas y de gran encanto, en el mágico escenario de Taormina y del Mar de Sicilia."></asp:Label>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <div class="mini-card">
+                                        <div>
+                                            <asp:Label class="hotel-description" ID="lblPrecioS" runat="server" Text="Precio por noche:₡ "></asp:Label>
+                                            <asp:Label class="hotel-description" ID="lblPrecio" runat="server" Text=""></asp:Label>
+
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="hotel-ratings">
+                                        <asp:Label class="fas fa-star" ID="lblcalificacion" runat="server" Text=" Puntuacion: 4.5"></asp:Label>
+                                    </div>
+                                    <br />
+
+                                    <br />
                                     <div>
-                                        <asp:Label class="hotel-title" ID="Label6" runat="server" Text="Descripción del hotel:"></asp:Label>
+                                        <asp:Label class="hotel-title" ID="lblofrecelugar" runat="server" Text="Lo que ofrece el lugar:"></asp:Label>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="mini-cardservicios">
+                                        <div class="info-container">
+                                            <div class="info-item">
+                                                <i class="icon fas fa-users"></i>
+                                                <span>
+                                                    <asp:Label ID="Label2" Text="Cantidad Personas:" runat="server"></asp:Label>
+                                                    <asp:Label ID="lblCantidadPersonas" runat="server"></asp:Label>
+                                                </span>
+                                            </div>
+                                            <div class="info-item">
+                                                <i class="icon fas fa-bed"></i>
+                                                <span>
+                                                    <asp:Label ID="Label3" Text="Cantidad Dormitorios:" runat="server"></asp:Label>
+                                                    <asp:Label ID="lblCantidadDormitorios" runat="server"></asp:Label>
+                                                </span>
+                                            </div>
+                                            <div class="info-item">
+                                                <i class="icon fas fa-bath"></i>
+                                                <span>
+                                                    <asp:Label ID="Label4" Text="Cantidad Baños:" runat="server"></asp:Label>
+                                                    <asp:Label ID="lblCantidadBanos" runat="server"></asp:Label>
+                                                </span>
+                                            </div>
+                                            <div class="info-item">
+                                                <i class="icon fas fa-bed"></i>
+                                                <span>
+                                                    <asp:Label ID="Label5" Text="Cantidad Camas:" runat="server"></asp:Label>
+                                                    <asp:Label ID="lblCantidadCamas" runat="server"></asp:Label>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
 
 
+                                    <br />
+                                    <div class="cardDescription">
 
-                                    <div>
-                                        <asp:Label ID="lbldescripcion" runat="server" Text="El Panoramic Hotel es un moderno y elegante hotel de 4 estrellas, asomado al mar, ideal para unas vacaciones románticas y de gran encanto, en el mágico escenario de Taormina y del Mar de Sicilia."></asp:Label>
-                                    </div>
-                                </div>
-
-                                <br />
-                                <div class="mini-card">
-                                    <div>
-                                        <asp:Label class="hotel-description" ID="lblPrecioS" runat="server" Text="Precio por noche:₡ "></asp:Label>
-                                        <asp:Label class="hotel-description" ID="lblPrecio" runat="server" Text=""></asp:Label>
-
-                                    </div>
-                                </div>
-                                <br />
-
-                                <div class="hotel-ratings">
-                                    <asp:Label class="fas fa-star" ID="lblcalificacion" runat="server" Text=" Puntuacion: 4.5"></asp:Label>
-                                </div>
-                                <br />
-
-                                <br />
-                                <div>
-                                    <asp:Label class="hotel-title" ID="lblofrecelugar" runat="server" Text="Lo que ofrece el lugar:"></asp:Label>
-                                </div>
-
-                                <br />
-
-                                <div class="mini-cardservicios">
-                                    <div class="info-container">
-                                        <div class="info-item">
-                                            <i class="icon fas fa-users"></i>
-                                            <span>
-                                                <asp:Label ID="Label2" Text="Cantidad Personas:" runat="server"></asp:Label>
-                                                <asp:Label ID="lblCantidadPersonas" runat="server"></asp:Label>
-                                            </span>
+                                        <div>
+                                            <asp:Label class="hotel-title" ID="Label1" runat="server" Text="Amenidades:"></asp:Label>
                                         </div>
-                                        <div class="info-item">
-                                            <i class="icon fas fa-bed"></i>
-                                            <span>
-                                                <asp:Label ID="Label3" Text="Cantidad Dormitorios:" runat="server"></asp:Label>
-                                                <asp:Label ID="lblCantidadDormitorios" runat="server"></asp:Label>
-                                            </span>
-                                        </div>
-                                        <div class="info-item">
-                                            <i class="icon fas fa-bath"></i>
-                                            <span>
-                                                <asp:Label ID="Label4" Text="Cantidad Baños:" runat="server"></asp:Label>
-                                                <asp:Label ID="lblCantidadBanos" runat="server"></asp:Label>
-                                            </span>
-                                        </div>
-                                        <div class="info-item">
-                                            <i class="icon fas fa-bed"></i>
-                                            <span>
-                                                <asp:Label ID="Label5" Text="Cantidad Camas:" runat="server"></asp:Label>
-                                                <asp:Label ID="lblCantidadCamas" runat="server"></asp:Label>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                                <br />
-                                <div class="cardDescription">
+                                        <div class="amenities">
+                                            <asp:Repeater ID="rptAmenities" runat="server">
+                                                <ItemTemplate>
+                                                    <div class="amenity-card">
+                                                        <i class='<%# ObtenerIconClass((byte[])Eval("Icono"), Eval("Nombre").ToString()) %>'></i>
+                                                        <%# Eval("Nombre") %>
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
 
-                                    <div>
-                                        <asp:Label class="hotel-title" ID="Label1" runat="server" Text="Amenidades:"></asp:Label>
+
+                                        <div class="amenities">
+                                            <div class="amenity-card">
+                                                <i class="fas fa-wifi amenity-icon"></i>
+                                                Wi-Fi
+                                            </div>
+                                            <div class="amenity-card">
+                                                <i class="fas fa-parking amenity-icon"></i>
+                                                Aparcamiento
+                                            </div>
+                                            <div class="amenity-card">
+                                                <i class="fas fa-swimming-pool amenity-icon"></i>
+                                                Piscina
+                                            </div>
+                                            <div class="amenity-card">
+                                                <i class="fas fa-utensils amenity-icon"></i>
+                                                Restaurante
+                                            </div>
+                                        </div>
+
                                     </div>
 
+                                    <div class="sticky-box">
+                                        <!-- Contenido de la caja -->
+                                        <label class="hotel-title" id="Labelr">Reservar inmueble</label>
+                                        <div>
+                                            <div>
+                                                <p class="text-dark">Cantidad de huéspedes</p>
+                                            </div>
 
-                                    <div class="amenities">
-                                        <asp:Repeater ID="rptAmenities" runat="server">
-                                            <ItemTemplate>
-                                                <div class="amenity-card">
-                                                    <i class='<%# ObtenerIconClass((byte[])Eval("Icono"), Eval("Nombre").ToString()) %>'></i>
-                                                    <%# Eval("Nombre") %>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                            <div class="input-group w-auto justify-content-end align-items-center">
+                                                <asp:Button ID="btnMenosAdultos" class="button-minus border rounded-circle icon-shape icon-sm mx-1" data-field="adultos" runat="server" Text="-" OnClientClick="return RestarAdultos();" />
+                                                <asp:TextBox ID="txtcantidadAdultos" class="comment-modal" runat="server"></asp:TextBox>
+                                                <asp:Button ID="btnMasAdultos" class="button-plus border rounded-circle icon-shape icon-sm" data-field="adultos" runat="server" Text="+" OnClientClick="return SumarAdultos();" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="fechaLlegada">Fecha de llegada:</label>
+                                            <asp:TextBox ID="txtfechaLlegada" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
+
+                                            <br />
+                                            <label for="fechaSalida">Fecha de salida:</label>
+                                            <asp:TextBox ID="txtfechaSalida" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
+
+                                        </div>
+
+                                        <asp:Button ID="ReservarButton" runat="server" Text="Confirmar" OnClick="ReservarButton_Click" class="send-button" />
+
                                     </div>
 
+                                    <label class="hotel-title" id="Label7">Fechas disponibles:</label>
+                                    <br />
 
-                                    <div class="amenities">
-                                        <div class="amenity-card">
-                                            <i class="fas fa-wifi amenity-icon"></i>
-                                            Wi-Fi
-                                        </div>
-                                        <div class="amenity-card">
-                                            <i class="fas fa-parking amenity-icon"></i>
-                                            Aparcamiento
-                                        </div>
-                                        <div class="amenity-card">
-                                            <i class="fas fa-swimming-pool amenity-icon"></i>
-                                            Piscina
-                                        </div>
-                                        <div class="amenity-card">
-                                            <i class="fas fa-utensils amenity-icon"></i>
-                                            Restaurante
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <label class="hotel-title" id="Label7">Fechas disponibles:</label>
-                                <br />
-                                <div class="card_calendario">
+
                                     <div class="container_calendario">
                                         <div class="calendario">
                                             <asp:Calendar ID="calendar" runat="server" CssClass="calendar" OnDayRender="calendar_DayRender"></asp:Calendar>
                                         </div>
-
-
-                                        <div class="reserva-container">
-                                            <h2>Reservar inmueble</h2>
-
-                                            <div class="input-group w-auto justify-content-end align-items-center">
-                                                <asp:Button ID="Button2" class="button-minus border rounded-circle icon-shape icon-sm mx-1" data-field="adultos" runat="server" Text="-" OnClientClick="return RestarAdultos();" />
-                                                <asp:TextBox ID="TextBox1" class="comment-modal" runat="server"></asp:TextBox>
-                                                <asp:Button ID="Button3" class="button-plus border rounded-circle icon-shape icon-sm" data-field="adultos" runat="server" Text="+" OnClientClick="return SumarAdultos();" />
-                                            </div>
-
-                                            <div class="d-flex justify-content-between">
-                                                <br />
-                                                <div>
-                                                    <label for="fechaLlegada">Fecha de llegada:</label>
-                                                    <asp:TextBox ID="TextBox2" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
-
-                                                    <br />
-                                                    <label for="fechaSalida">Fecha de salida:</label>
-                                                    <asp:TextBox ID="TextBox3" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
-
-                                                </div>
-
-                                                <asp:Button ID="Button4" runat="server" Text="Confirmar" OnClick="ReservarButton_Click" class="send-button" />
-
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
 
 
-
-
-                                <script>
-                                    $(function () {
-                                        $("#datepicker").datepicker();
-                                    });
-
-                                </script>
-
-                                <%--ModalReserva--%>
-
-                                <div id="myModal" class="modal">
-                                    <div class="modal-content">
-                                        <span class="close" id="closeModalButton">&times;</span>
-                                        <!-- Contenido del modal -->
-
-                                        <div class="modal-content-inner">
-                                            <h2>Reservar habitación</h2>
-                                            <div class="container">
-                                                <div class="row mb-8 justify-content-center">
-                                                    <div class="col-md-6 col-12">
-                                                        <div class="mb-4 border-bottom pb-2">
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <div>
-                                                                        <p class="text-dark">Cantidad de huéspedes</p>
-                                                                    </div>
-
-                                                                    <div class="input-group w-auto justify-content-end align-items-center">
-                                                                        <asp:Button ID="btnMenosAdultos" class="button-minus border rounded-circle icon-shape icon-sm mx-1" data-field="adultos" runat="server" Text="-" OnClientClick="return RestarAdultos();" />
-                                                                        <asp:TextBox ID="txtcantidadAdultos" class="comment-modal" runat="server"></asp:TextBox>
-                                                                        <asp:Button ID="btnMasAdultos" class="button-plus border rounded-circle icon-shape icon-sm" data-field="adultos" runat="server" Text="+" OnClientClick="return SumarAdultos();" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <%--                                                            <div>
-                                                                <p class="text-dark">Cantidad de Niños</p>
-                                                            </div>--%>
-
-                                                                    <%--                                                            <div class="input-group w-auto justify-content-end align-items-center">
-                                                                <asp:Button ID="btnMenosNinos" runat="server" Text="-" OnClientClick="return RestarNinos();"></asp:Button>
-                                                                <asp:TextBox ID="txtCantidadNinos" class="comment-modal" runat="server"></asp:TextBox>
-                                                                <asp:Button ID="btnMasNinos" runat="server" Text="+" OnClientClick="return SumarNinos();" />
-                                                            </div>--%>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="row mt-4">
-                                                        <div class="col-12">
-                                                            <div class="d-flex justify-content-between">
-                                                                <br />
-                                                                <div>
-                                                                    <label for="fechaLlegada">Fecha de llegada:</label>
-                                                                    <asp:TextBox ID="txtfechaLlegada" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
-
-                                                                    <br />
-                                                                    <label for="fechaSalida">Fecha de salida:</label>
-                                                                    <asp:TextBox ID="txtfechaSalida" runat="server" type="date" class="comment-modal"></asp:TextBox><br />
-
-                                                                </div>
-
-                                                                <asp:Button ID="ReservarButton" runat="server" Text="Confirmar" OnClick="ReservarButton_Click" class="send-button" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    // Función para mostrar el calendario al hacer clic en fechaSalida
-                                    function mostrarCalendariosalida() {
-                                        $("#fechaSalida").datepicker({
-                                            dateFormat: 'yy-mm-dd', // Puedes ajustar el formato de fecha
-                                            onSelect: function (dateText, inst) {
-                                            }
+                                    <script>
+                                        $(function () {
+                                            $("#datepicker").datepicker();
                                         });
-                                    }
-                                </script>
 
-                                <script>
-                                    function mostrarCalendarioentrada() {
-                                        $("#fechaLlegada").datepicker({
-                                            dateFormat: 'yy-mm-dd',
-                                            onSelect: function (dateText, inst) {
-                                            }
-                                        });
-                                    }
-                                </script>
+                                    </script>
 
-                                <script>
-                                    function AbrirModal() {
-                                        // Abre el modal al hacer clic en el botón
-                                        var modal = document.getElementById("myModal");
-                                        modal.style.display = "block";
-                                        // Puedes agregar más lógica aquí si es necesario
-                                    }
 
-                                    // Cierra el modal si se hace clic en la "x"
-                                    document.getElementById("closeModalButton").onclick = function () {
-                                        var modal = document.getElementById("myModal");
-                                        modal.style.display = "none";
-                                    }
+                                    <script>
+                                        // Función para mostrar el calendario al hacer clic en fechaSalida
+                                        function mostrarCalendariosalida() {
+                                            $("#fechaSalida").datepicker({
+                                                dateFormat: 'yy-mm-dd', // Puedes ajustar el formato de fecha
+                                                onSelect: function (dateText, inst) {
+                                                }
+                                            });
+                                        }
+                                    </script>
 
-                                    // Cierra el modal si se hace clic fuera del contenido del modal
-                                    window.onclick = function (event) {
-                                        var modal = document.getElementById("myModal");
-                                        if (event.target == modal) {
+                                    <script>
+                                        function mostrarCalendarioentrada() {
+                                            $("#fechaLlegada").datepicker({
+                                                dateFormat: 'yy-mm-dd',
+                                                onSelect: function (dateText, inst) {
+                                                }
+                                            });
+                                        }
+                                    </script>
+
+                                    <script>
+                                        function AbrirModal() {
+                                            // Abre el modal al hacer clic en el botón
+                                            var modal = document.getElementById("myModal");
+                                            modal.style.display = "block";
+                                            // Puedes agregar más lógica aquí si es necesario
+                                        }
+
+                                        // Cierra el modal si se hace clic en la "x"
+                                        document.getElementById("closeModalButton").onclick = function () {
+                                            var modal = document.getElementById("myModal");
                                             modal.style.display = "none";
                                         }
-                                    }
-                                </script>
 
-                                <script>
-                                    function RestarAdultos() {
-                                        var txtCantidadNinos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
-
-                                        var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
-
-
-                                        if (cantidadNinos > 0) {
-                                            cantidadNinos--;
-                                            txtcantidadAdultos.value = cantidadNinos;
+                                        // Cierra el modal si se hace clic fuera del contenido del modal
+                                        window.onclick = function (event) {
+                                            var modal = document.getElementById("myModal");
+                                            if (event.target == modal) {
+                                                modal.style.display = "none";
+                                            }
                                         }
+                                    </script>
 
-                                        return false;
-                                    }
-                                </script>
+                                    <script>
+                                        function RestarAdultos() {
+                                            var txtCantidadNinos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
 
-                                <script>
-                                    function SumarAdultos() {
-
-                                        var txtcantidadAdultos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
+                                            var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
 
 
-                                        var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
+                                            if (cantidadNinos > 0) {
+                                                cantidadNinos--;
+                                                txtcantidadAdultos.value = cantidadNinos;
+                                            }
+
+                                            return false;
+                                        }
+                                    </script>
+
+                                    <script>
+                                        function SumarAdultos() {
+
+                                            var txtcantidadAdultos = document.getElementById('<%= txtcantidadAdultos.ClientID %>');
 
 
-                                        cantidadNinos++;
-                                        txtcantidadAdultos.value = cantidadNinos;
+                                            var cantidadNinos = parseInt(txtcantidadAdultos.value, 10) || 0;
 
 
-                                        return false;
-                                    }
-                                </script>
+                                            cantidadNinos++;
+                                            txtcantidadAdultos.value = cantidadNinos;
 
-                                <br />
-                                <hr />
-                                <br />
-                                <div class="comentarios">
-                                    <h1>Reseñas</h1>
-                                    <asp:TextBox ID="txtComentario" runat="server" CssClass="input-comentarios" placeholder="Agrega un comentario"></asp:TextBox>
-                                    <asp:Button ID="btnCrearResena" runat="server" Text="Agregar Reseña" CssClass="btnResponder" OnClick="btnCrearResena_Click" EnableViewState="true" />
-                                    <asp:Repeater ID="ComentariosRepeater" runat="server">
-                                        <ItemTemplate>
-                                            <div class="comment">
-                                                <p>
-                                                    <asp:Label ID="lblIdComentario" runat="server" Text='<%# Eval("IdComentario") %>' Visible="false" />
-                                                </p>
-                                                <p><%# Eval("IdCedula") %> - <%# Eval("Fecha") %></p>
-                                                <p><%# Eval("ComentarioTexto") %></p>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </div>
+
+                                            return false;
+                                        }
+                                    </script>
+
+                                    <br />
+                                    <hr />
+                                    <br />
+                                    <div class="comentarios">
+                                        <h1>Reseñas</h1>
+                                        <asp:TextBox ID="txtComentario" runat="server" CssClass="input-comentarios" placeholder="Agrega un comentario"></asp:TextBox>
+                                        <asp:Button ID="btnCrearResena" runat="server" Text="Agregar Reseña" CssClass="btnResponder" OnClick="btnCrearResena_Click" EnableViewState="true" />
+                                        <asp:Repeater ID="ComentariosRepeater" runat="server">
+                                            <ItemTemplate>
+                                                <div class="comment">
+                                                    <p>
+                                                        <asp:Label ID="lblIdComentario" runat="server" Text='<%# Eval("IdComentario") %>' Visible="false" />
+                                                    </p>
+                                                    <p><%# Eval("IdCedula") %> - <%# Eval("Fecha") %></p>
+                                                    <p><%# Eval("ComentarioTexto") %></p>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </div>
                 </ContentTemplate>
                 <Triggers>
                     <asp:PostBackTrigger ControlID="btnCrearResena" />

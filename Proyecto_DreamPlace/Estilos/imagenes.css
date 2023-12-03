@@ -1,134 +1,95 @@
 ﻿
-/*img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-.hexagon-gallery {
-    margin: auto;
-    margin-top: 50px;
-    max-width: 1000px;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-auto-rows: 200px;
-    grid-gap: 14px;
-    padding-bottom: 50px;
-}
-
-.hex {
-    display: flex;
+.container_img {
     position: relative;
-    width: 240px;
-    height: 265px;
-    background-color: #424242;
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    z-index: 0; /* Puedes intentar cambiar el z-index para el carrusel */
+    width: 320px;
+    margin: 100px auto 0 auto;
+    perspective: 1000px;
 }
 
-    .hex:first-child {
-        grid-row-start: 1;
-        grid-column: 2 / span 2;
-    }
+.carousel__face img {
+    position: relative;
+    z-index: 2; /* Asegura que las imágenes estén por encima del resto */
+}
 
-    .hex:nth-child(2) {
-        grid-row-start: 1;
-        grid-column: 4 / span 2;
-    }
+/* Asegúrate de que los otros elementos tengan un z-index menor */
+.mini-cardDescription,
+.mini-card {
+    position: relative;
+    z-index: 1; /* Puede ser menor que el de las imágenes */
+    height:1000px;
+}
 
-    .hex:nth-child(3) {
-        grid-row-start: 1;
-        grid-column: 6 / span 2;
-    }
 
-    .hex:nth-child(4) {
-        grid-row-start: 2;
-        grid-column: 1 / span 2;
-    }
-
-    .hex:nth-child(5) {
-        grid-row-start: 2;
-        grid-column: 3 / span 2;
-    }
-
-    .hex:nth-child(6) {
-        grid-row-start: 2;
-        grid-column: 5 / span 2;
-    }
-
-    .hex:nth-child(7) {
-        grid-row-start: 2;
-        grid-column: 7 / span 2;
-    }
-
-    .hex:nth-child(8) {
-        grid-row-start: 3;
-        grid-column: 2 / span 2;
-    }
-
-    .hex:nth-child(9) {
-        grid-row-start: 3;
-        grid-column: 4 / span 2;
-    }
-
-    .hex:nth-child(10) {
-        grid-row-start: 3;
-        grid-column: 6 / span 2;
-    }*/
-/* CSS para las imágenes */
-/*.img {
+.carousel {
+    position: absolute;
     width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-}*/
-
-    /* Aumenta el tamaño al pasar el mouse */
-    /*.img:hover {
-        transform: scale(1.2);*/ /* Cambia el tamaño al 120% */
-    /*}*/
-
-
-
-
-
-    /*--------------------------------------------*/
-
-/* Estilos CSS para centrar y ajustar el tamaño de las imágenes */
-.fotorama {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;   
-    height: 80vh;
-    max-height: 500px;
-    border-radius: 5px;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: rotate360 60s infinite forwards linear;
 }
 
-
-.item {
-    width: auto; /* El 90% del contenedor padre */    
-    height: auto; /* El 90% del contenedor padre */
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    background-image: url('ruta_de_tu_imagen.jpg');
+.carousel__face {
+    position: absolute;
+    width: 300px;
+    height: 187px;
+    top: 20px;
+    left: 10px;
+    right: 10px;
     background-size: cover;
-    background-position: center;
+    box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.5);
+    display: flex;
 }
-    .item img {
-        width: 10000%; /* El ancho de la imagen es el 100% del contenedor */
-        height: auto; /* La altura se ajustará automáticamente manteniendo la proporción */
-        display: block; /* Asegura que la imagen se comporte como bloque */
-        border-radius: 5px; /* Si deseas bordes redondeados */
+
+span {
+    margin: auto;
+    font-size: 2rem;
+}
+
+
+.carousel__face:nth-child(1) {
+    transform: rotateY( 0deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(2) {
+    transform: rotateY( 40deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(3) {
+    transform: rotateY( 80deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(4) {
+    transform: rotateY(120deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(5) {
+    transform: rotateY(160deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(6) {
+    transform: rotateY(200deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(7) {
+    transform: rotateY(240deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(8) {
+    transform: rotateY(280deg) translateZ(600px);
+}
+
+.carousel__face:nth-child(9) {
+    transform: rotateY(320deg) translateZ(600px);
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotateY(0deg);
     }
 
-.background-image {
-    width: 1000px;
-    height: 900px;
-    object-fit: cover; /* Para que la imagen se ajuste al contenedor manteniendo la relación de aspecto */
+    to {
+        transform: rotateY(-360deg);
+    }
 }
+

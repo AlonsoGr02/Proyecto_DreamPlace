@@ -12,6 +12,9 @@
     <link href="../Estilos/solicitudreserva.css" rel="stylesheet" />
     <link href="../Estilos/Modal.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
+    <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -19,30 +22,134 @@
         <asp:ScriptManager runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <nav class="navbar">
-                    <a href="Inicio.aspx">
-                        <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo" class="logo" />
-                    </a>
-                    <div class="navbar-links">
-                        <a href="#"><i class="fa-solid fa-user" style="color: #000000; font-size: 30px;"></i></a>
+                <header style="background-color: #BDE038;">
+                    <div class="logo">
+                        <img src="../img/DreamPlece Logo Lima.jpg" alt="Logo" />
                     </div>
-                </nav>
 
+                    <div id="topnav" class="topnav-container" runat="server">
+                        <%--                        <div class="topnav">
+                            <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" CssClass="searchButton" />
+                            <asp:Button ID="Button1" runat="server" Text="Filtrar" CssClass="searchButton" />
+                            <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
+
+                        </div>--%>
+                        <asp:Label ID="lblNombre" runat="server" Text=" " Style="color: black;"></asp:Label>
+                        <asp:Label ID="lblApellido" runat="server" Text=" " Style="color: black;"></asp:Label>
+                        <asp:Label ID="lblRol" runat="server" Text="" Style="color: black;"></asp:Label>
+
+                    </div>
+                    <div class="user-information">
+                        <asp:Label ID="Label8" runat="server" Text=" Huésped "></asp:Label>
+                    </div>
+                    <div class="icon-container" id="menu-trigger">
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                        <div class="avatar">
+                            <div class="avatar-box">
+                                <img src="../img/user.png" alt="Avatar" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="user-menu" class="user-menu">
+                        <ul>
+                            <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
+                            <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
+                            <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
+                            <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
+                            <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+
+
+                    <script>
+                        // Agrega un evento de clic al icono de usuario
+                        document.getElementById('menu-trigger').addEventListener('click', function () {
+                            // Obtén el menú desplegable
+                            var userMenu = document.getElementById('user-menu');
+
+                            // Toggle (alternar) la clase 'active' para mostrar u ocultar el menú
+                            userMenu.classList.toggle('active');
+                        });
+
+                        // Obtén referencias al modal y al botón de cerrar del modal
+                        var loginModal = document.getElementById('login-modal');
+                        var confirmaModal = document.getElementById('confirma-modal');
+                        var registerModal = document.getElementById('register-modal');
+                        var confirmaModalR = document.getElementById('confirma-modalR');
+
+                        var closeLoginModal = document.getElementById('close-login-modal');
+                        var closeConfirmaModal = document.getElementById('confirma-login-modal');
+                        var closeRegisterModal = document.getElementById('close-register-modal');
+                        var closeConfirmaModalR = document.getElementById('confima-login-modalR');
+
+                        // Agrega un evento de clic al enlace "Registrase" en el menú
+                        document.querySelector('a[href="#login"]').addEventListener('click', function (e) {
+                            e.preventDefault();
+                            //loginModal.style.display = 'none'; // Muestra el modal al hacer clic
+                            registerModal.style.display = 'flex'; // Muestra el modal de registro
+                        });
+
+                        // Agrega un evento de clic al enlace "Iniciar Sesión" en el menú
+                        document.querySelector('a[href="#loginR"]').addEventListener('click', function (e) {
+                            e.preventDefault();
+                            loginModal.style.display = 'flex'; // Muestra el modal al hacer clic
+                        });
+
+                        // Agrega un evento de clic al botón de cerrar del modal login
+                        closeLoginModal.addEventListener('click', function () {
+                            loginModal.style.display = 'none';
+                        });
+
+                        // Agrega un evento de clic al botón de cerrar del modal Registrarse
+                        closeRegisterModal.addEventListener('click', function () {
+                            registerModal.style.display = 'none';
+                        });
+
+                        // Agrega un evento de clic al botón de Registrarse en el modal de registro
+                        document.getElementById('register-form').addEventListener('submit', function (e) {
+                            e.preventDefault();
+                            enviarDatos(event);
+                            registerModal.style.display = 'none';
+                            confirmaModalR.style.display = 'flex';  // Muestra el modal de confirmación
+                        });
+
+                        // Cierra el modal Login si se hace clic fuera de él
+                        window.addEventListener('click', function (event) {
+                            if (event.target === loginModal || event.target === confirmaModal || event.target === registerModal || event.target === confirmaModalR) {
+                                loginModal.style.display = 'none';
+                                confirmaModal.style.display = 'none';
+                                registerModal.style.display = 'none';
+                                confirmaModalR.style.display = 'none';
+                            }
+                        });
+
+                        var continueButton = loginModal.querySelector('button[type="submit"]');
+
+                        // Agrega un evento de clic al botón de continuar en el Login modal
+                        continueButton.addEventListener('click', function (e) {
+                            e.preventDefault(); // Previene el comportamiento predeterminado del botón
+                            loginModal.style.display = 'none'; // Oculta el primer modal
+
+                            // Muestra el modal de validación
+                            var confirmaModal = document.getElementById('confirma-modal');
+                            confirmaModal.style.display = 'flex';
+                        });
+
+                        // Agrega un evento de clic al botón de cerrar del modal Confirmar
+                        closeConfirmaModal.addEventListener('click', function () {
+                            confirmaModal.style.display = 'none';
+                        });
+
+                    </script>
+
+                </header>
 
                 <div class="container">
-                    <!-- Título de la página -->
-                    <a href="../Global.asax">../Global.asax</a>
-                    <h1>Solicitud de Reserva</h1>
-
-                    <hr />
-
 
                     <div class="information">
-                        <div class="flex-container">
-                            <a href="Reserva.aspx">Reserva</a>
-                            <asp:Label ID="Label1" runat="server">  >  </asp:Label>
-                            <asp:Label ID="Labelseparador" runat="server" Text="Solicitud de Reserva "></asp:Label>
-                        </div>
+
                         <hr />
                         <h1>Solicitud de Reserva</h1>
                     </div>
@@ -52,9 +159,8 @@
 
                     <asp:TextBox ID="txtCedula" runat="server" placeholder="Cédula" ReadOnly></asp:TextBox><br />
 
-                    <asp:Label ID="lblNumeroTarjeta" runat="server" Text="Número de Tarjeta"></asp:Label><br />
 
-                    <asp:TextBox ID="txtNumeroTarjeta" runat="server" placeholder="Número de Tarjeta" ReadOnly></asp:TextBox><br />
+                    <asp:TextBox ID="txtNumeroTarjeta" runat="server" placeholder="Número de Tarjeta" Visible="false"></asp:TextBox><br />
 
 
                     <hr />
@@ -98,6 +204,7 @@
 
 
                     <asp:Button ID="ConfirmarReservaButton" runat="server" Text="Confirmar Reserva" OnClick="ConfirmarReservaButton_Click" />
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar Reserva" OnClick="btnCancelar_Click" />
 
                 </div>
                 </div>
@@ -117,14 +224,14 @@
                 <script>
                     function AbrirModalExito() {
                         var modal = document.getElementById("MostrarModalExito");
-                        modal.style.display = "flex"; 
+                        modal.style.display = "flex";
                         setTimeout(function () {
                             CerrarModalExito();
                         }, 6000);
                     }
                     function CerrarModalExito() {
                         var modal = document.getElementById("MostrarModalExito");
-                        modal.style.display = "none"; 
+                        modal.style.display = "none";
                     }
 
 

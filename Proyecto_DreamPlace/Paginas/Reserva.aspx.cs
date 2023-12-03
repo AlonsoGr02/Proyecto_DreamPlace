@@ -22,6 +22,8 @@ namespace Proyecto_DreamPlace
 
             if (!IsPostBack)
             {
+                lblubucacion.Visible = false;
+
                 if (int.TryParse(Request.QueryString["IdInmueble"], out idInmueble))
                 {                    
                     string correo = Request.QueryString["Correo"];
@@ -38,6 +40,24 @@ namespace Proyecto_DreamPlace
                     lblCantidadDormitorios.Text = datosInmueble[3];
                     lblCantidadBanos.Text = datosInmueble[4];
                     lblCantidadCamas.Text = datosInmueble[5];
+
+                    lblubucacion.Text= datosInmueble[6];
+
+                    ConexionBD conexion = new ConexionBD();
+                    string idUbi = lblubucacion.Text;
+                    DataTable datosUbicacion = conexion.ObtenerUbicacion(Convert.ToInt32(idUbi));
+
+                    
+                    if (datosUbicacion.Rows.Count > 0)
+                    {
+                        string provincia = datosUbicacion.Rows[0]["Provincia"].ToString();
+                        string canton = datosUbicacion.Rows[0]["Canton"].ToString();
+                        string posicionGPS = datosUbicacion.Rows[0]["PosicionGPS"].ToString();
+                       
+                        LabelUbicacion.Text = $"Provincia: {provincia}, Canton: {canton}, {posicionGPS}";
+                    }
+
+
 
                     string[] datosInmueblePrecio = ConexionBD.ObtenerPrecioInmueble(idInmueble);
                     lblPrecio.Text = datosInmueblePrecio[0];

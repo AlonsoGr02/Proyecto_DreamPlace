@@ -420,6 +420,7 @@
                     </div>
                 </div>
 
+
                 <!-- Modal Evaluación -->
                 <div id="modalEvaluacion" class="modal">
                     <div class="modal-content">
@@ -431,8 +432,11 @@
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre Inmueble</th>
+                                                    <th>Número de Reserva</th>
+                                                    <th>Nombre Inmueble</th>                                                    
                                                     <th>Huesped</th>
+                                                    <th>Fecha de entrdas</th>
+                                                    <th>Fecha de salida</th>
                                                     <th>Calificación</th>
                                                 </tr>
                                             </thead>
@@ -440,10 +444,16 @@
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <tr>
+                                            <td><%# Eval("IdReserva") != null ? Eval("IdReserva").ToString() : string.Empty %></td>
                                             <td><%# Eval("NombreInmueble") %></td>
+
+                                            <%--<td><%# Eval("IdCedula") != null ? Eval("IdCedula").ToString() : string.Empty %></td>--%>
+
                                             <td>
                                                 <%# Eval("NombreHuesped") + " " + Eval("ApellidosHuesped") %>
                                             </td>
+                                            <td><%# Eval("FechaI") %></td>
+                                            <td><%# Eval("FechaF") %></td>
                                             <td>
                                                 <label class="star-checkbox" style="display: flex; align-items: center;">
                                                     <asp:CheckBox ID="chkStar1" runat="server" CssClass="star-checkbox" Text="1" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
@@ -455,6 +465,9 @@
                                             </td>
                                             <td style="display: none;">
                                                 <asp:Label ID="lblIdInmueble" runat="server" Text='<%# Eval("IdInmueble") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="LabelIdCedula" runat="server" Text='<%# Eval("IdCedula") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="LabelIdReserva" runat="server" Text='<%# Eval("IdReserva") %>' Visible="false"></asp:Label>
+
                                             </td>
                                         </tr>
                                     </ItemTemplate>

@@ -12,6 +12,7 @@ namespace Proyecto_DreamPlace.Paginas
     public partial class Inicio : System.Web.UI.Page
     {
         ConexionBD objConexion = new ConexionBD();
+        Conexion2 objConexion2 = new Conexion2();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -370,7 +371,7 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void btnLFamosos_Click(object sender, EventArgs e)
         {
-            CargarTarjetasInmueblesBaratos();
+            CargarInmueblesBaratos();
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -395,9 +396,9 @@ namespace Proyecto_DreamPlace.Paginas
 
         }
 
-        protected void CargarTarjetasInmueblesBaratos()
+        protected void CargarInmueblesBaratos()
         {
-            DataTable dtInmuebles = objConexion.ObtenerInfoInmueblesBaratos();
+            DataTable dtInmuebles = objConexion2.ObtenerInmueblesBaratos();
 
             foreach (DataRow row in dtInmuebles.Rows)
             {

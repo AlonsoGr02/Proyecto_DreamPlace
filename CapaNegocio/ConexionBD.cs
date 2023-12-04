@@ -2828,35 +2828,7 @@ namespace CapaNegocio
             }
         }
 
-        public DataTable ObtenerInfoInmueblesBaratos()
-        {
-            DataTable dataTable = new DataTable();
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(cadenaConexion))
-                {
-                    connection.Open();
-
-                    using (SqlCommand command = new SqlCommand("[FiltrarInmueblesBaratos]", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dataTable);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Manejar la excepción según tus necesidades
-                Console.WriteLine($"Error al obtener información de inmuebles: {ex.Message}");
-            }
-
-            return dataTable;
-        }
+        
 
     } // Fin de la clase conexion
 }

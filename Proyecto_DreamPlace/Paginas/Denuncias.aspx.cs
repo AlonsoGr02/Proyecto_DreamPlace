@@ -53,27 +53,37 @@ namespace Proyecto_DreamPlace.Paginas
                 }
             }
         }
-
-
+              
+                            
         protected void btnEnviarDenuncia_Click(object sender, EventArgs e)
         {
-           
-                
+            foreach (RepeaterItem item in rptDenuncias.Items)
+            {
+                Label labelNombreInmueble = (Label)item.FindControl("LabelNombreInmueble");
+                if (labelNombreInmueble != null)
+                {
+                    string nombreInmueble = labelNombreInmueble.Text;
+                    ConexionBD bD = new ConexionBD();
+                    IdInmueDenuncia = bD.ObtenerIdInmueblePorNombre(nombreInmueble);
+                }
+
+
                 string denunciaSeleccionada = Request.Form["denunciaSeleccionada"];
-            if (!string.IsNullOrEmpty(denunciaSeleccionada))
-            {
-                string correo = Session["Correo"].ToString();
+                if (!string.IsNullOrEmpty(denunciaSeleccionada))
+                {
+                    string correo = Session["Correo"].ToString();
 
-                string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+                    string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                ConexionBD.InsertarDenuncia(denunciaSeleccionada, IdCedula, IdInmueDenuncia);
+                    ConexionBD.InsertarDenuncia(denunciaSeleccionada, IdCedula, IdInmueDenuncia);
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", $"alert('Denuncia seleccionada: {denunciaSeleccionada}');", true);
-            }
-            else
-            {
-                
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Por favor, selecciona una denuncia.');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", $"alert('Denuncia seleccionada: {denunciaSeleccionada}');", true);
+                }
+                else
+                {
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Por favor, selecciona una denuncia.');", true);
+                }
             }
         }
 

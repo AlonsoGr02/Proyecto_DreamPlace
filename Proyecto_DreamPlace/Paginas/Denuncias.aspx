@@ -210,12 +210,16 @@
                                 <td><%# Eval("FechaF") %></td>
                                 <td>
                                     <asp:Button ID="btnDenunciar" runat="server" Text="Denunciar" CommandName="Denunciar"
-                                        CommandArgument='<%# Eval("NombreInmueble") %>' 
+                                        CommandArgument='<%# Eval("NombreInmueble") %>'
                                         CssClass="btnDenunciar" OnClientClick="AbrirModal(event)" />
 
                                     <br />
                                 </td>
 
+                                <td style="display: none;">
+                                    <asp:Label ID="LabelNombreInmueble" runat="server" Text='<%# Eval("NombreInmueble") %>' Visible="false"></asp:Label>
+
+                                </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -234,18 +238,19 @@
                     <div class="container">
                         <!-- Contenido del modal -->
                         <div class="tarjetas-container">
-                            <div class="tarjeta" onclick="seleccionarDenuncia(this)" data-nombre-inmueble='<%# Eval("NombreInmueble") %>'>Ruido excesivo</div>
-                            <div class="tarjeta" onclick="seleccionarDenuncia(this)" data-nombre-inmueble='<%# Eval("NombreInmueble") %>'>Limpieza deficiente</div>
-                            <div class="tarjeta" onclick="seleccionarDenuncia(this)" data-nombre-inmueble='<%# Eval("NombreInmueble") %>'>Problemas de seguridad</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Ruido excesivo')">Ruido excesivo</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Limpieza deficiente')">Limpieza deficiente</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Problemas de seguridad')">Problemas de seguridad</div>
+                            
                         </div>
 
 
-                        <!-- Campo para la selección de la denuncia -->
+                        
                         <label for="descripcionDenuncia">Otra Descripción:</label>
                         <textarea id="descripcionDenuncia" rows="4" cols="50"></textarea>
 
                     </div>
-                    <!-- Campo oculto para almacenar la denuncia seleccionada -->
+                    
                     <input type="hidden" id="denunciaSeleccionada" runat="server" />
                     <input type="hidden" id="nombreInmuebleSeleccionado" runat="server" />
 
@@ -261,38 +266,34 @@
         <!-- Agrega este script al final de tu archivo HTML -->
         <script>
             function AbrirModal(event) {
-                
+
                 event.preventDefault();
 
-                
+
                 var modal = document.getElementById("Modaldenuncia");
                 modal.style.display = "block";
-                
+
             }
 
-            function seleccionarDenuncia(element) {
+            function seleccionarDenuncia(texto) {
                 
-                var nombreInmueble = element.getAttribute('data-nombre-inmueble');
 
+                document.getElementById('denunciaSeleccionada').value = texto;
                 
-                document.getElementById('denunciaSeleccionada').value = 'Denuncia seleccionada: ' + nombreInmueble;
-                document.getElementById('nombreInmuebleSeleccionado').value = nombreInmueble;
 
-                
+
                 element.classList.add('selected');
 
-                
+
                 AbrirModal(event);
             }
 
-
-            
             document.getElementById("closeModalButton").onclick = function () {
                 var modal = document.getElementById("Modaldenuncia");
                 modal.style.display = "none";
             }
 
-            
+
             window.onclick = function (event) {
                 var modal = document.getElementById("Modaldenuncia");
                 if (event.target == modal) {

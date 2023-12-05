@@ -20,8 +20,6 @@
     <link href="../Estilos/Css_Modal.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
 
-
-
 </head>
 
 <body>

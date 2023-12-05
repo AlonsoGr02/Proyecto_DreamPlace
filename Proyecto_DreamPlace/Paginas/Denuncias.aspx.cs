@@ -85,12 +85,12 @@ namespace Proyecto_DreamPlace.Paginas
             ConexionBD bD = new ConexionBD();
             if (Session["NombreInmuebleSeleccionado"] != null)
             {
-                string nombreInmueble = Session["NombreInmuebleSeleccionado"].ToString();
 
-                IdInmueDenuncia = bD.ObtenerIdInmueblePorNombre(nombreInmueble);
+                string nombreInmueble = Session["NombreInmuebleSeleccionado"].ToString();
+                
                 string denunciaSeleccionada = Request.Form["denunciaSeleccionada"];
 
-
+                
                 if (!string.IsNullOrEmpty(denunciaSeleccionada))
                 {
                     string correo = Session["Correo"].ToString();

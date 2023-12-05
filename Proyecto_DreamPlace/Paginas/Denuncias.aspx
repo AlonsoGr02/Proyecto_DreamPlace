@@ -198,6 +198,7 @@
                 <thead>
                     <tr>
                         <th>Número de reserva</th>
+                        <th>Número de Inmueble</th>
                         <th>Nombre Inmueble</th>
                         <th>Nombre del Propietario</th>
                         <th>Fecha de entrada</th>
@@ -211,6 +212,7 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("IdReserva") %></td>
+                                <td><%# Eval("IdInmueble") %></td>
                                 <td><%# Eval("Nombre") %></td>
                                 <td><%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %></td>
                                 <td><%# Eval("FechaI") %></td>

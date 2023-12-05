@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Denuncias.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.Denuncias" %>
+﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Denuncias.aspx.cs" Inherits="Proyecto_DreamPlace.Paginas.Denuncias" %>
 
 <!DOCTYPE html>
 
@@ -12,6 +12,9 @@
     <link href="../Estilos/Modal.css" rel="stylesheet" />
 
     <style>
+        body {
+            background-color: white;
+        }
         /* Estilos para el modal */
         body{
             background-color: white;
@@ -171,6 +174,7 @@
                     <asp:Label ID="Label1" runat="server">  >  </asp:Label>
                     <asp:Label ID="Labelseparador" runat="server" Text="Denuncias "></asp:Label>
                 </div>
+                                    <img src="../img/Denuncia.png" alt="Descripción de la imagen" style="width: 100px; height: auto; float: right;" />
                 <h1>Denuncias</h1>
             </div>
             <br />
@@ -207,30 +211,35 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("IdReserva") %></td>
-                                <td><%# Eval("NombreInmueble") %></td>
+                                <td><%# Eval("Nombre") %></td>
                                 <td><%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %></td>
                                 <td><%# Eval("FechaI") %></td>
                                 <td><%# Eval("FechaF") %></td>
                                 <td>
                                     <asp:Button ID="btnDenunciar" runat="server" Text="Denunciar" CommandName="Denunciar"
-                                        CommandArgument='<%# Eval("NombreInmueble") %>'
-                                        CssClass="btnDenunciar" OnClientClick="AbrirModal(event)" />
+                                        CommandArgument='<%# Eval("IdReserva") %>' CssClass="btnDenunciar" OnClick="btnDenunciar_Click" />
+
 
                                     <br />
                                 </td>
 
                                 <td style="display: none;">
-                                    <asp:Label ID="LabelNombreInmueble" runat="server" Text='<%# Eval("NombreInmueble") %>' Visible="false"></asp:Label>
+                                    <asp:Label ID="LabelNombreInmueble" runat="server" Text='<%# Eval("Nombre") %>' Visible="false"></asp:Label>
 
                                 </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
+
                 </tbody>
+
             </table>
         </div>
 
 
+
+
+        -
         <%--Modaldenuncia --%>
         <div id="Modaldenuncia" class="modal">
             <div class="modal-content">
@@ -241,53 +250,38 @@
                     <div class="container">
                         <!-- Contenido del modal -->
                         <div class="tarjetas-container">
-                            <div class="tarjeta" onclick="seleccionarDenuncia('Ruido excesivo')">Ruido excesivo</div>
-                            <div class="tarjeta" onclick="seleccionarDenuncia('Limpieza deficiente')">Limpieza deficiente</div>
-                            <div class="tarjeta" onclick="seleccionarDenuncia('Problemas de seguridad')">Problemas de seguridad</div>
-                            
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Ruido excesivo', this)">Ruido excesivo</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Limpieza deficiente', this)">Limpieza deficiente</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Problemas de seguridad', this)">Problemas de seguridad</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Mal servicio', this)">Mal servicio</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Problemas con las instalaciones', this)">Problemas con las instalaciones</div>
+                            <div class="tarjeta" onclick="seleccionarDenuncia('Mal funcionamiento de servicios', this)">Mal funcionamiento de servicios</div>
                         </div>
-
-
                         
-                        <label for="descripcionDenuncia">Otra Descripción:</label>
-                        <textarea id="descripcionDenuncia" rows="4" cols="50"></textarea>
+                    <asp:Button ID="btnEnviarDenuncia" OnClick="btnEnviarDenuncia_Click" CssClass="btnDenunciar" runat="server" Text="Enviar Denuncia" />
+                    <asp:Button ID="Button2" runat="server" CssClass="btnDenunciar" Text="Cerrar" OnClientClick="CerrarModalEvaluacion()" />
 
                     </div>
-                    
+
                     <input type="hidden" id="denunciaSeleccionada" runat="server" />
                     <input type="hidden" id="nombreInmuebleSeleccionado" runat="server" />
 
                     <!-- Resto de tu HTML -->
 
-
-                    <asp:Button ID="btnEnviarDenuncia" OnClick="btnEnviarDenuncia_Click" CssClass="btnDenunciar" runat="server" Text="Enviar Denuncia" />
-                    <asp:Button ID="Button2" runat="server" CssClass="btnDenunciar" Text="Cerrar" OnClientClick="CerrarModalEvaluacion()" />
                 </div>
             </div>
         </div>
 
-        <!-- Agrega este script al final de tu archivo HTML -->
         <script>
-            function AbrirModal(event) {
-
-                event.preventDefault();
-
-
+            function AbrirModal(idReserva) {
                 var modal = document.getElementById("Modaldenuncia");
                 modal.style.display = "block";
-
+                document.getElementById('denunciaSeleccionada').value = idReserva;
             }
 
-            function seleccionarDenuncia(texto) {
-                
-
+            function seleccionarDenuncia(texto, element) {
                 document.getElementById('denunciaSeleccionada').value = texto;
-                
-
-
                 element.classList.add('selected');
-
-
                 AbrirModal(event);
             }
 
@@ -296,7 +290,6 @@
                 modal.style.display = "none";
             }
 
-
             window.onclick = function (event) {
                 var modal = document.getElementById("Modaldenuncia");
                 if (event.target == modal) {
@@ -304,7 +297,6 @@
                 }
             }
         </script>
-
     </form>
 
 </body>

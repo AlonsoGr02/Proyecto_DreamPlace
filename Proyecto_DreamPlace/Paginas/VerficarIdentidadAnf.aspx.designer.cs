@@ -11,7 +11,7 @@ namespace Proyecto_DreamPlace.Paginas
 {
 
 
-    public partial class Denuncias
+    public partial class VerficarIdentidadAnf
     {
 
         /// <summary>
@@ -42,57 +42,57 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label Labelseparador;
 
         /// <summary>
-        /// Control gvDenuncias.
+        /// Control lblInfo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDenuncias;
+        protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
-        /// Control rptDenuncias.
+        /// Control FileUploadFrontal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptDenuncias;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadFrontal;
 
         /// <summary>
-        /// Control btnEnviarDenuncia.
+        /// Control lblInfoTrasera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnviarDenuncia;
+        protected global::System.Web.UI.WebControls.Label lblInfoTrasera;
 
         /// <summary>
-        /// Control Button2.
+        /// Control FileUploadTrasera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadTrasera;
 
         /// <summary>
-        /// Control denunciaSeleccionada.
+        /// Control btnValidar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden denunciaSeleccionada;
+        protected global::System.Web.UI.WebControls.Button btnValidar;
 
         /// <summary>
-        /// Control nombreInmuebleSeleccionado.
+        /// Control lblRespu.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden nombreInmuebleSeleccionado;
+        protected global::System.Web.UI.WebControls.Label lblRespu;
     }
 }

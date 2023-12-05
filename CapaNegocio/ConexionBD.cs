@@ -2959,7 +2959,35 @@ namespace CapaNegocio
             }
         }
 
-        
+        public string ObtenerCorreoAnfitrionPorIdInmueble(int idInmueble)
+        {
+            string correoAnfitrion = "";
+
+            using (SqlConnection connection = new SqlConnection("tuCadenaDeConexion"))
+            {
+                connection.Open();
+
+                string query = "SELECT U.Correo " +
+                               "FROM Usuarios U " +
+                               "JOIN Inmuebles I ON U.IdCedula = I.IdCedula " +
+                               "WHERE I.IdInmueble = @IdInmueble";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            correoAnfitrion = reader["Correo"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return correoAnfitrion;
+        }
 
     } // Fin de la clase conexion
 }

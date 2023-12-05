@@ -113,6 +113,14 @@ namespace Proyecto_DreamPlace.Paginas
             objConexion.InsertarUsuario(correo, clave, rol, cedula, contrasena);
 
             lblRespu.Text = "El registro se realizó con éxito";
+            string cuerpoMensaje = "¡Bienvenido a DreamPlace!\n\n" +
+                       "Te has registrado exitosamente en nuestra plataforma.\n\n" +
+                       "Esperamos que encuentres la plataforma útil y emocionante y descubras nuevos destinos.\n\n" +
+                       "¡Gracias por unirte a la plataforma y que tengas una experiencia increíble en DreamPlace!";
+            string asunto = "Registro Exitoso en DreamPlace";
+            Metodos metodos = new Metodos();
+            metodos.EnviarCorreoPersonalizado(correo, asunto, cuerpoMensaje);
+
             LimpiarTextBox();
         }
 

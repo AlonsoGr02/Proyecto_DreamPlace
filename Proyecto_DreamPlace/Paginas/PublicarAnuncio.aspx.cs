@@ -346,7 +346,20 @@ namespace Proyecto_DreamPlace.Paginas
                 string listaImagenesBase64 = ObtenerListaImagenesBase64(imagenesTemporales);
 
                 objConexion.InsertarInmuebleConmpleto(cedAnfitrion,idEstado,idDescuento,idCategoriaG,tipoInmuebleGuardado,provinciaGuardada,cantonGuardado,direccionGuardada,canHuespedesGuardada,canHabitacionesGuardada,canCamasGuardada,canBanosGuardada,idServicio1Guardado,idServicio2Guardado,tituloInmuebleGuardado,descripcionInGuardada,precioBaseGuardado,ivaGuardado,precioTotalGuardado,listaImagenesBase64);
+
+                // Inicioo correo ***************
+                string cuerpo = "¡Felicidades! Tu inmueble ha sido publicado con éxito en DreamPlace. " +
+                                                  "Ahora está disponible para que los huéspedes lo descubran y reserven. " +
+                                                  "Gracias por ser parte de nuestra plataforma.";
+                string asunto = "Publicación Exitosa en DreamPlace";
+
                 string CorreoSession = (string)Session["Correo"];
+
+                Metodos metodos = new Metodos();
+                metodos.EnviarCorreoPersonalizado(CorreoSession, asunto, cuerpo);
+
+                // Fin de correo ******
+                
                 Response.Redirect("CuentaAnfitrion.aspx?Correo=" + CorreoSession);
             }
         } // Fin del boton next

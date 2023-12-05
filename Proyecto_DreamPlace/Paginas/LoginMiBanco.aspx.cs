@@ -59,6 +59,16 @@ namespace Proyecto_DreamPlace.Paginas
                 Session["Correo"] = CorreoSession;
                 lblRespu.Text = "Inicio de sesión exitoso";
 
+                // inico correo*********
+                string cuerpo = "¡Bienvenido a MiBanco! " +
+                             "Has iniciado sesión con éxito. " +
+                             "Si no reconoces esta actividad, por favor, contacta la plataforma.";
+                string asunto = "Inicio de Sesión en la Aplicación del Banco";
+                // Envía el correo al usuario
+                Metodos metodos = new Metodos();
+                metodos.EnviarCorreoPersonalizado(correo, asunto, cuerpo);
+                //fin correo**********
+
                 // Redirige según el IdRol
                 if (idRol == 1)
                 {

@@ -76,6 +76,20 @@ namespace Proyecto_DreamPlace.Paginas
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
                     ConexionBD.InsertarDenuncia(denunciaSeleccionada, IdCedula, IdInmueDenuncia);
+                    //*** Correo***
+                    string cuerpoMensajeDenuncia = "¡Hola!\n\n" +
+                               "Hemos recibido una denuncia relacionada con tu inmueble en DreamPlace.\n\n" +                            
+                               "Puedes revisar dicha denuncia en nuestra plataforma.\n\n" +
+                               "Equipo de DreamPlace";
+
+                    string asuntoDenuncia = "Denuncia en tu Inmueble - DreamPlace";
+
+                    ConexionBD conexionBD = new ConexionBD();
+                    string correoDesti = conexionBD.ObtenerCorreoAnfitrionPorIdInmueble(IdInmueDenuncia);
+
+                    Metodos metodos = new Metodos();
+                    metodos.EnviarCorreoPersonalizado(correoDesti, asuntoDenuncia, cuerpoMensajeDenuncia);
+                     // fin de correo********
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", $"alert('Denuncia seleccionada: {denunciaSeleccionada}');", true);
                 }

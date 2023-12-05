@@ -538,5 +538,21 @@ namespace Proyecto_DreamPlace.Paginas
             lblRoles.Text = $"Total de Roles: {contadores.ContarRoles()}";
         }
 
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            
+            if (Session["Correo"] != null)
+            {
+                string correo = Session["Correo"].ToString();
+                Response.Redirect($"PrincipalHuesped.aspx?Correo={correo}");
+                DataTable Notificaciones = objConexion.ObtenerNotificacionesPorCorreo(correo);
+
+                gvNotificaciones.DataSource = Notificaciones;
+                gvNotificaciones.DataBind();
+                CargarCategorias();
+                CargarTarjetasInmuebles();
+                MostrarContadores();
+            }
+        }
     }
 }

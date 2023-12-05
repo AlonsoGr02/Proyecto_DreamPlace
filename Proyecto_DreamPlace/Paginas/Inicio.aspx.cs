@@ -505,5 +505,12 @@ namespace Proyecto_DreamPlace.Paginas
                 contenedorTarjetas.Controls.Add(tarjeta);
             }
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Inicio.aspx");
+            CargarCategorias();
+            CargarTarjetasInmuebles();
+        }
     }
 }

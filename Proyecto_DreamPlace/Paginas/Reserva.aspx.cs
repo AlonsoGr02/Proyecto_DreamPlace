@@ -57,6 +57,8 @@ namespace Proyecto_DreamPlace
                     lblCantidadCamas.Text = datosInmueble[5];
 
                     lblubucacion.Text= datosInmueble[6];
+                    string porcentajeDescuento = datosInmueble[9]; // Ajusta el índice según la posición del porcentaje en el array
+                    lblDescuentoTotal.Text = $"Descuento: {porcentajeDescuento}%";
 
                     ConexionBD conexion = new ConexionBD();
                     string idUbi = lblubucacion.Text;
@@ -75,11 +77,34 @@ namespace Proyecto_DreamPlace
 
 
                     string[] datosInmueblePrecio = ConexionBD.ObtenerPrecioInmueble(idInmueble);
+
                     if (datosInmueblePrecio != null && datosInmueblePrecio.Length > 0)
                     {
                         if (decimal.TryParse(datosInmueblePrecio[0], out decimal precioDecimal))
                         {
-                            lblPrecio.Text = precioDecimal.ToString(); 
+                            // Obtener el porcentaje de descuento
+                            string[] datosInmuebleDescuento = ConexionBD.ObtenerDatosInmueblePorIdInmueble(idInmueble);
+                            if (datosInmuebleDescuento != null && datosInmuebleDescuento.Length > 0)
+                            {
+                                if (decimal.TryParse(datosInmuebleDescuento[9], out decimal porcentajeDescuentoLocal))
+                                {
+                                    // Calcular el nuevo precio con el descuento
+                                    decimal nuevoPrecio = precioDecimal - (precioDecimal * (porcentajeDescuentoLocal / 100));
+
+                                    // Mostrar el precio actualizado en el label
+                                    lblPrecio.Text = nuevoPrecio.ToString("N2");
+
+                                }
+                                else
+                                {
+                                    lblPrecio.Text = "Descuento no válido";
+                                }
+                            }
+                            else
+                            {
+                                // Manejar el escenario donde no se obtiene ningún dato del descuento
+                                lblPrecio.Text = "Descuento no disponible";
+                            }
                         }
                         else
                         {
@@ -91,8 +116,6 @@ namespace Proyecto_DreamPlace
                         // Manejar el escenario donde no se obtiene ningún dato del precio
                         lblPrecio.Text = "Precio no disponible";
                     }
-
-
 
                     List<object> listaServicios = ConexionBD.ObtenerServicios(idInmueble).Cast<object>().ToList();
 

@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link href="../Estilos/Css_Descuentos.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+    <style>
+        body{
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,7 +51,7 @@
             <div class="container-desc">
                 <h2>Aplica un Descuento a tu Inmueble</h2>
                 <asp:Label ID="Label8" runat="server" Text="Descuento:"></asp:Label><br />
-                <asp:DropDownList ID="ddlDescuento" runat="server" OnSelectedIndexChanged="ddlDescuento_SelectedIndexChanged">
+                <asp:DropDownList ID="ddlDescuento" runat="server" OnSelectedIndexChanged="ddlDescuento_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Text="0.00%" Value="0"></asp:ListItem>
                     <asp:ListItem Text="10.00%" Value="10"></asp:ListItem>
                     <asp:ListItem Text="15.00%" Value="15"></asp:ListItem>

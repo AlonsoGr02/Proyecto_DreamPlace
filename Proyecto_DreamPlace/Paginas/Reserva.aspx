@@ -19,17 +19,17 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
 
     <!--Normalize CSS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" rel="stylesheet" type="text/css"/>
 
     <!--Flex Photo Gallery CSS-->
-    <link rel="stylesheet" href="dist/css/jquery.flex-photo-gallery.css">
+    <link rel="stylesheet" href="dist/css/jquery.flex-photo-gallery.css"/>
 
     <!--Flex Photo Gallery JS-->
     <script src="dist/js/jquery.flex-photo-gallery.js"></script>
 
     <%---------------------------%>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 
 
 
@@ -278,7 +278,7 @@
                             </div>
                             <div id="user-menu" class="user-menu">
                                 <ul>
-                                    <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
+                                    <li><a href="PrincipalHuesped.aspx?Correo=<%= Session["Correo"] %>">Volver</a></li>
                                     <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
                                     <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
                                     <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
@@ -503,14 +503,15 @@
                                     <asp:Label ID="lbldescripcion" runat="server" Text="El Panoramic Hotel es un moderno y elegante hotel de 4 estrellas, asomado al mar, ideal para unas vacaciones románticas y de gran encanto, en el mágico escenario de Taormina y del Mar de Sicilia."></asp:Label>
                                 </div>
 
+                                    <br />
+                                    <div class="mini-card">
+                                        <div>
+                                            <asp:Label class="hotel-description" ID="lblPrecioS" runat="server" Text="Precio por noche:₡ "></asp:Label>
+                                            <asp:Label class="hotel-description" ID="lblPrecio" runat="server" Text=""></asp:Label><br />
+                                            <asp:Label class="hotel-description" ID="lblDescuentoTotal" runat="server" Text=""></asp:Label>
+
 
                                 <br />
-
-                                <div>
-                                    <asp:Label class="hotel-description" ID="lblPrecioS" runat="server" Text="Precio por noche:₡ "></asp:Label>
-                                    <asp:Label class="hotel-description" ID="lblPrecio" runat="server" Text=""></asp:Label>
-
-                                </div>
 
                                 <br />
 

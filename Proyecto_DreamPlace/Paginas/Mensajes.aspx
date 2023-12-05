@@ -13,6 +13,10 @@
 
     <style>
         /* Estilos generales */
+        body{
+            background-color: white;
+        }
+
         .mensaje-item {
             margin-bottom: 10px;
         }

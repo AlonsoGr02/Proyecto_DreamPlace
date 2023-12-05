@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
     <link href="../Estilos/Css_ManteA.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
-
+     <style>
+        body{
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -80,7 +84,7 @@
             <br />
             <hr />
             <br />
-            <asp:Button ID="btnGuardar" class="fa-solid" runat="server" Text="Guardar" />
+            <asp:Button ID="btnGuardar" class="fa-solid" runat="server" Text="Guardar" OnClick="btnGuardar_Click" />
 
         </div>
     </form>

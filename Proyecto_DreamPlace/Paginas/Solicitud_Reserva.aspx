@@ -196,9 +196,10 @@
 
                     <%--                    <asp:Label ID="Label3" runat="server" Text="Impuestos:"></asp:Label>
                     <asp:Label ID="lblImpuestos" runat="server" Text=""></asp:Label><br />--%>
+                    <asp:Label ID="lblDescuento" runat="server" Text=""></asp:Label><br /><br />
 
                     <asp:Label ID="Label4" runat="server" Text="Total:"></asp:Label>
-                    <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label><br /><br />
 
 
 

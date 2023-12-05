@@ -10,6 +10,11 @@
     <link href="../Estilos/Css_Registro.css" rel="stylesheet" />
     <link href="../Estilos/Css_Login2.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+     <style>
+        body{
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">

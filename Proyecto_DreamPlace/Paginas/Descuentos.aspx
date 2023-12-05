@@ -46,7 +46,7 @@
             <div class="container-desc">
                 <h2>Aplica un Descuento a tu Inmueble</h2>
                 <asp:Label ID="Label8" runat="server" Text="Descuento:"></asp:Label><br />
-                <asp:DropDownList ID="ddlDescuento" runat="server" OnSelectedIndexChanged="ddlDescuento_SelectedIndexChanged">
+                <asp:DropDownList ID="ddlDescuento" runat="server" OnSelectedIndexChanged="ddlDescuento_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Text="0.00%" Value="0"></asp:ListItem>
                     <asp:ListItem Text="10.00%" Value="10"></asp:ListItem>
                     <asp:ListItem Text="15.00%" Value="15"></asp:ListItem>

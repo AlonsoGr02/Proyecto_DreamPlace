@@ -246,6 +246,7 @@
     <Content Include="Estilos\Css_VerificarIdentidad.css" />
     <Content Include="Estilos\footer.css" />
     <Content Include="Estilos\imagenes.css" />
+    <Content Include="Estilos\Login.css" />
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />

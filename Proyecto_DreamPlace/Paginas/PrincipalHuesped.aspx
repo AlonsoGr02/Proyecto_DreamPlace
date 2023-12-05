@@ -18,7 +18,39 @@
     <link href="../Estilos/footer.css" rel="stylesheet" />
     <link href="../Estilos/Css_Modal.css" rel="stylesheet" />
 
+     <style>
+        .topnav-container {
+            background-color: #f2f2f2;
+            border-radius: 25px;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 750px;
+            margin: 0 auto;
+        }
 
+        /* Estilo de los enlaces de navegación */
+        .topnav a {
+            color: black;
+            text-decoration: none;
+            padding: 5px 5px; /* Espacio alrededor de los enlaces */
+            border-radius: 5px;
+        }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+        /* Estilo de la barra de búsqueda */
+        .topnav input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            width: 340px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -32,9 +64,9 @@
 
                 <div id="topnav" class="topnav-container" runat="server">
                     <div class="topnav">
-                        <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Económicos" OnClick="btnLFamosos_Click" CssClass="searchButton" />
-                        <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton" />
                         <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
+                        <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton" />
+                         <asp:Button ID="Button2" runat="server" Text="Reestablecer Filtros" CssClass="searchButton" OnClick="Button2_Click" />
 
                     </div>
                 </div>
@@ -54,8 +86,8 @@
                         <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
                         <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
                         <li><a href="#" onclick="openModalMovimientos()">Notificaciones</a></li>
+                         <li><a href="#" onclick=" return openModaEstadistica()">Estadisticas</a></li>
                         <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
-                        <li><a href="#" onclick=" return openModaEstadistica()">Estadisticas</a></li>
                         <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                     </ul>
                 </div>

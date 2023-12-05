@@ -52,7 +52,6 @@ namespace Proyecto_DreamPlace.Paginas
         {
             string nombreAlojamiento = ddlAlojamientos.SelectedValue;
             Inmueble inmueble = BD.ObtenerDetallesAlojamientos(nombreAlojamiento);
-          
 
             if (inmueble != null)
             {
@@ -70,12 +69,71 @@ namespace Proyecto_DreamPlace.Paginas
                 BD.CargarEstados(ddlEstado);
 
                 txtDescripcionEstado.Text = inmueble.DescripcionEstado;
+
+                // Mostrar la imagen
+                if (inmueble.Imagen != null && inmueble.Imagen.Length > 0)
+                {
+                    Image1.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(inmueble.Imagen);
+                    Image1.CssClass = "imagen-estilo";
+
+                    Image2.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(inmueble.Imagen);
+                    Image2.CssClass = "imagen-estilo";
+
+                    Image3.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(inmueble.Imagen);
+                    Image3.CssClass = "imagen-estilo";
+
+                    Image4.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(inmueble.Imagen);
+                    Image4.CssClass = "imagen-estilo";
+
+                    Image5.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(inmueble.Imagen);
+                    Image5.CssClass = "imagen-estilo";
+
+                   
+                }
             }
         }
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+        private int ObtenerIdInmuebleSeleccionado()
+        {
+            int idInmueble = 0;
+
+            if (ddlAlojamientos.SelectedIndex != -1)
+            {
+                // Intentar convertir el valor seleccionado a un entero
+                if (int.TryParse(ddlAlojamientos.SelectedValue, out idInmueble))
+                {
+                    // La conversión fue exitosa
+                    return idInmueble;
+                }
+            }
+
+            return idInmueble;
+        }
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del inmueble seleccionado
+            int idInmueble = ObtenerIdInmuebleSeleccionado();
+
+            // Validar que se haya seleccionado un inmueble
+            if (idInmueble > 0)
+            {
+                // Obtener los valores actualizados desde los controles
+                string nombre = txtNombre.Text;
+                string descripcion = txtDescripcion.Text;
+                int personas = Convert.ToInt32(txtCantidadP.Text);
+                int dormitorios = Convert.ToInt32(txtCantidadD.Text);
+                int banos = Convert.ToInt32(txtCantidadB.Text);
+                int camas = Convert.ToInt32(txtCantiCamas.Text);
+                int idCategoria = Convert.ToInt32(ddlCategoria.SelectedValue);
+                int idEstado = Convert.ToInt32(ddlEstado.SelectedValue);
+
+                // Llamar al método de actualización
+                ConexionBD.ActualizarInmueble(idInmueble, nombre, descripcion, personas, dormitorios, banos, camas, idCategoria, idEstado);
+            }
         }
     }
 }

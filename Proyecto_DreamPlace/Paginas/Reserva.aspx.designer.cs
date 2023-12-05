@@ -222,6 +222,15 @@ namespace Proyecto_DreamPlace
         protected global::System.Web.UI.WebControls.Label lblPrecio;
 
         /// <summary>
+        /// Control lblDescuentoTotal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescuentoTotal;
+
+        /// <summary>
         /// Control lblcalificacion.
         /// </summary>
         /// <remarks>

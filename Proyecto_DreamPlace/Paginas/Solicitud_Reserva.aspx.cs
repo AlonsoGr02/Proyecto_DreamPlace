@@ -67,6 +67,10 @@ namespace Proyecto_DreamPlace.Paginas
                 string[] datosInmueblePrecio = ConexionBD.ObtenerPrecioInmueble(idInmueble);
                 lblCostoxNoche.Text = datosInmueblePrecio[0];
 
+                string porcentajeDescuento = datosInmueble[9]; // Ajusta el índice según la posición del porcentaje en el array
+                lblDescuento.Text = $"Descuento: {porcentajeDescuento}%";
+
+
                 txttxtHuespedes.Text = cantidadAdultos;
 
                 DateTime fechaLlegadaDateTime, fechaSalidaDateTime;
@@ -77,8 +81,29 @@ namespace Proyecto_DreamPlace.Paginas
                 if (decimal.TryParse(lblCostoxNoche.Text, out costoPorNoche))
                 {
                     decimal costoTotal = diferenciaDias * costoPorNoche;
-                    lblTotal.Text = costoTotal.ToString("C", new CultureInfo("es-CR"));
-                    
+
+                    // Obtener el porcentaje de descuento
+                    string[] datosInmuebleDescuento = ConexionBD.ObtenerDatosInmueblePorIdInmueble(idInmueble);
+                    if (datosInmuebleDescuento != null && datosInmuebleDescuento.Length > 0)
+                    {
+                        if (decimal.TryParse(datosInmuebleDescuento[9], out decimal porcentajeDescuentoLocal))
+                        {
+                            // Calcular el nuevo precio con el descuento
+                            decimal nuevoPrecio = costoTotal - (costoTotal * (porcentajeDescuentoLocal / 100));
+
+                            // Mostrar el precio actualizado en lblTotal con formato de moneda y dos decimales
+                            lblTotal.Text = nuevoPrecio.ToString("C", new CultureInfo("es-CR"));
+                        }
+                        else
+                        {
+                            lblTotal.Text = "Descuento no válido";
+                        }
+                    }
+                    else
+                    {
+                        // Manejar el escenario donde no se obtiene ningún dato del descuento
+                        lblTotal.Text = "Descuento no disponible";
+                    }
                 }
             }
         }
@@ -118,7 +143,7 @@ namespace Proyecto_DreamPlace.Paginas
                 decimal costoTotal;
                 if (decimal.TryParse(lbTotal, NumberStyles.Currency, CultureInfo.CurrentCulture, out costoTotal))
                 {
-                    
+                    ConexionBD BD = new ConexionBD();
                     if (ConexionBD.TieneSaldoSuficiente(numtarjeta, costoTotal))
                     {
                         ConexionBD.InsertarPagos(numtarjeta, costoTotal, idInmueble, IdCedula);
@@ -132,6 +157,10 @@ namespace Proyecto_DreamPlace.Paginas
 
                             int idFechaReservada = ConexionBD.ObtenerIdFechaReservada(IdCedula);
                             ConexionBD.InsertarReserva(IdCedula, idInmueble, cantidadAdultos, numtarjeta, idFechaReservada);
+                            string correo = Session["Correo"].ToString();
+                            string Cedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+                            string Notificaion = "Se ha realizado su reserva con exito";
+                            ConexionBD.InsertarNotificacion(Notificaion, Cedula);
 
                             // Inicio COrreo ***********
                             string correoU = Session["Correo"].ToString();
@@ -145,6 +174,7 @@ namespace Proyecto_DreamPlace.Paginas
                             //*** Fin correo *******
 
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
+
                         }
                     }
                     else

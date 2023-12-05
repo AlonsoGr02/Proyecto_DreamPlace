@@ -221,7 +221,6 @@
     <Content Include="Estilos\Css_Denuncias.css" />
     <Content Include="Estilos\Css_Descuentos.css" />
     <Content Include="Estilos\Css_Favoritos.css" />
-    <Content Include="Estilos\Css_InfoReservas.css" />
     <Content Include="Estilos\Css_Inicio2.css" />
     <Content Include="Estilos\Css_Inicio3.css" />
     <Content Include="Estilos\Css_InicioMiBanco.css" />
@@ -246,6 +245,8 @@
     <Content Include="Estilos\Css_VerificarIdentidad.css" />
     <Content Include="Estilos\footer.css" />
     <Content Include="Estilos\imagenes.css" />
+    <Content Include="Estilos\Inf_Reservas.css" />
+    <Content Include="Estilos\Login.css" />
     <Content Include="Estilos\Modal.css" />
     <Content Include="Estilos\Reserva.css" />
     <Content Include="Estilos\solicitudreserva.css" />

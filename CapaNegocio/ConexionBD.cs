@@ -702,7 +702,13 @@ namespace CapaNegocio
         }
         public static string[] ObtenerDatosInmueblePorIdInmueble(int idInmueble)
         {
-            string obtenerDatosInmuebleQuery = "SELECT Nombre, Descripcion, CantidadPersonas, CantidadDormitorios, CantidadBanos, CantidadCamas, IdUbicacion, IdCategoria, TipoInmueble FROM Inmuebles WHERE IdInmueble = @IdInmueble";
+            string obtenerDatosInmuebleQuery = @"
+        SELECT i.Nombre, i.Descripcion, i.CantidadPersonas, i.CantidadDormitorios,
+               i.CantidadBanos, i.CantidadCamas, i.IdUbicacion, i.IdCategoria,
+               i.TipoInmueble, d.Porcentaje
+        FROM Inmuebles i
+        JOIN Descuentos d ON d.IdDescuentos = i.IdDescuento
+        WHERE IdInmueble = @IdInmueble";
 
             using (SqlConnection connection = new SqlConnection(cadenaCon))
             {
@@ -724,14 +730,16 @@ namespace CapaNegocio
                         string idUbicacion = reader["IdUbicacion"].ToString();
                         string idCategoria = reader["IdCategoria"].ToString();
                         string tipoInmueble = reader["TipoInmueble"].ToString();
+                        string porcentajeDescuento = reader["Porcentaje"].ToString();
 
-                        return new string[] { nombre, descripcion, cantidadPersonas, cantidadDormitorios, cantidadBanos, cantidadCamas, idUbicacion, idCategoria, tipoInmueble };
+                        return new string[] { nombre, descripcion, cantidadPersonas, cantidadDormitorios, cantidadBanos, cantidadCamas, idUbicacion, idCategoria, tipoInmueble, porcentajeDescuento };
                     }
 
-                    return new string[] { "", "", "", "", "", "", "", "", "", "", "", "", "" };
+                    return new string[] { "", "", "", "", "", "", "", "", "", "" };
                 }
             }
         }
+
         public void InsertarTotal(decimal precio, decimal iva, decimal total, int idInmueble)
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
@@ -1135,7 +1143,7 @@ namespace CapaNegocio
         #region Descuentos
         public void CargarDescuentos(DropDownList ddlDescuentos)
         {
-            string query = "SELECT Porcentaje FROM Descuentos";
+            string query = "SELECT IdDescuentos, Porcentaje FROM Descuentos"; // Seleccionar también el IdDescuento
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
@@ -1150,8 +1158,9 @@ namespace CapaNegocio
                         // Verificar si hay filas devueltas
                         while (reader.Read())
                         {
-                            string descuento = reader["Porcentaje"].ToString();
-                            ddlDescuentos.Items.Add(descuento);
+                            int idDescuento = Convert.ToInt32(reader["IdDescuentos"]); // Obtener el IdDescuento
+                            string porcentaje = reader["Porcentaje"].ToString();
+                            ddlDescuentos.Items.Add(new ListItem(porcentaje, idDescuento.ToString())); // Agregar ListItem con valor entero
                         }
                     }
                 }
@@ -1178,6 +1187,7 @@ namespace CapaNegocio
                         {
                             detalles = new Inmueble
                             {
+                                IdInmueble = Convert.ToInt32(reader["IdInmueble"]),
                                 Nombre = reader["Nombre"].ToString(),
                                 Descripcion = reader["Descripcion"].ToString(),
                                 Total = GetSafeDecimalD(reader, "Total")
@@ -1189,14 +1199,72 @@ namespace CapaNegocio
 
             return detalles;
         }
+
         private decimal GetSafeDecimalD(SqlDataReader reader, string columnName)
         {
             return reader[columnName] != DBNull.Value ? Convert.ToDecimal(reader[columnName]) : 0m;
         }
+
+        public void ActualizarDescuentoEnInmueble(int idInmueble, int idDescuento)
+        {
+            string query = "UPDATE Inmuebles SET IdDescuento = @IdDescuento WHERE IdInmueble = @IdInmueble";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdInmueble", idInmueble);
+                    command.Parameters.AddWithValue("@IdDescuento", idDescuento);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
         #endregion
 
 
         #region Mantenimiento Alojamientos
+        public static void ActualizarInmueble(int idInmueble, string nombre, string descripcion, int personas, int dormitorios, int banos, int camas, int idCategoria, int idEstado)
+        {
+            string actualizarInmuebleQuery = @"
+                                                UPDATE Inmuebles
+                                                SET Nombre = @Nombre,
+                                                    Descripcion = @Descripcion,
+                                                    CantidadPersonas = @Personas,
+                                                    CantidadDormitorios = @Dormitorios,
+                                                    CantidadBanos = @Banos,
+                                                    CantidadCamas = @Camas,
+                                                    IdCategoria = @Categoria,
+                                                    IdEstado = @Estado
+                                                WHERE IdInmueble = @IdInmueble";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(actualizarInmuebleQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@IdInmueble", idInmueble);
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@Descripcion", descripcion);
+                    command.Parameters.AddWithValue("@Personas", personas);
+                    command.Parameters.AddWithValue("@Dormitorios", dormitorios);
+                    command.Parameters.AddWithValue("@Banos", banos);
+                    command.Parameters.AddWithValue("@Camas", camas);
+                    command.Parameters.AddWithValue("@Categoria", idCategoria);
+                    command.Parameters.AddWithValue("@Estado", idEstado);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public Inmueble ObtenerDetallesAlojamientos(string ddlAlojamientos)
         {
             Inmueble detalles = null;
@@ -1216,6 +1284,7 @@ namespace CapaNegocio
                         {
                             detalles = new Inmueble
                             {
+                                IdInmueble = GetSafeInt(reader, "IdInmueble"),
                                 Nombre = reader["Nombre"].ToString(),
                                 Descripcion = reader["Descripcion"].ToString(),
                                 CantidadPersonas = GetSafeInt(reader, "CantidadPersonas"),
@@ -1224,7 +1293,8 @@ namespace CapaNegocio
                                 CantidadCamas = GetSafeInt(reader, "CantidadCamas"),
                                 IdCategoria = GetSafeInt(reader, "Categoria"),
                                 IdEstado = GetSafeInt(reader, "NombreEstado"),
-                                DescripcionEstado = reader["DescripcionEstado"].ToString()
+                                DescripcionEstado = reader["DescripcionEstado"].ToString(),
+                                Imagen = reader["Imagen"] as byte[]
                             };
                         }
                     }
@@ -1242,7 +1312,7 @@ namespace CapaNegocio
         public void CargarNombresInmuebles(DropDownList ddlAlojamientos, string correoUsuario)
         {
             // Obtener los nombres de los alojamientos
-            string query = "SELECT Nombre " +
+            string query = "SELECT IdInmueble,Nombre " +
                            "FROM Inmuebles i " +
                            "JOIN Usuarios u ON u.IdCedula = i.IdCedula " +
                            "WHERE u.Correo = @Correo";
@@ -1263,6 +1333,7 @@ namespace CapaNegocio
                         // Verificar si hay filas devueltas
                         while (reader.Read())
                         {
+                            ddlAlojamientos.DataValueField = "IdInmueble";
                             string nombreAlojamiento = reader["Nombre"].ToString();
                             ddlAlojamientos.Items.Add(nombreAlojamiento);
                         }
@@ -1274,7 +1345,7 @@ namespace CapaNegocio
         public void CargarCategoriasInmueble(DropDownList ddlCategorias, string nombreInmueble)
         {
             string query = @"
-                   SELECT c.Categoria
+                   SELECT c.IdCategoria, c.Categoria
                      FROM Categorias c
                      LEFT JOIN Inmuebles i ON c.IdCategoria = i.IdCategoria
                      LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula
@@ -1306,7 +1377,7 @@ namespace CapaNegocio
 
         public void CargarCategorias(DropDownList ddlCategoria)
         {
-            string query = "SELECT DISTINCT Categoria FROM Categorias";
+            string query = "SELECT DISTINCT IdCategoria, Categoria FROM Categorias";
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
@@ -1332,7 +1403,7 @@ namespace CapaNegocio
         public void CargarEstadosInmueble(DropDownList ddlEstado, string nombreInmueble)
         {
             string query = @"
-                   SELECT DISTINCT e.NombreEstado
+                   SELECT DISTINCT e.IdEstado, e.NombreEstado
                         FROM Estados e
                         LEFT JOIN Inmuebles i ON e.IdEstado = i.IdEstado
                         LEFT JOIN Usuarios u ON u.IdCedula = i.IdCedula
@@ -1364,7 +1435,7 @@ namespace CapaNegocio
 
         public void CargarEstados(DropDownList ddlEstados)
         {
-            string query = "SELECT  distinct NombreEstado FROM Estados";
+            string query = "SELECT  distinct IdEstado, NombreEstado FROM Estados";
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
@@ -2614,6 +2685,23 @@ namespace CapaNegocio
                     insertCommand.Parameters.AddWithValue("@Denuncia", Denuncia);
                     insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
                     insertCommand.Parameters.AddWithValue("@IdReserva", IdReserva);                    
+
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void InsertarNotificacion(string Notificacion, string IdCedula)
+        {
+            string insertQuery = "INSERT INTO Notificaciones(Notificacion,IdCedula)" +
+                                 "values(@Notificacion,@IdCedula)";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@Notificacion", Notificacion);
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
 
                     insertCommand.ExecuteNonQuery();
                 }

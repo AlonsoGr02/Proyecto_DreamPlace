@@ -16,6 +16,9 @@
             background-color: white;
         }
         /* Estilos para el modal */
+        body{
+            background-color: white;
+        }
         .modal {
             display: none;
             position: fixed;

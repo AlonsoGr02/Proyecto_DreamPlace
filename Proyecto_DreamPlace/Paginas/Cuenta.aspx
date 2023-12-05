@@ -58,9 +58,7 @@
             </div>
             <div id="user-menu" class="user-menu">
                 <ul>
-                    <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
-                    <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
-                    <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
+                    <li><a href="PrincipalHuesped.aspx?Correo=<%= Session["Correo"] %>">Principal</a></li>
                     <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
                     <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                 </ul>
@@ -185,8 +183,8 @@
                             <i class="fa-solid fa-house" style="font-size: 150px; line-height: 200px;"></i>
                         </div>
                         <div class="flip-card-back">
-                            <h2>Información de Reservas</h2>
-                            <p>Mira las caracteristicas que tiene tu alojamiento</p>
+                            <h2>Historial de Reservas</h2>
+                            <p>Mira el Historial de reservas que haz hecho durante tu estadia en DreamPlace</p>
                         </div>
                     </div>
                 </div>

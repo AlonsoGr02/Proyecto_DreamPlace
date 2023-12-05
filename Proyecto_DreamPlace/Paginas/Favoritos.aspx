@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="StyleSheet" href="../Estilos/Css_Favoritos.css" type="text/css" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+     <style>
+        body{
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">

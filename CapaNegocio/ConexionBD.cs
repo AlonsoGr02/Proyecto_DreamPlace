@@ -2506,6 +2506,46 @@ namespace CapaNegocio
             return datos;
         }
 
+        public DataTable Obtener_ReservasDenuncia_IdReserva(int IdReserva)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT 
+                                    Reservas.IdReserva, 
+                                    Reservas.IdFechaReservada,
+                                    Inmuebles.Nombre,
+                                    Inmuebles.IdInmueble,
+                                    Identificaciones.Nombre AS NombrePropietario, 
+                                    Identificaciones.Apellidos AS ApellidoPropietario,
+                                    Inmuebles.IdCedula As CedulaPropietario, 
+                                    f.FechaI,
+                                    f.FechaF
+                                FROM Reservas
+                                INNER JOIN Inmuebles ON Inmuebles.IdInmueble = Reservas.IdInmueble
+                                INNER JOIN Identificaciones ON Identificaciones.IdCedula = Reservas.IdCedula
+                                INNER JOIN FechasReservadas f ON Reservas.IdFechaReservada = f.IdFechaReservada
+                                WHERE Reservas.IdReserva = @IdReserva
+                                AND NOT EXISTS (
+                                    SELECT 1 FROM Denuncias WHERE Denuncias.IdReserva = Reservas.IdReserva
+                                );";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdCedula", IdReserva);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
+
         public DataTable Obtener_ReservasDenuncia_IdCedula(string IdCedula)
         {
             DataTable datos = new DataTable();
@@ -2527,9 +2567,7 @@ namespace CapaNegocio
                                 WHERE Reservas.IdCedula = @IdCedula
                                 AND NOT EXISTS (
                                     SELECT 1 FROM Denuncias WHERE Denuncias.IdReserva = Reservas.IdReserva
-                                );
-
-                                ";
+                                );";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {

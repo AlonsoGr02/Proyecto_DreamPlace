@@ -198,6 +198,7 @@
                 <thead>
                     <tr>
                         <th>Número de reserva</th>
+                        <th>Número de Inmueble</th>
                         <th>Nombre Inmueble</th>
                         <th>Nombre del Propietario</th>
                         <th>Fecha de entrada</th>
@@ -211,6 +212,7 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("IdReserva") %></td>
+                                <td><%# Eval("IdInmueble") %></td>
                                 <td><%# Eval("Nombre") %></td>
                                 <td><%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %></td>
                                 <td><%# Eval("FechaI") %></td>
@@ -276,7 +278,7 @@
             function AbrirModal(idReserva) {
                 var modal = document.getElementById("Modaldenuncia");
                 modal.style.display = "block";
-                document.getElementById('denunciaSeleccionada').value = idReserva;
+                
             }
 
             function seleccionarDenuncia(texto, element) {
@@ -297,6 +299,66 @@
                 }
             }
         </script>
+
+
+                <!-- Modal de reserva exitosa -->
+                <div id="MostrarModalExito" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">¡Denuncia Exitosa!</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Isted ha realizado una denuncia</div>
+                        <div>
+                            <i class="fa fa-check-circle" style="color: green; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "flex";
+                        setTimeout(function () {
+                            CerrarModalExito();
+                        }, 6000);
+                    }
+                    function CerrarModalExito() {
+                        var modal = document.getElementById("MostrarModalExito");
+                        modal.style.display = "none";
+                    }
+
+
+                </script>
+
+
+                <%--saldo insuficiente--%>
+
+                <!-- Modal de saldo insuficiente -->
+                <div id="MostrarModalSaldoInsuficiente" class="modal" style="display: none; justify-content: center; align-items: center;">
+                    <div class="modal-content" style="text-align: center;">
+                        <h2 style="font-size: 2em;">Error</h2>
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">Al realizar la denuncia</div>
+                        <div>
+                            <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function AbrirModalSaldoInsuficiente() {
+                        var modal = document.getElementById("MostrarModalSaldoInsuficiente");
+                        modal.style.display = "flex"; // Mostrar el modal
+                        setTimeout(function () {
+                            CerrarModalSaldoInsuficiente();
+                        }, 6000);
+                    }
+
+                    function CerrarModalSaldoInsuficiente() {
+                        var modal = document.getElementById("MostrarModalSaldoInsuficiente");
+                        modal.style.display = "none"; // Ocultar el modal
+                    }
+                </script>
+
+
+
     </form>
 
 </body>

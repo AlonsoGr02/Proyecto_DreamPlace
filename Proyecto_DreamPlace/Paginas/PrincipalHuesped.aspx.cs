@@ -19,6 +19,7 @@ namespace Proyecto_DreamPlace.Paginas
         protected void Page_Load(object sender, EventArgs e)
         {
            
+            
             if (!IsPostBack)
             {
                 if (Session["Correo"] != null)

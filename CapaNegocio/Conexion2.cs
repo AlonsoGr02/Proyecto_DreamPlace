@@ -73,9 +73,11 @@ namespace CapaNegocio
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT D.Denuncia, I.Nombre FROM Denuncias D INNER JOIN Inmuebles I ON D.IdInmueble = I.IdInmueble WHERE D.IdCedula = @Cedula;", connection))
+                using (SqlCommand cmd = new SqlCommand("SELECT Denuncias.Denuncia, Inmuebles.Nombre FROM Reservas" +
+                    " INNER JOIN Inmuebles ON Inmuebles.IdInmueble = Reservas.IdInmueble " +
+                    "INNER JOIN Denuncias ON Denuncias.IdReserva = Reservas.IdReserva WHERE Inmuebles.IdCedula = @IdCedula;", connection))
                 {
-                    cmd.Parameters.AddWithValue("@Cedula", cedula);
+                    cmd.Parameters.AddWithValue("@IdCedula", cedula);
 
                     try
                     {

@@ -85,12 +85,12 @@ namespace Proyecto_DreamPlace.Paginas
             ConexionBD bD = new ConexionBD();
             if (Session["NombreInmuebleSeleccionado"] != null)
             {
-                string nombreInmueble = Session["NombreInmuebleSeleccionado"].ToString();
 
-                IdInmueDenuncia = bD.ObtenerIdInmueblePorNombre(nombreInmueble);
+                string nombreInmueble = Session["NombreInmuebleSeleccionado"].ToString();
+                
                 string denunciaSeleccionada = Request.Form["denunciaSeleccionada"];
 
-
+                
                 if (!string.IsNullOrEmpty(denunciaSeleccionada))
                 {
                     string correo = Session["Correo"].ToString();
@@ -113,12 +113,12 @@ namespace Proyecto_DreamPlace.Paginas
                     metodos.EnviarCorreoPersonalizado(correoDesti, asuntoDenuncia, cuerpoMensajeDenuncia);
                     // fin de correo********
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", $"alert('Denuncia seleccionada: {denunciaSeleccionada}');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
                 }
                 else
                 {
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Por favor, selecciona una denuncia.');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalSaldoInsuficiente();", true);
                 }
             }
         }          

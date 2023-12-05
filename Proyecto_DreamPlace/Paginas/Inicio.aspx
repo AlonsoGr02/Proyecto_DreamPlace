@@ -9,13 +9,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" />
 
     <link href="../Estilos/footer.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
     <link href="../Estilos/Tarjeta.css" rel="stylesheet" />
+    <style>
+        .topnav-container {
+            background-color: #f2f2f2;
+            border-radius: 25px;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Estilo de los enlaces de navegación */
+        .topnav a {
+            color: black;
+            text-decoration: none;
+            padding: 5px 5px; /* Espacio alrededor de los enlaces */
+            border-radius: 5px;
+        }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+        /* Estilo de la barra de búsqueda */
+        .topnav input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            width: 340px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -29,9 +62,10 @@
 
                 <div id="topnav" class="topnav-container" runat="server">
                     <div class="topnav">
-                        <asp:Button ID="btnLFamosos" runat="server" Text="Lugares Famosos" OnClick="btnLFamosos_Click" CssClass="searchButton"/>
-                        <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton"/>
+
                         <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
+                        <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton" />
+                         <asp:Button ID="Button2" runat="server" Text="Reestablecer Filtros" CssClass="searchButton" OnClick="Button2_Click" />
                     </div>
                 </div>
 

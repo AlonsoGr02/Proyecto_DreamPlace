@@ -42,13 +42,13 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl topnav;
 
         /// <summary>
-        /// Control btnLFamosos.
+        /// Control txtBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLFamosos;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBusqueda;
 
         /// <summary>
         /// Control Button1.
@@ -60,13 +60,13 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// Control txtBusqueda.
+        /// Control Button2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBusqueda;
+        protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
         /// Control updatePanel2.

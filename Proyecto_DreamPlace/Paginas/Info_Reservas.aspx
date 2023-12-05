@@ -7,9 +7,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Datos de Reservas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
-    <link rel="StyleSheet" href="../Estilos/Css_InfoReservas.css" type="text/css"/>
+    <link href="../Estilos/Inf_Reservas.css" rel="stylesheet" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+    <style>
+        body{
+            background-color: white;
+        }
+    </style>
 </head>
+    
 <body>
     <form id="form1" runat="server">
         <nav class="navbar">
@@ -25,11 +31,42 @@
                 <div class="flex-container">
                     <a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a>
                     <asp:Label ID="Label1" runat="server">  >  </asp:Label>
-                    <asp:Label ID="Labelseparador" runat="server" Text="Información de Reservas "></asp:Label>
+                    <asp:Label ID="Labelseparador" runat="server" Text="Historial de Reservas "></asp:Label>
                 </div>
-                <h1>Información de Reservas</h1>
+                <h1>Historial de Reservas</h1>
             </div>
             <br />
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th>Número de reserva</th>
+                        <th>Nombre Inmueble</th>
+                        <th>Nombre del Propietario</th>
+                        <th>Fecha de entrada</th>
+                        <th>Fecha de salida</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater ID="rptDenuncias" runat="server" OnItemCommand="rptDenuncias_ItemCommand">
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("IdReserva") %></td>
+                                <td><%# Eval("NombreInmueble") %></td>
+                                <td><%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %></td>
+                                <td><%# Eval("FechaI") %></td>
+                                <td><%# Eval("FechaF") %></td>
+                         
+
+                                <td style="display: none;">
+                                    <asp:Label ID="LabelNombreInmueble" runat="server" Text='<%# Eval("NombreInmueble") %>' Visible="false"></asp:Label>
+
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
         </div>
     </form>
    

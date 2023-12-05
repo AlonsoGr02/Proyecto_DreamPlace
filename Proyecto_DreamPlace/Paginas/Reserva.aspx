@@ -513,12 +513,6 @@
 
                                 <br />
 
-                                <div>
-                                    <asp:Label class="hotel-description" ID="lblPrecioS" runat="server" Text="Precio por noche:₡ "></asp:Label>
-                                    <asp:Label class="hotel-description" ID="lblPrecio" runat="server" Text=""></asp:Label>
-
-                                </div>
-
                                 <br />
 
 

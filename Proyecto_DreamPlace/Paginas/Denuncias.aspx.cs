@@ -13,7 +13,9 @@ namespace Proyecto_DreamPlace.Paginas
     public partial class Denuncias : System.Web.UI.Page
     {
         int IdInmueDenuncia;
-        
+        private string nombre;
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -27,10 +29,10 @@ namespace Proyecto_DreamPlace.Paginas
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
 
-                    DataTable lista = BD.Obtener_Reservas_IdCedula(IdCedula);
+                    DataTable lista = BD.Obtener_ReservasDenuncia_IdCedula(IdCedula);
 
                     rptDenuncias.DataSource = lista;
-                    rptDenuncias.DataBind();                    
+                    rptDenuncias.DataBind();
 
                 }
                 else
@@ -53,34 +55,54 @@ namespace Proyecto_DreamPlace.Paginas
                 }
             }
         }
-              
-                            
+
+        protected void btnDenunciar_Click(object sender, EventArgs e)
+        {
+            Button btnDenunciar = sender as Button;
+
+            if (btnDenunciar != null)
+            {
+                int idReserva = Convert.ToInt32(btnDenunciar.CommandArgument);
+                Session["IdReserva"] = idReserva;
+                ConexionBD bD = new ConexionBD();
+
+                DataTable reservas = bD.Obtener_Reservas_IdReserva(idReserva);
+
+                if (reservas.Rows.Count > 0)
+                {
+                    string nombreInmueble = reservas.Rows[0]["Nombre"].ToString();
+                    Session["NombreInmuebleSeleccionado"] = nombreInmueble;
+
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "MostrarModal", $"AbrirModal({idReserva});", true);
+
+            }
+        }
+
         protected void btnEnviarDenuncia_Click(object sender, EventArgs e)
         {
-            foreach (RepeaterItem item in rptDenuncias.Items)
+            int Id= Convert.ToInt32(Session["IdReserva"]);
+            ConexionBD bD = new ConexionBD();
+            if (Session["NombreInmuebleSeleccionado"] != null)
             {
-                Label labelNombreInmueble = (Label)item.FindControl("LabelNombreInmueble");
-                if (labelNombreInmueble != null)
-                {
-                    string nombreInmueble = labelNombreInmueble.Text;
-                    ConexionBD bD = new ConexionBD();
-                    IdInmueDenuncia = bD.ObtenerIdInmueblePorNombre(nombreInmueble);
-                }
+                string nombreInmueble = Session["NombreInmuebleSeleccionado"].ToString();
 
-
+                IdInmueDenuncia = bD.ObtenerIdInmueblePorNombre(nombreInmueble);
                 string denunciaSeleccionada = Request.Form["denunciaSeleccionada"];
+
+
                 if (!string.IsNullOrEmpty(denunciaSeleccionada))
                 {
                     string correo = Session["Correo"].ToString();
-
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                    ConexionBD.InsertarDenuncia(denunciaSeleccionada, IdCedula, IdInmueDenuncia);
+                    ConexionBD.InsertarDenuncia(denunciaSeleccionada, IdCedula, Id);
+
                     //*** Correo***
                     string cuerpoMensajeDenuncia = "¡Hola!\n\n" +
-                               "Hemos recibido una denuncia relacionada con tu inmueble en DreamPlace.\n\n" +                            
-                               "Puedes revisar dicha denuncia en nuestra plataforma.\n\n" +
-                               "Equipo de DreamPlace";
+                           "Hemos recibido una denuncia relacionada con tu inmueble en DreamPlace.\n\n" +
+                           "Puedes revisar dicha denuncia en nuestra plataforma.\n\n" +
+                           "Equipo de DreamPlace";
 
                     string asuntoDenuncia = "Denuncia en tu Inmueble - DreamPlace";
 
@@ -89,7 +111,7 @@ namespace Proyecto_DreamPlace.Paginas
 
                     Metodos metodos = new Metodos();
                     metodos.EnviarCorreoPersonalizado(correoDesti, asuntoDenuncia, cuerpoMensajeDenuncia);
-                     // fin de correo********
+                    // fin de correo********
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", $"alert('Denuncia seleccionada: {denunciaSeleccionada}');", true);
                 }
@@ -99,8 +121,6 @@ namespace Proyecto_DreamPlace.Paginas
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Por favor, selecciona una denuncia.');", true);
                 }
             }
-        }
-
-      
+        }          
     }
 }

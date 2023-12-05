@@ -10,13 +10,12 @@ using Amazon.Rekognition.Model;
 
 namespace Proyecto_DreamPlace.Paginas
 {
-    public partial class VerficarIdentidad : System.Web.UI.Page
+    public partial class VerficarIdentidadAnf : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-
         protected void btnValidar_Click(object sender, EventArgs e)
         {
             byte[] imagenFrontal = null;

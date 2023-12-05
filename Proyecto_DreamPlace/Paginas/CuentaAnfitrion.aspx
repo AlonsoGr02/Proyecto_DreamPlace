@@ -54,6 +54,7 @@
                 <ul>
                     <li><a href="#" onclick="openModalMovimientos()">Notificaciones</a></li>
                     <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
+                    <li><a href="VerficarIdentidadAnf.aspx?Correo=<%= Session["Correo"] %>">Verficación de Identidad</a></li>
                 </ul>
 
             </div>

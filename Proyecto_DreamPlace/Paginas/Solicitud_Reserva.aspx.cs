@@ -172,7 +172,7 @@ namespace Proyecto_DreamPlace.Paginas
                             Metodos metodos = new Metodos();
                             metodos.EnviarCorreoPersonalizado(correoU, asunto, cuerpo);
                             //*** Fin correo *******
-
+                            
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
 
                         }

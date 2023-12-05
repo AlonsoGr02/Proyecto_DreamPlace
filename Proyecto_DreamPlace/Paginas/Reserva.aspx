@@ -421,6 +421,34 @@
                                     }
                                 </script>
 
+                                   <%--Modal error reserva--%>
+                                <div id="MostrarModalErrorPersonas" class="modal" style="display: none; justify-content: center; align-items: center;">
+                                    <div class="modal-content" style="text-align: center;">
+                                        <h2 style="font-size: 2em;">Error</h2>
+                                        <div style="font-size: 1.2em; margin-bottom: 10px;">La cantidad de personas elegidas no son permitidas en el alojamiento</div>
+                                        <div>
+                                            <i class="fa fa-times-circle" style="color: red; font-size: 3em;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <script>
+                                    function AbrirModalErrorPersonas() {
+                                        var modal = document.getElementById("MostrarModalErrorPersonas");
+                                        modal.style.display = "flex";
+                                        setTimeout(function () {
+                                            CerrarModalError();
+                                        }, 6000);
+                                    }
+
+
+                                    function CerrarModalError() {
+                                        var modal = document.getElementById("MostrarModalErrorPersonas");
+                                        modal.style.display = "none";
+                                    }
+                                </script>
+
                                 <div class="container_img">
                                     <div class="carousel">
                                         <!-- Repeater para las imágenes -->

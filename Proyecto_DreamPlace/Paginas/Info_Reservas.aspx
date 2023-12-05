@@ -52,14 +52,13 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("IdReserva") %></td>
-                                <td><%# Eval("NombreInmueble") %></td>
+                                <td><%# Eval("Nombre") %></td>
                                 <td><%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %></td>
                                 <td><%# Eval("FechaI") %></td>
                                 <td><%# Eval("FechaF") %></td>
                          
-
                                 <td style="display: none;">
-                                    <asp:Label ID="LabelNombreInmueble" runat="server" Text='<%# Eval("NombreInmueble") %>' Visible="false"></asp:Label>
+                                    <asp:Label ID="LabelNombreInmueble" runat="server" Text='<%# Eval("Nombre") %>' Visible="false"></asp:Label>
 
                                 </td>
                             </tr>

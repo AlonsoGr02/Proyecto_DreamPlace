@@ -57,7 +57,7 @@ namespace Proyecto_DreamPlace
                     lblCantidadCamas.Text = datosInmueble[5];
 
                     lblubucacion.Text= datosInmueble[6];
-                    string porcentajeDescuento = datosInmueble[9]; // Ajusta el índice según la posición del porcentaje en el array
+                    string porcentajeDescuento = datosInmueble[9]; 
                     lblDescuentoTotal.Text = $"Descuento: {porcentajeDescuento}%";
 
                     ConexionBD conexion = new ConexionBD();
@@ -219,40 +219,51 @@ namespace Proyecto_DreamPlace
         {
 
         }
- 
+
 
         protected void ReservarButton_Click(object sender, EventArgs e)
         {
-            int idInmueble;
-            if (int.TryParse(Request.QueryString["IdInmueble"], out idInmueble))
+
+            if (txtcantidadAdultos.Text == lblCantidadPersonas.Text)
             {
-                Session["IdInmueble"] = idInmueble;
-                Session["CantidadAdultos"] = txtcantidadAdultos.Text;
-
-                DateTime fechaLlegada, fechaSalida;
-                if (DateTime.TryParse(txtfechaLlegada.Text, out fechaLlegada) && DateTime.TryParse(txtfechaSalida.Text, out fechaSalida))
+                int idInmueble;
+                if (int.TryParse(Request.QueryString["IdInmueble"], out idInmueble))
                 {
-                    Session["FechaLlegada"] = fechaLlegada;
-                    Session["FechaSalida"] = fechaSalida;
+                    Session["IdInmueble"] = idInmueble;
+                    Session["CantidadAdultos"] = txtcantidadAdultos.Text;
 
-                    string correo = Request.QueryString["Correo"];
-                    string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
-
-                    bool fechasReservadas = ConexionBD.FechasReservadasExisten(fechaLlegada, fechaSalida, idInmueble);
-
-                    if (!fechasReservadas)
+                    DateTime fechaLlegada, fechaSalida;
+                    if (DateTime.TryParse(txtfechaLlegada.Text, out fechaLlegada) && DateTime.TryParse(txtfechaSalida.Text, out fechaSalida))
                     {
-                        Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
+                        Session["FechaLlegada"] = fechaLlegada;
+                        Session["FechaSalida"] = fechaSalida;
+
+                        string correo = Request.QueryString["Correo"];
+                        string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
+
+                        bool fechasReservadas = ConexionBD.FechasReservadasExisten(fechaLlegada, fechaSalida, idInmueble);
+
+                        if (!fechasReservadas)
+                        {
+                            Response.Redirect($"Solicitud_Reserva.aspx?IdInmueble={idInmueble}&Correo={HttpUtility.UrlEncode(correo)}");
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalError();", true);
+                        }
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalError();", true);
                     }
+
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalError();", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalErrorPersonas();", true);
                 }
+
+
             }
         }
 

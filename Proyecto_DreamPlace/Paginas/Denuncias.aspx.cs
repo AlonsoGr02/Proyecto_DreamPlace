@@ -113,12 +113,12 @@ namespace Proyecto_DreamPlace.Paginas
                     metodos.EnviarCorreoPersonalizado(correoDesti, asuntoDenuncia, cuerpoMensajeDenuncia);
                     // fin de correo********
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", $"alert('Denuncia seleccionada: {denunciaSeleccionada}');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
                 }
                 else
                 {
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Por favor, selecciona una denuncia.');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalSaldoInsuficiente();", true);
                 }
             }
         }          

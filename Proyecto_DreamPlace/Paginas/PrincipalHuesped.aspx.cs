@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CapaNegocio;
+using CapaNegocio.Models;
 
 namespace Proyecto_DreamPlace.Paginas
 {
@@ -17,13 +18,21 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnLFamosos.Visible = false;
+           
             if (!IsPostBack)
             {
                 if (Session["Correo"] != null)
                 {
                     string correo = Session["Correo"].ToString();
                     DataTable Notificaciones = objConexion.ObtenerNotificacionesPorCorreo(correo);
+
+                    Usuario usuario = objConexion.ObtenerDatosUsuario(correo);
+
+                    if (usuario != null)
+                    {
+                        lblHuesped.Text = usuario.Nombre;
+                        lblApellidos.Text = usuario.Apellidos;
+                    }
 
                     gvNotificaciones.DataSource = Notificaciones;
                     gvNotificaciones.DataBind();

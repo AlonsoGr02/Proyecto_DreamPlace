@@ -14,7 +14,12 @@
     <link href="../Estilos/footer.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio2.css" rel="stylesheet" />
     <link href="../Estilos/Css_Inicio3.css" rel="stylesheet" />
-
+    <style>
+        .label {
+            text-align: center;
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,9 +39,11 @@
                             <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
 
                         </div>--%>
-                        <asp:Label ID="lblNombre" runat="server" Text=" " Style="color: black;"></asp:Label>
-                        <asp:Label ID="lblApellido" runat="server" Text=" " Style="color: black;"></asp:Label>
-                        <asp:Label ID="lblRol" runat="server" Text="" Style="color: black;"></asp:Label>
+                        <div class="label">
+                            <asp:Label ID="lblRol" runat="server" Text="Húesped - "></asp:Label>
+                            <asp:Label ID="lblNombre" runat="server" Text=" "></asp:Label>
+                             <asp:Label ID="lblApellidos" runat="server" Text=" "></asp:Label>
+                        </div>
 
                     </div>
                     <div class="user-information">
@@ -54,9 +61,7 @@
                     </div>
                     <div id="user-menu" class="user-menu">
                         <ul>
-                            <li><a href="Cuenta.aspx?Correo=<%= Session["Correo"] %>">Cuenta</a></li>
-                            <li><a href="Favoritos.aspx?Correo=<%= Session["Correo"] %>">Favoritos</a></li>
-                            <li><a href="Notis.aspx?Correo=<%= Session["Correo"] %>">Notificaciones</a></li>
+                            <li><a href="PrincipalHuesped.aspx?Correo=<%= Session["Correo"] %>">Volver</a></li>
                             <li><a href="PoliticasServicio.aspx?Correo=<%= Session["Correo"] %>">Politicas de Servicio</a></li>
                             <li><a href="Inicio.aspx">Cerrar Sesión</a></li>
                         </ul>
@@ -196,10 +201,12 @@
 
                     <%--                    <asp:Label ID="Label3" runat="server" Text="Impuestos:"></asp:Label>
                     <asp:Label ID="lblImpuestos" runat="server" Text=""></asp:Label><br />--%>
-                    <asp:Label ID="lblDescuento" runat="server" Text=""></asp:Label><br /><br />
+                    <asp:Label ID="lblDescuento" runat="server" Text=""></asp:Label><br />
+                    <br />
 
                     <asp:Label ID="Label4" runat="server" Text="Total:"></asp:Label>
-                    <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label><br /><br />
+                    <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label><br />
+                    <br />
 
 
 

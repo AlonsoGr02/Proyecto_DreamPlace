@@ -50,6 +50,11 @@
             border-radius: 10px;
             width: 340px;
         }
+        .label{
+            text-align:center;
+            color: black;
+        }
+       
     </style>
 </head>
 <body>
@@ -64,9 +69,15 @@
 
                 <div id="topnav" class="topnav-container" runat="server">
                     <div class="topnav">
+                        <div class="label">
+                            <asp:Label ID="Label1" runat="server" Text="Húesped - "></asp:Label>
+                            <asp:Label ID="lblHuesped" runat="server" Text=" "></asp:Label>
+                             <asp:Label ID="lblApellidos" runat="server" Text=" "></asp:Label><br /><br />
+                        </div>
                         <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
                         <asp:Button ID="Button1" runat="server" Text="Filtrar" OnClick="Button1_Click" CssClass="searchButton" />
                          <asp:Button ID="Button2" runat="server" Text="Reestablecer Filtros" CssClass="searchButton" OnClick="Button2_Click" />
+                        
 
                     </div>
                 </div>

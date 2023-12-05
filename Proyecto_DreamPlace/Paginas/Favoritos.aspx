@@ -11,6 +11,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="StyleSheet" href="../Estilos/Css_Favoritos.css" type="text/css" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
+    <style>
+        .seleccionada {
+            border: 2px solid red; /* Puedes cambiar el color del borde según tu preferencia */
+        }
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,40 +75,25 @@
                 <!-- Aquí se agregarán dinámicamente las tarjetas de inmuebles -->
             </div>
             <br />
-           
+
         </div>
+        <div id="Eliminardiv" runat="server">
+            <asp:Label ID="lblIdElminar" runat="server" Text=""></asp:Label>
+            <asp:Button ID="btnEliminarFav" runat="server" Text="Eliminar Favorito" OnClick="btnEliminarFav_Click" />
+        </div>
+
         <!-- scripts para el carrusel de imagenes funcione -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('.carousel').slick({
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&#9664;</button>', /* Flecha izquierda */
-                    nextArrow: '<button class="slick-next" aria-label="Next" type="button">&#9654;</button>' /* Flecha derecha */
+                $(document).ready(function () {
+                    $('.carousel').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&#9664;</button>', /* Flecha izquierda */
+                        nextArrow: '<button class="slick-next" aria-label="Next" type="button">&#9654;</button>' /* Flecha derecha */
+                    });
                 });
-            });
-
-            function RemoveFromFavorites(idInmueble) {
-                // Usa AJAX u otro método para enviar la solicitud al servidor
-                $.ajax({
-                    type: "POST",
-                    url: "Favoritos.aspx/RemoveFromFavorites",
-                    data: JSON.stringify({ idInmueble: idInmueble }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        // Manejar el éxito, tal vez eliminar la tarjeta de la interfaz de usuario
-                        // Por ejemplo, puedes usar jQuery para buscar y eliminar la tarjeta
-                        $(".tarjeta[data-id='" + idInmueble + "']").remove();
-                    },
-                    error: function (error) {
-                        // Manejar el error
-                        console.error("Error al eliminar de Favoritos: " + error.responseText);
-                    }
-                });
-            }
         </script>
     </form>
     <footer>

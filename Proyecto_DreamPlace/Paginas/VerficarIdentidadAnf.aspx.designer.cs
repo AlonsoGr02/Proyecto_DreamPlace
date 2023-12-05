@@ -11,7 +11,7 @@ namespace Proyecto_DreamPlace.Paginas
 {
 
 
-    public partial class Favoritos
+    public partial class VerficarIdentidadAnf
     {
 
         /// <summary>
@@ -42,39 +42,57 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label Labelseparador;
 
         /// <summary>
-        /// Control container.
+        /// Control lblInfo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl container;
+        protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
-        /// Control Eliminardiv.
+        /// Control FileUploadFrontal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Eliminardiv;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadFrontal;
 
         /// <summary>
-        /// Control lblIdElminar.
+        /// Control lblInfoTrasera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIdElminar;
+        protected global::System.Web.UI.WebControls.Label lblInfoTrasera;
 
         /// <summary>
-        /// Control btnEliminarFav.
+        /// Control FileUploadTrasera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarFav;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadTrasera;
+
+        /// <summary>
+        /// Control btnValidar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnValidar;
+
+        /// <summary>
+        /// Control lblRespu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRespu;
     }
 }

@@ -15,6 +15,7 @@ namespace Proyecto_DreamPlace.Paginas
         ConexionBD objConexion = new ConexionBD();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 if (Session["Correo"] != null)
@@ -22,6 +23,7 @@ namespace Proyecto_DreamPlace.Paginas
                     string correo = Session["Correo"].ToString();
                     string ced = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
                     GenerarEstructuraHTML(ced);
+                    Eliminardiv.Visible = false;
                 }
                 else
                 {
@@ -49,6 +51,7 @@ namespace Proyecto_DreamPlace.Paginas
                 // Crear la estructura HTML para cada inmueble
                 Panel tarjetaContainer = new Panel();
                 tarjetaContainer.CssClass = "tarjeta";
+
 
                 Panel carruselContainer = new Panel();
                 carruselContainer.CssClass = "carousel";
@@ -105,13 +108,6 @@ namespace Proyecto_DreamPlace.Paginas
                 precioContainer.Controls.Add(precioControl);
 
                 infoContainer.Controls.Add(precioContainer);
-                ///************
-                //Button removeButton = new Button();
-                //removeButton.Text = "Eliminar de Favoritos";
-                //removeButton.CssClass = "remove-button";
-                //removeButton.OnClientClick = $"RemoveFromFavorites({idInmueble}); return false;";
-                //infoContainer.Controls.Add(removeButton);
-                //***************
 
                 tarjetaContainer.Controls.Add(carruselContainer);
                 tarjetaContainer.Controls.Add(infoContainer);
@@ -120,21 +116,9 @@ namespace Proyecto_DreamPlace.Paginas
             }
         }
 
-        [System.Web.Services.WebMethod]
-        public static void RemoveFromFavorites(int idInmueble, HttpSessionState session)
+        protected void btnEliminarFav_Click(object sender, EventArgs e)
         {
-            if (session["Correo"] != null)
-            {
-                string correo = session["Correo"].ToString();
-                string idCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correo);
 
-                ConexionBD objConexion = new ConexionBD();
-                objConexion.EliminarFavorito(idCedula, idInmueble);
-
-                // Volver a generar la estructura HTML después de la eliminación si es necesario
-                //GenerarEstructuraHTML(idCedula);
-            }
         }
-
     }
 }

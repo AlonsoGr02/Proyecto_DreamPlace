@@ -33,19 +33,19 @@
                             <input type="text" id="txtBusqueda" placeholder="Buscar por nombre..." runat="server" />
 
                         </div>--%>
-                <asp:Label ID="lblRol" runat="server" Text=""  Style="color: black;"></asp:Label>
-                <asp:Label ID="Label1" runat="server" Text=" · "  Style="color: black;"></asp:Label>
-                <asp:Label ID="lblNombre" runat="server" Text="Nombre completo"  Style="color: black;"></asp:Label>
-                <asp:Label ID="lblApellido" runat="server" Text="Apellidos" Style="color: black;"></asp:Label>                
+                <asp:Label ID="lblRol" runat="server" Text="" Style="color: black;"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text=" · " Style="color: black;"></asp:Label>
+                <asp:Label ID="lblNombre" runat="server" Text="Nombre completo" Style="color: black;"></asp:Label>
+                <asp:Label ID="lblApellido" runat="server" Text="Apellidos" Style="color: black;"></asp:Label>
                 <asp:Label ID="lblCorreo" runat="server" Text="Correo" Visible="false"></asp:Label>
                 <asp:Label ID="Label3" runat="server" Text=" · "></asp:Label>
             </div>
 
-            
 
-                    <div class="user-information">
-                        <asp:Label ID="Label8" runat="server" Text=" Huésped "></asp:Label>
-                    </div>
+
+            <div class="user-information">
+                <asp:Label ID="Label8" runat="server" Text=" Huésped "></asp:Label>
+            </div>
             <div class="icon-container" id="menu-trigger">
                 <div class="menu-icon">
                     <i class="fa-solid fa-bars"></i>
@@ -389,7 +389,7 @@
                 <div id="modalEvaluacion" class="modal">
                     <div class="modal-content">
                         <div class="modal-content-inner">
-                            <h2>Calificar Anfitrión</h2>
+                            <h2>Calificar Inmueble</h2>
                             <div class="container">
                                 <asp:Repeater ID="repeaterInmuebles" runat="server">
                                     <HeaderTemplate>
@@ -397,7 +397,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Nombre Inmueble</th>
-                                                    <th>Propietario</th>
+                                                    <th>Fecha de entrdas</th>
+                                                    <th>Fecha de salida</th>
                                                     <th>Calificación</th>
                                                 </tr>
                                             </thead>
@@ -406,9 +407,11 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td><%# Eval("NombreInmueble") %></td>
-                                            <td>
-                                                <%# Eval("NombrePropietario") + " " + Eval("ApellidoPropietario") %>
-                                            </td>
+                                            <td><%# Eval("FechaI") %></td>
+                                            <td><%# Eval("FechaF") %></td>
+                                            <%--  <td>
+                                                <%# Eval("IdCedula") + " " + Eval("ApellidoHuesped") %>
+                                            </td>--%>
                                             <td>
                                                 <label class="star-checkbox" style="display: flex; align-items: center;">
                                                     <asp:CheckBox ID="chkStar1" runat="server" CssClass="star-checkbox" Text="1" OnCheckedChanged="chkStar_CheckedChanged" AutoPostBack="true" />
@@ -419,7 +422,9 @@
                                                 </label>
                                             </td>
                                             <td style="display: none;">
+                                                <asp:Label ID="LabelIdCedula" runat="server" Text='<%# Eval("IdCedula") %>' Visible="false"></asp:Label>
                                                 <asp:Label ID="lblIdInmueble" runat="server" Text='<%# Eval("IdInmueble") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="LabelIdReserva" runat="server" Text='<%# Eval("IdReserva") %>' Visible="false"></asp:Label>
                                             </td>
                                         </tr>
                                     </ItemTemplate>
@@ -429,7 +434,7 @@
                                     </FooterTemplate>
                                 </asp:Repeater>
                                 <asp:Label ID="Label4" runat="server" Text="Label" Visible="false"></asp:Label>
-                                <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Anfitrión" OnClick="btnEnviarCalificacion_Click" />
+                                <asp:Button ID="btnEvaluarAnfitrion" runat="server" Text="Puntuar Anfitrión" AutoPostBack="true" OnClick="btnEnviarCalificacion_Click" />
                                 <asp:Button ID="Button1" runat="server" Text="Cerrar" OnClientClick="CerrarModalEvaluacion()" />
                             </div>
                         </div>
@@ -444,6 +449,7 @@
                     }
 
                     document.getElementById("btnEvaluarAnfitrion").onclick = function () {
+                        LimpiarModalEvaluacion(); // Limpia el modal al hacer clic en el botón de evaluar
                         var modal = document.getElementById("modalEvaluacion");
                         modal.style.display = "none";
                     }
@@ -457,6 +463,7 @@
 
 
                     function CerrarModalEvaluacion() {
+                        LimpiarModalEvaluacion(); // Limpia el modal al cerrarlo
                         var modal = document.getElementById("modalEvaluacion");
                         modal.style.display = "none";
                     }
@@ -471,6 +478,12 @@
                             modal.style.display = "none";
                         }
                     }
+
+                    function LimpiarModalEvaluacion() {
+                        var repeater = document.getElementById("<%= repeaterInmuebles.ClientID %>");
+                        repeater.innerHTML = ''; // Limpiar el contenido del repeater
+                    }
+
 
                 </script>
 

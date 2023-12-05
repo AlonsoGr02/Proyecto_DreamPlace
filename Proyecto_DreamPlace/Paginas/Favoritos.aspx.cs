@@ -106,11 +106,11 @@ namespace Proyecto_DreamPlace.Paginas
 
                 infoContainer.Controls.Add(precioContainer);
                 ///************
-                Button removeButton = new Button();
-                removeButton.Text = "Eliminar de Favoritos";
-                removeButton.CssClass = "remove-button";
-                removeButton.OnClientClick = $"RemoveFromFavorites({idInmueble}); return false;";
-                infoContainer.Controls.Add(removeButton);
+                //Button removeButton = new Button();
+                //removeButton.Text = "Eliminar de Favoritos";
+                //removeButton.CssClass = "remove-button";
+                //removeButton.OnClientClick = $"RemoveFromFavorites({idInmueble}); return false;";
+                //infoContainer.Controls.Add(removeButton);
                 //***************
 
                 tarjetaContainer.Controls.Add(carruselContainer);

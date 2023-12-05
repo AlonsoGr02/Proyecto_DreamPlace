@@ -42,13 +42,13 @@ namespace Proyecto_DreamPlace.Paginas
         protected global::System.Web.UI.WebControls.Label Labelseparador;
 
         /// <summary>
-        /// Control ddlAnfitriones.
+        /// Control lstAnfitriones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAnfitriones;
+        protected global::System.Web.UI.WebControls.ListBox lstAnfitriones;
 
         /// <summary>
         /// Control rptMensajes.

@@ -36,19 +36,27 @@ namespace Proyecto_DreamPlace.Paginas
 
                     string correoC = Session["Correo"].ToString();
 
+                    ConexionBD conexion = new ConexionBD();
+
                     string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
+                    List<int> IdReservas = conexion.Obtener_ReservasHuesped(IdCedula);
 
-                    DataTable datosAnfitrion = BD.ObtenerDatosAnfitrion(IdCedula);
+                    foreach (int IdReserva in IdReservas)
+                    {
+                        DataTable datosAnfitrion = conexion.ObtenerDatosAnfitrion(IdReserva);
 
-                    if (datosAnfitrion != null && datosAnfitrion.Rows.Count > 0)
-                    {
-                        repeaterInmuebles.DataSource = datosAnfitrion;
-                        repeaterInmuebles.DataBind();
+                        if (datosAnfitrion != null && datosAnfitrion.Rows.Count > 0)
+                        {
+                            repeaterInmuebles.DataSource = datosAnfitrion;
+                            repeaterInmuebles.DataBind();
+                        }
+                        else
+                        {
+                            // Manejar la situación en la que no se encuentran datos para una reserva específica
+                        }
                     }
-                    else
-                    {
-                        // Manejar la situación en la que no se encuentran datos
-                    }
+
+
 
                 }
                 else
@@ -132,20 +140,30 @@ namespace Proyecto_DreamPlace.Paginas
                         if (lblIdInmueble != null)
                         {
                             idInmueble = Convert.ToInt32(lblIdInmueble.Text);
-                            break;
+
+
+                            System.Web.UI.WebControls.Label labelIdCedula = (Label)item.FindControl("LabelIdCedula");
+                            System.Web.UI.WebControls.Label labelIdReserva = (Label)item.FindControl("LabelIdReserva");
+
+                            if (labelIdReserva != null)
+                            {
+                                int IdReserva = Convert.ToInt32(labelIdReserva.Text);
+
+                                if (labelIdCedula != null)
+                                {
+                                    string IdCedula = labelIdCedula.Text;
+
+                                    Session["TotalCalificacion"] = totalStars;
+                                    Session["IdInmueble"] = idInmueble;
+                                    ConexionBD.InsertarCalificacion(totalStars, IdCedula, idInmueble, IdReserva);
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
 
-                string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
-
-                Session["IdCedula"] = IdCedula;
-                Session["TotalCalificacion"] = totalStars;
-                Session["IdInmueble"] = idInmueble;
-
-
-                ConexionBD.InsertarCalificacion(totalStars, IdCedula, idInmueble);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
             }
             catch (Exception ex)
             {

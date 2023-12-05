@@ -133,6 +133,17 @@ namespace Proyecto_DreamPlace.Paginas
                             int idFechaReservada = ConexionBD.ObtenerIdFechaReservada(IdCedula);
                             ConexionBD.InsertarReserva(IdCedula, idInmueble, cantidadAdultos, numtarjeta, idFechaReservada);
 
+                            // Inicio COrreo ***********
+                            string correoU = Session["Correo"].ToString();
+                            string cuerpo = "Has realizado una reserva exitosa en DreamPlace. " +
+                                                                       "Tu próxima aventura comienza ahora. " +
+                                                                       "Gracias por elegir DreamPlace para tu estadía.";
+                            string asunto = "Reserva Exitosa en DreamPlace";
+
+                            Metodos metodos = new Metodos();
+                            metodos.EnviarCorreoPersonalizado(correoU, asunto, cuerpo);
+                            //*** Fin correo *******
+
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
                         }
                     }

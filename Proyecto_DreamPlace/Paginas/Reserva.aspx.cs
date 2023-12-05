@@ -122,6 +122,13 @@ namespace Proyecto_DreamPlace
                     rptAmenities.DataSource = listaServicios;
                     rptAmenities.DataBind();
 
+
+
+                    List<object> restricciones = ConexionBD.ObtenerRestricciones(idInmueble).Cast<object>().ToList();
+                    rptRestricciones.DataSource = restricciones;
+                    rptRestricciones.DataBind();
+
+
                     List<string> fechasReservadas = ConexionBD.ObtenerFechasReservadas(idInmueble);
 
                     CalendarUpdate(DateTime.Today.Year, DateTime.Today.Month);
@@ -130,14 +137,19 @@ namespace Proyecto_DreamPlace
                 }
             }
         }
-        // Clase de modelo para representar una imagen
+
+        protected string ObtenerImagen(byte[] bytes)
+        {
+            string base64String = Convert.ToBase64String(bytes);
+            return "data:image/png;base64," + base64String;
+        }
+
         public class ImagenModel
         {
             public byte[] ImagenData { get; set; }
-            // Otras propiedades relacionadas con la imagen (nombre, descripción, etc.)
+            
         }
-
-        // En tu método MostrarGaleriaDeImagenes
+        
         protected void MostrarGaleriaDeImagenes()
         {
             List<ImagenModel> listaImagenes = ConexionBD.ObtenerImagenesPorIdInmueble(idInmueble)

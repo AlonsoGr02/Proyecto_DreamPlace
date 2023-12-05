@@ -13,6 +13,7 @@ namespace Proyecto_DreamPlace.Paginas
     {
 
         ConexionBD objConexion = new ConexionBD();
+        Conexion2 objConexion2 = new Conexion2();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -419,7 +420,7 @@ namespace Proyecto_DreamPlace.Paginas
 
         protected void CargarTarjetasInmueblesBaratos()
         {
-            DataTable dtInmuebles = objConexion.ObtenerInfoInmueblesBaratos();
+            DataTable dtInmuebles = objConexion2.ObtenerInmueblesBaratos();
 
             foreach (DataRow row in dtInmuebles.Rows)
             {

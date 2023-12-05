@@ -5,11 +5,12 @@
     font-family: Arial, sans-serif; /* Establecer una fuente genérica para mayor consistencia */
 }
 
-.container {
-    max-width: 100%; /* Hacer que el ancho máximo sea el 100% */
+.container_reserva {
+    width: 1000%; /* Hacer que el ancho máximo sea el 100% */
     margin: 10px;
     padding: 20px;
     box-sizing: border-box; /* Incluir el padding y border en el ancho y alto */
+    background-color:aquamarine;
 }
 
 

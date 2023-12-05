@@ -21,6 +21,9 @@ namespace Proyecto_DreamPlace.Paginas
                 topnav.Visible = false;
                 if (Session["Correo"] != null)
                 {
+                    string IdCedulaHuesped = Session["IdCedula"] != null ? Session["IdCedula"].ToString() : string.Empty;
+
+
                     string correo = Session["Correo"].ToString();
                     Usuario usuario = BD.ObtenerDatosUsuario(correo);
                     DataTable Notificaciones = BD.ObtenerNotificacionesPorCorreo(correo);
@@ -117,7 +120,6 @@ namespace Proyecto_DreamPlace.Paginas
 
 
 
-
         protected void btnEnviarCalificacion_Click(object sender, EventArgs e)
         {
             try
@@ -134,30 +136,36 @@ namespace Proyecto_DreamPlace.Paginas
                         if (lblIdInmueble != null)
                         {
                             idInmueble = Convert.ToInt32(lblIdInmueble.Text);
-                            break;
+                            
+
+                            System.Web.UI.WebControls.Label labelIdCedula = (Label)item.FindControl("LabelIdCedula");
+                            System.Web.UI.WebControls.Label labelIdReserva = (Label)item.FindControl("LabelIdReserva");
+
+                            if (labelIdReserva != null)
+                            {
+                               int IdReserva = Convert.ToInt32(labelIdReserva.Text);
+
+                                if (labelIdCedula != null)
+                                {
+                                    string IdCedula = labelIdCedula.Text;
+
+                                    Session["TotalCalificacion"] = totalStars;
+                                    Session["IdInmueble"] = idInmueble;
+                                    ConexionBD.CalificacionHuesped(totalStars, IdCedula, IdReserva);
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
-
-
-
-                string correoC = Session["Correo"].ToString();
-
-                string IdCedula = ConexionBD.ObtenerIdCedulaPorCorreo(correoC);
-
-                Session["TotalCalificacion"] = totalStars;
-                Session["IdInmueble"] = idInmueble;
-
-
-                ConexionBD.CalificacionHuesped(totalStars, IdCedula);
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalExito();", true);
             }
             catch (Exception ex)
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "AbrirModalErrorCalificacion();", true);
             }
         }
+
 
     }
 }

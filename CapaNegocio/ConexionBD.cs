@@ -138,14 +138,19 @@ namespace CapaNegocio
         {
             DataTable datos = new DataTable();
 
-            string consulta = @"  SELECT r.IdReserva, r.IdCedula AS IdCedulaHuesped, r.IdInmueble, r.CantidadHuespedes, 
-                                           r.IdNTarjeta, r.IdFechaReservada, i.Nombre AS NombreHuesped, i.Apellidos AS ApellidosHuesped,
-                                           inm.Nombre AS NombreInmueble, inm.Descripcion AS DescripcionInmueble,
-                                           inm.CantidadPersonas, inm.CantidadDormitorios, inm.CantidadBanos, inm.CantidadCamas
-                                    FROM Reservas r
-                                    INNER JOIN Inmuebles inm ON r.IdInmueble = inm.IdInmueble
-                                    INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
-                                    WHERE inm.IdCedula = @IdCedula;";
+            string consulta = @"SELECT r.IdReserva, r.IdCedula, r.IdInmueble, r.CantidadHuespedes, 
+                                   r.IdNTarjeta, r.IdFechaReservada, i.Nombre AS NombreHuesped, i.Apellidos AS ApellidosHuesped,
+                                   inm.Nombre AS NombreInmueble, inm.Descripcion AS DescripcionInmueble,
+                                   inm.CantidadPersonas, inm.CantidadDormitorios, inm.CantidadBanos, inm.CantidadCamas, f.FechaI, f.FechaF
+                            FROM Reservas r
+                            INNER JOIN Inmuebles inm ON r.IdInmueble = inm.IdInmueble
+                            INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
+                            INNER JOIN FechasReservadas f ON r.IdFechaReservada = f.IdFechaReservada
+                            WHERE inm.IdCedula = @IdCedula
+                            AND NOT EXISTS (
+                                SELECT 1
+                                FROM CalificacionHuesped ch
+                                WHERE ch.IdReserva = r.IdReserva)";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {
@@ -587,6 +592,8 @@ namespace CapaNegocio
                 }
             }
         }
+
+
 
         public static string ObtenerIdCedulayNumTarjetaPorCorreo(string correo)
         {
@@ -1531,6 +1538,189 @@ namespace CapaNegocio
             return IdCedula;
         }
 
+        public int ObtenerInmueble(string IdCedula)
+        {
+            int IdInmueble = 0;
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT IdInmueble FROM Inmuebles WHERE IdCedula = @IdCedula";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Agregar el parámetro IdCedula
+                    command.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Verificar si el valor no es nulo antes de convertir
+                            if (!reader.IsDBNull(reader.GetOrdinal("IdInmueble")))
+                            {
+                                // Obtener el IdInmueble como entero
+                                IdInmueble = reader.GetInt32(reader.GetOrdinal("IdInmueble"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return IdInmueble;
+        }
+
+        public string ObtenerIdCedulaHuesped(int IdInmueble)
+        {
+            string IdCedulaHuesped = null;
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT IdCedula FROM Reservas WHERE IdInmueble = @IdInmueble";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Verificar si el valor no es nulo antes de obtenerlo
+                            if (!reader.IsDBNull(reader.GetOrdinal("IdCedula")))
+                            {
+                                // Obtener el IdCedula como cadena de caracteres
+                                IdCedulaHuesped = reader.GetString(reader.GetOrdinal("IdCedula"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return IdCedulaHuesped;
+        }
+
+
+        public List<string> ObtenerNombreHuesped(string IdCedula)
+        {
+            List<string> nombresHuesped = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+
+                string query = "SELECT Nombre FROM Identificaciones WHERE IdCedula = @IdCedula";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Agregar el parámetro IdCedula
+                    command.Parameters.AddWithValue("@IdCedula", IdCedula);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Verificar si el valor no es nulo antes de obtenerlo
+                            if (!reader.IsDBNull(reader.GetOrdinal("Nombre")))
+                            {
+                                // Obtener el nombre del huésped y agregarlo a la lista
+                                string nombre = reader.GetString(reader.GetOrdinal("Nombre"));
+                                nombresHuesped.Add(nombre);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return nombresHuesped;
+        }
+
+
+        public List<string> Obtener_Info_Hespedes_Reservaron(string IdCedula)
+        {
+            List<string> nombresAnfitriones = new List<string>();
+
+            string queryInmueble = "SELECT IdInmueble FROM Inmuebles WHERE IdCedula = @IdCedula";
+            string queryCedulaHuesped = "SELECT IdCedula AS IdCedulaHuesped FROM Reservas WHERE IdInmueble = @IdInmueble";
+            string queryIdentificaciones = "SELECT Nombre, Apellidos FROM Identificaciones WHERE IdCedula = @IdCedula";
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                // Obtener IdInmueble
+                using (SqlCommand cmdInmueble = new SqlCommand(queryInmueble, connection))
+                {
+                    cmdInmueble.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    string idInmueble = "";
+
+                    try
+                    {
+                        connection.Open();
+                        SqlDataReader readerInmueble = cmdInmueble.ExecuteReader();
+
+                        if (readerInmueble.Read())
+                        {
+                            idInmueble = readerInmueble["IdInmueble"].ToString();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción
+                    }
+
+                    // Si se encontró el IdInmueble, proceder con la consulta de IdCedulaHuesped
+                    if (!string.IsNullOrEmpty(idInmueble))
+                    {
+                        using (SqlCommand cmdCedulaHuesped = new SqlCommand(queryCedulaHuesped, connection))
+                        {
+                            cmdCedulaHuesped.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
+                            try
+                            {
+                                SqlDataReader readerCedulaHuesped = cmdCedulaHuesped.ExecuteReader();
+
+                                if (readerCedulaHuesped.Read())
+                                {
+                                    string idCedulaHuesped = readerCedulaHuesped["IdCedulaHuesped"].ToString();
+
+                                    // Consulta de Identificaciones con la IdCedulaHuesped obtenida
+                                    using (SqlCommand cmdIdentificaciones = new SqlCommand(queryIdentificaciones, connection))
+                                    {
+                                        cmdIdentificaciones.Parameters.AddWithValue("@IdCedulaHuesped", idCedulaHuesped);
+
+                                        try
+                                        {
+                                            SqlDataReader readerIdentificaciones = cmdIdentificaciones.ExecuteReader();
+
+                                            while (readerIdentificaciones.Read())
+                                            {                                                
+                                                string nombreAnfitrion = readerIdentificaciones["Nombre"].ToString();
+                                                nombresAnfitriones.Add(nombreAnfitrion);
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            // Manejar la excepción
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Manejar la excepción
+                            }
+                        }
+                    }
+                }
+            }
+
+            return nombresAnfitriones;
+        }
+
+
+
         public List<Mensajes> ObtenerMensajesEntreUsuarios(string IdCedula, string IdCedulaR)
         {
             List<Mensajes> mensajes = new List<Mensajes>();
@@ -1924,7 +2114,7 @@ namespace CapaNegocio
         {
             List<Servicio> listaServicios = new List<Servicio>();
 
-            string obtenerImagenesQuery = "SELECT Nombre, Icono FROM Servicios WHERE IdInmueble = @IdInmueble";
+            string obtenerImagenesQuery = "SELECT s.IdServiciosAlojamientos, s.Nombre, s.Icono FROM Servicios s INNER JOIN ServiciosInmuebles si ON s.IdServiciosAlojamientos = si.IdServiciosAlojamientos WHERE si.IdInmueble = @IdInmueble";
 
             using (SqlConnection connection = new SqlConnection(cadenaCon))
             {
@@ -2200,24 +2390,63 @@ namespace CapaNegocio
             return fechasReservadas;
         }
 
+        public class Restriccion
+        {
+            public string Descrip_Restricciones { get; set; }
+        }
 
-        public DataTable ObtenerDatosAnfitrion(string IdCedula)
+        public static List<Restriccion> ObtenerRestricciones(int idInmueble)
+        {
+            List<Restriccion> restricciones = new List<Restriccion>();
+
+            string consulta = "SELECT Descrip_Restricciones FROM Restricciones_espacio WHERE IdInmueble = @IdInmueble";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdInmueble", idInmueble);
+
+                    try
+                    {
+                        conexion.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Restriccion restriccion = new Restriccion();
+                            restriccion.Descrip_Restricciones = reader["Descrip_Restricciones"].ToString();
+                            restricciones.Add(restriccion);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al obtener restricciones: " + ex.Message);
+                    }
+                }
+            }
+            return restricciones;
+        }
+
+
+        public DataTable Obtener_Reservas_IdCedula(string IdCedula)
         {
             DataTable datos = new DataTable();
 
             string consulta = @"SELECT 
+                                    Reservas.IdReserva, Reservas.IdFechaReservada,
                                     Inmuebles.Nombre AS NombreInmueble,
                                     Inmuebles.IdInmueble,
                                     Identificaciones.Nombre AS NombrePropietario, 
                                     Identificaciones.Apellidos AS ApellidoPropietario,
-                                    0 AS YaCalificado
-                                FROM Inmuebles
-                                INNER JOIN Reservas ON Inmuebles.IdInmueble = Reservas.IdInmueble
-                                INNER JOIN Identificaciones ON Reservas.IdCedula = Identificaciones.IdCedula
-                                LEFT JOIN CalificacionAlojamiento CA ON Inmuebles.IdInmueble = CA.IdInmueble 
-                                                                     AND Identificaciones.IdCedula = CA.IdCedula
-                                WHERE Reservas.IdCedula = @IdCedula
-                                AND CA.IdCalificacion IS NULL; -- Filtra solo las reservas no calificadas";
+                                    Inmuebles.IdCedula As CedulaPropietario, 
+	                                f.FechaI,f.FechaF
+                                FROM Reservas
+                                INNER JOIN Inmuebles ON Inmuebles.IdInmueble = Reservas.IdInmueble
+                                INNER JOIN Identificaciones ON Identificaciones.IdCedula = Reservas.IdCedula
+                                INNER JOIN FechasReservadas f ON Reservas.IdFechaReservada = f.IdFechaReservada
+                                WHERE Reservas.IdCedula = @IdCedula;
+                                ";
 
             using (SqlConnection conexion = new SqlConnection(cadenaCon))
             {
@@ -2234,11 +2463,77 @@ namespace CapaNegocio
 
             return datos;
         }
+      
 
-        public static void InsertarCalificacion(int Calificacion, string IdCedula, int IdInmueble)
+        public List<int> Obtener_ReservasHuesped(string idCedula)
         {
-            string insertQuery = "INSERT INTO CalificacionAlojamiento (Calificacion, IdCedula, IdInmueble) " +
-                                 "VALUES (@Calificacion, @IdCedula, @IdInmueble)";
+            List<int> reservas = new List<int>();
+
+            string selectQuery = "SELECT IdReserva FROM Reservas WHERE IdCedula = @IdCedula";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand selectCommand = new SqlCommand(selectQuery, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@IdCedula", idCedula);
+
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader["IdReserva"] != DBNull.Value)
+                            {
+                                reservas.Add(Convert.ToInt32(reader["IdReserva"]));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return reservas;
+        }
+
+
+        public DataTable ObtenerDatosAnfitrion(int IdReserva)
+        {
+            DataTable datos = new DataTable();
+
+            string consulta = @"SELECT r.IdReserva, r.IdCedula AS IdCedulaHuesped, r.IdInmueble, r.CantidadHuespedes, 
+                                       r.IdNTarjeta, r.IdFechaReservada, i.Nombre AS NombreHuesped, i.Apellidos AS ApellidosHuesped,
+                                       inm.Nombre AS NombreInmueble, inm.Descripcion AS DescripcionInmueble,
+                                       inm.CantidadPersonas, inm.CantidadDormitorios, inm.CantidadBanos, inm.CantidadCamas, inm.IdCedula,
+	                                   f.FechaI, f.FechaF
+                                FROM Reservas r
+                                INNER JOIN Inmuebles inm ON r.IdInmueble = inm.IdInmueble
+                                INNER JOIN Identificaciones i ON r.IdCedula = i.IdCedula
+                                INNER JOIN FechasReservadas f ON r.IdFechaReservada = f.IdFechaReservada
+                                WHERE r.IdReserva = @IdReserva
+                                AND NOT EXISTS (
+                                    SELECT 1
+                                    FROM CalificacionAlojamiento ch
+                                    WHERE ch.IdReserva = r.IdReserva)";
+
+            using (SqlConnection conexion = new SqlConnection(cadenaCon))
+            {
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdReserva", IdReserva);
+
+                    conexion.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(datos);
+                }
+            }
+
+            return datos;
+        }
+
+        public static void InsertarCalificacion(int Calificacion, string IdCedula, int IdInmueble, int IdReserva)
+        {
+            string insertQuery = "INSERT INTO CalificacionAlojamiento (Calificacion, IdCedula, IdInmueble, IdReserva) " +
+                                 "VALUES (@Calificacion, @IdCedula, @IdInmueble, @IdReserva)";
 
             using (SqlConnection connection = new SqlConnection(cadenaCon))
             {
@@ -2248,6 +2543,26 @@ namespace CapaNegocio
                     insertCommand.Parameters.AddWithValue("@Calificacion", Calificacion);
                     insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
                     insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);
+                    insertCommand.Parameters.AddWithValue("@IdReserva", IdReserva);
+
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void InsertarDenuncia( string Denuncia, string IdCedula, int IdInmueble)
+        {
+            string insertQuery = "INSERT INTO Denuncias (Denuncia, IdCedula, IdInmueble) " +
+                                 "VALUES (@Denuncia, @IdCedula, @IdInmueble)";
+
+            using (SqlConnection connection = new SqlConnection(cadenaCon))
+            {
+                connection.Open();
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@Denuncia", Denuncia);
+                    insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    insertCommand.Parameters.AddWithValue("@IdInmueble", IdInmueble);                    
 
                     insertCommand.ExecuteNonQuery();
                 }
@@ -2255,10 +2570,10 @@ namespace CapaNegocio
         }
 
 
-        public static void CalificacionHuesped(int Calificacion, string IdCedula)
+        public static void CalificacionHuesped(int Calificacion, string IdCedula, int IdReserva)
         {
-            string insertQuery = "INSERT INTO CalificacionHuesped (Calificacion, IdCedula) " +
-                                 "VALUES (@Calificacion, @IdCedula)";
+            string insertQuery = "INSERT INTO CalificacionHuesped (Calificacion, IdCedula, IdReserva) " +
+                                 "VALUES (@Calificacion, @IdCedula, @IdReserva)";
 
             using (SqlConnection connection = new SqlConnection(cadenaCon))
             {
@@ -2267,6 +2582,7 @@ namespace CapaNegocio
                 {
                     insertCommand.Parameters.AddWithValue("@Calificacion", Calificacion);
                     insertCommand.Parameters.AddWithValue("@IdCedula", IdCedula);
+                    insertCommand.Parameters.AddWithValue("@IdReserva", IdReserva);
 
                     insertCommand.ExecuteNonQuery();
                 }
@@ -2672,34 +2988,34 @@ namespace CapaNegocio
             }
         }
 
-        public DataTable ObtenerInfoInmueblesBaratos()
+        public string ObtenerCorreoAnfitrionPorIdInmueble(int idInmueble)
         {
-            DataTable dataTable = new DataTable();
+            string correoAnfitrion = "";
 
-            try
+            using (SqlConnection connection = new SqlConnection("tuCadenaDeConexion"))
             {
-                using (SqlConnection connection = new SqlConnection(cadenaConexion))
+                connection.Open();
+
+                string query = "SELECT U.Correo " +
+                               "FROM Usuarios U " +
+                               "JOIN Inmuebles I ON U.IdCedula = I.IdCedula " +
+                               "WHERE I.IdInmueble = @IdInmueble";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    connection.Open();
+                    command.Parameters.AddWithValue("@IdInmueble", idInmueble);
 
-                    using (SqlCommand command = new SqlCommand("[FiltrarInmueblesBaratos]", connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        if (reader.Read())
                         {
-                            adapter.Fill(dataTable);
+                            correoAnfitrion = reader["Correo"].ToString();
                         }
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                // Manejar la excepción según tus necesidades
-                Console.WriteLine($"Error al obtener información de inmuebles: {ex.Message}");
-            }
 
-            return dataTable;
+            return correoAnfitrion;
         }
 
     } // Fin de la clase conexion

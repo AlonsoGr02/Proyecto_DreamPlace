@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caracteristica.cs" />
+    <Compile Include="Conexion2.cs" />
     <Compile Include="ConexionBD.cs" />
     <Compile Include="Metodos.cs" />
+    <Compile Include="Models\Denuncia.cs" />
     <Compile Include="Models\Inmueble.cs" />
     <Compile Include="Models\Mensajes.cs" />
     <Compile Include="Models\MiBanco.cs" />

@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Denuncias</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." />
-    <link rel="StyleSheet" href="../Estilos/Css_Notificaciones.css" type="text/css"/>
+    <link rel="StyleSheet" href="../Estilos/Css_Notificaciones.css" type="text/css" />
     <link href="../Estilos/footer.css" rel="stylesheet" />
 </head>
 <body>
@@ -31,7 +31,7 @@
             </div>
             <br />
             <div style="margin: 0 auto;">
-                <asp:GridView ID="gvDenuncias" runat="server" style="margin: 0 auto;" CellPadding="4" ForeColor="#333333" GridLines="None">
+                <asp:GridView ID="gvDenuncias" runat="server" Style="margin: 0 auto;" CellPadding="4" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" />
                     <EditRowStyle BackColor="#7C6F57" />
                     <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
@@ -44,9 +44,29 @@
                     <SortedDescendingCellStyle BackColor="#D4DFE1" />
                     <SortedDescendingHeaderStyle BackColor="#15524A" />
                 </asp:GridView>
+
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Denuncias">
+                            <ItemTemplate>
+                                <div class="tarjeta" style="background-color: #8A9A5B; padding: 10px; margin-bottom: 10px; border-radius: 5px; width: 80%;">
+                                    <h3 style="color: white;">Su inmueble <%# Eval("Nombre") %> ha recibido una denuncia sobre <%# Eval("Denuncia") %></h3>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+
+                <asp:Repeater ID="rptDenuncias" runat="server">
+                    <ItemTemplate>
+                        <div class="tarjeta" style="background-color: #8A9A5B; padding: 10px; margin-bottom: 10px; border-radius: 5px; width: 80%; margin: 10px auto;">
+                            <h3 style="color: white;">Su inmueble "<%# DataBinder.Eval(Container.DataItem, "NombreInmueble") %>" ha recibido una denuncia sobre "<%# DataBinder.Eval(Container.DataItem, "ContenidoDenuncia") %>"</h3>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </div>
     </form>
-   
+
 </body>
 </html>
